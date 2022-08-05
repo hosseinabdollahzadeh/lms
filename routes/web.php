@@ -14,12 +14,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/register', function () {
-    return view('auth.register');
-});
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
-//Auth::routes();
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

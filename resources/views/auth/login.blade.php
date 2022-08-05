@@ -3,7 +3,7 @@
     <form action="{{route('login')}}" class="form" method="post">
         @csrf
         <a class="account-logo" href="/">
-            <img src="img/weblogo.png" alt="">
+            <img src="/img/weblogo.png" alt="">
         </a>
         <div class="form-content form-account">
             <input id="email" type="text" class="txt-l txt @error('email') is-invalid @enderror"

@@ -11,5 +11,15 @@
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+//Auth::routes();

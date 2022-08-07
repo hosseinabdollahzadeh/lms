@@ -3738,3 +3738,10 @@ table {
 .center{
     text-align: center;
 }
+.invalid-feedback{
+    color: red;
+    font-size: 14px;
+}
+.is-invalid{
+    border: 1px solid red;
+}

@@ -4,7 +4,7 @@ namespace Abd\User\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use Abd\User\Models\User;
 use Abd\User\Rules\ValidMobile;
 use Abd\User\Rules\ValidPassword;
 use Illuminate\Foundation\Auth\RegistersUsers;

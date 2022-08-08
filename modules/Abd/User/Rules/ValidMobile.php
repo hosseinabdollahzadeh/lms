@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Rules;
+namespace Abd\User\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class ValidPassword implements Rule
+class ValidMobile implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +25,7 @@ class ValidPassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{6,}$/', $value);
+        return preg_match('/^9[0-9]{9}$/', $value);
     }
 
     /**
@@ -35,6 +35,6 @@ class ValidPassword implements Rule
      */
     public function message()
     {
-        return 'پسورد وارد شده نامعتبر است.';
+        return 'فرمت موبایل وارد شده صحیح نمی باشد. شماره موبایل باید با 9 شروع شود و بدون فاصله وارد شود.';
     }
 }

@@ -38,5 +38,12 @@ class ResetPasswordController extends Controller
             'password' => ['required', 'confirmed', new ValidPassword()],
         ];
     }
+    public function showResetForm(Request $request)
+    {
+        $token = $request->route()->parameter('token');
 
+        return view('User::Front.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
 }

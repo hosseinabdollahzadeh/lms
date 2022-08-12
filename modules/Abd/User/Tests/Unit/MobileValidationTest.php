@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Abd\User\Tests\Unit;
 
 use Abd\User\Rules\ValidMobile;
 use PHPUnit\Framework\TestCase;

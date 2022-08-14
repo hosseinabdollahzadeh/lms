@@ -12,7 +12,7 @@ class VerifyCodeService
     public static function store($id, $code)
     {
         cache()->set(
-            'verify_mail'. $id,
+            'verify_mail_'. $id,
             $code,
             now()->addDay()
         );

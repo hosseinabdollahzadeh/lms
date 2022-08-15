@@ -6,28 +6,34 @@ class VerifyCodeService
 {
     private static  $min = 100000;
     private static  $max = 999999;
+    private static  $prefix = 'verify_mail_';
 
     public static function generate()
     {
         return random_int(100000, 999999);
     }
 
-    public static function store($id, $code)
+    public static function store($id, $code, $time)
     {
         cache()->set(
-            'verify_mail_'. $id,
+            self::$prefix . $id,
             $code,
-            now()->addDay()
+            $time
         );
     }
 
     public static function get($id)
     {
-        return cache()->get('verify_mail_'. $id);
+        return cache()->get(self::$prefix . $id);
+    }
+
+    public static function has($id)
+    {
+        return cache()->has(self::$prefix . $id);
     }
     public static function delete($id)
     {
-        return cache()->delete('verify_mail_'. $id);
+        return cache()->delete(self::$prefix . $id);
     }
 
     public static function getRul()

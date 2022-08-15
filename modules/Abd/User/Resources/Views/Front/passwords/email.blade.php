@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <form method="POST" action="{{ route('password.email') }}" class="form">
-        @csrf
+    <form method="get" action="{{ route('password.sendVerifyCodeEmail') }}" class="form">
         <a class="account-logo" href="/">
             <img src="/img/weblogo.png" alt="">
         </a>
@@ -26,7 +25,7 @@
             <button type="submit" class="btn btn-recoverpass">بازیابی</button>
         </div>
         <div class="form-footer">
-            <a href="login.html">صفحه ورود</a>
+            <a href="{{route('login')}}">صفحه ورود</a>
         </div>
     </form>
 

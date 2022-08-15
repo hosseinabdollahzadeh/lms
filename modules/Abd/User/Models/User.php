@@ -3,6 +3,8 @@
 namespace Abd\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Abd\User\Mail\ResetPasswordRequestMail;
+use Abd\User\Notifications\ResetPasswordRequestNotification;
 use Abd\User\Notifications\VerifyMailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,5 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyMailNotification());
+    }
+
+    public function sendResetPasswordNotification()
+    {
+        $this->notify(new ResetPasswordRequestNotification());
     }
 }

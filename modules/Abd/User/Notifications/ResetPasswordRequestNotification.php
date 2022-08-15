@@ -2,14 +2,13 @@
 
 namespace Abd\User\Notifications;
 
-use Abd\User\Mail\VerifyCodeMail;
+use Abd\User\Mail\ResetPasswordRequestMail;
 use Abd\User\Services\VerifyCodeService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class VerifyMailNotification extends Notification
+class ResetPasswordRequestNotification extends Notification
 {
     use Queueable;
 
@@ -44,9 +43,9 @@ class VerifyMailNotification extends Notification
     {
         $code = VerifyCodeService::generate();
 
-        VerifyCodeService::store($notifiable->id, $code, now()->addDay());
+        VerifyCodeService::store($notifiable->id, $code, 120);
 
-        return (new VerifyCodeMail($code))
+        return (new ResetPasswordRequestMail($code))
             ->to($notifiable->email);
     }
 

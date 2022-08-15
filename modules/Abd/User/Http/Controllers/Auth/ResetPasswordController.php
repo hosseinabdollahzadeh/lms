@@ -2,7 +2,9 @@
 
 namespace Abd\User\Http\Controllers\Auth;
 
+use Abd\User\Http\Requests\ChangePasswordRequest;
 use Abd\User\Rules\ValidPassword;
+use Abd\User\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -45,5 +47,11 @@ class ResetPasswordController extends Controller
         return view('User::Front.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
+    }
+
+    public function reset(ChangePasswordRequest $request)
+    {
+        UserService::changePassword(auth()->user(), $request->password);
+        return redirect()->route('home');
     }
 }

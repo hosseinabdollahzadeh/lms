@@ -1,8 +1,8 @@
 <?php
 Route::group([
-    'namespace'=> 'Abd\User\Http\Controllers',
-    'middleware'=>'web'
-], function ($router){
+    'namespace' => 'Abd\User\Http\Controllers',
+    'middleware' => 'web'
+], function ($router) {
     Route::post('/email/verify', 'Auth\VerificationController@verify')->name('verification.verify')->middleware('throttle:6,1');
     Route::post('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend')->middleware('throttle:6,1');
     Route::get('/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
@@ -15,10 +15,15 @@ Route::group([
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     // reset password
-    Route::get('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-    Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-    Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-    Route::post('/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::get('/password/reset', 'Auth\ForgotPasswordController@showVerifyCodeRequestForm')->name('password.request');
+    Route::get('/password/reset/send', 'Auth\ForgotPasswordController@sendVerifyCodeEmail')->name('password.sendVerifyCodeEmail');
+    Route::post('/password/reset/check-verify-code', 'Auth\ForgotPasswordController@checkVerifyCode')
+        ->name('password.checkVerifyCode')
+        ->middleware('throttle:5,1');
+    Route::get('/password/change', 'Auth\ResetPasswordController@showResetForm')
+        ->name('password.showResetForm')->middleware('auth');
+    Route::post('/password/change', 'Auth\ResetPasswordController@reset')->name('password.update');
+
 
     // register
     Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');

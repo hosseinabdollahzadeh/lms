@@ -16,45 +16,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr role="row" class="">
-                        <td><a href="">1</a></td>
-                        <td><a href="">برنامه نویسی</a></td>
-                        <td>programming</td>
-                        <td>ندارد</td>
-                        <td>
-                            <a href="" class="item-delete mlg-15" title="حذف"></a>
-                            <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                            <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
-                        </td>
-                    </tr>
-                    <tr role="row" class="">
-                        <td><a href="">1</a></td>
-                        <td><a href="">وب</a></td>
-                        <td>programming</td>
-                        <td>وب</td>
-                        <td>
-                            <a href="" class="item-delete mlg-15" title="حذف"></a>
-                            <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                            <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
-                        </td>
-                    </tr>
+                    @foreach($categories as $category)
+                        <tr role="row" class="">
+                            <td><a href="">{{$category->id}}</a></td>
+                            <td><a href="">{{$category->title}}</a></td>
+                            <td>{{ $category->slug }}</td>
+                            <td>{{ $category->parent }}</td>
+                            <td>
+                                <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                                <a href="edit-category.html" class="item-edit " title="ویرایش"></a>
+                            </td>
+                        </tr>
+                    @endforeach
 
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-4 bg-white">
-            <p class="box__title">ایجاد دسته بندی جدید</p>
-            <form action="" method="post" class="padding-30">
-                <input type="text" placeholder="نام دسته بندی" class="text">
-                <input type="text" placeholder="نام انگلیسی دسته بندی" class="text">
-                <p class="box__title margin-bottom-15">انتخاب دسته پدر</p>
-                <select name="" id="">
-                    <option value="0">ندارد</option>
-                    <option value="0">برنامه نویسی</option>
-                </select>
-                <button class="btn btn-brand">اضافه کردن</button>
-            </form>
-        </div>
+        @include('Categories::create')
     </div>
 @endsection

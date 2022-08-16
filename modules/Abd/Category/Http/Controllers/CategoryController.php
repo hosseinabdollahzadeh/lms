@@ -24,4 +24,22 @@ class CategoryController extends Controller
         ]);
         return back();
     }
+
+    public function edit(Category $category)
+    {
+        //todo CategoryRepo
+        $categories = Category::where('id' , '!=', $category->id)->get();
+        return view('Categories::edit', compact('category', 'categories'));
+    }
+
+    public function update(Category $category, CategoryRequest $request)
+    {
+        //todo CategoryRepo
+        $category->update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'parent_id' => $request->parent_id,
+        ]);
+        return back();
+    }
 }

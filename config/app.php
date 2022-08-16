@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         \Abd\User\Providers\UserServiceProvider::class,
         \Abd\Dashboard\Providers\DashboardServiceProvider::class,
+        \Abd\Category\Providers\CategoryServiceProvider::class,
 
         /*
          * Package Service Providers...

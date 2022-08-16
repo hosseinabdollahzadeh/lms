@@ -28,7 +28,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Abd\\User\\": "modules/Abd/User",
-            "Abd\\Dashboard\\": "modules/Abd/Dashboard"
+            "Abd\\Dashboard\\": "modules/Abd/Dashboard",
+            "Abd\\Category\\": "modules/Abd/Category"
         }
     },
     "autoload-dev": {

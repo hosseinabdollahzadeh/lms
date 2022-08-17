@@ -5,6 +5,7 @@ namespace Abd\Category\Http\Controllers;
 use Abd\Category\Models\Category;
 use App\Http\Controllers\Controller;
 use Abd\Category\Http\Requests\CategoryRequest;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -41,5 +42,11 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id,
         ]);
         return back();
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return response()->json(['message'=>'عملیات با موفقیت انجام شد.'], Response::HTTP_OK);
     }
 }

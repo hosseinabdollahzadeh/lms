@@ -181,9 +181,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        \Abd\User\Providers\UserServiceProvider::class,
-        \Abd\Dashboard\Providers\DashboardServiceProvider::class,
-        \Abd\Category\Providers\CategoryServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -197,6 +194,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        \Abd\User\Providers\UserServiceProvider::class,
+        \Abd\Dashboard\Providers\DashboardServiceProvider::class,
+        \Abd\Category\Providers\CategoryServiceProvider::class,
 
     ],
 

@@ -197,6 +197,7 @@ return [
         \Abd\User\Providers\UserServiceProvider::class,
         \Abd\Dashboard\Providers\DashboardServiceProvider::class,
         \Abd\Category\Providers\CategoryServiceProvider::class,
+        \Abd\RolePermissions\Providers\RolePermissionsServiceProvider::class,
 
     ],
 

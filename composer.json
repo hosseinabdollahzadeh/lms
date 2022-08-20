@@ -30,7 +30,8 @@
             "Database\\Seeders\\": "database/seeders/",
             "Abd\\User\\": "modules/Abd/User",
             "Abd\\Dashboard\\": "modules/Abd/Dashboard",
-            "Abd\\Category\\": "modules/Abd/Category"
+            "Abd\\Category\\": "modules/Abd/Category",
+            "Abd\\RolePermissions\\": "modules/Abd/RolePermissions"
         }
     },
     "autoload-dev": {

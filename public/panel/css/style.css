@@ -1475,6 +1475,7 @@ span.tagRemove:hover {
     width: 24px;
     background: #fff;
     border: 1px solid #ddd;
+    position: relative;
 }
 
 .ui-checkbox input:checked ~ .checkmark {
@@ -1923,4 +1924,13 @@ span.tagRemove:hover {
 
 .notification__box .title__noti {
     padding: 15px 0;
+}
+.pt-1{
+    padding-top: 10px;
+}
+.mt-2{
+    margin-top: 20px;
+}
+.invalid-feedback{
+    color: red;
 }

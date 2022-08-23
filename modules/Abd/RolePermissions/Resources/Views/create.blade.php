@@ -12,7 +12,7 @@
     @foreach($permissions as $permission)
         <label class="ui-checkbox pt-1">
             <input type="checkbox" name="permissions[{{$permission->name}}]" class="sub-checkbox" data-id="2"
-                   value="true" @if(is_array(old('permissions')) && array_key_exists($permission->name, old('permissions'))) checked @endif>
+                   value="{{$permission->name}}" @if(is_array(old('permissions')) && array_key_exists($permission->name, old('permissions'))) checked @endif>
             <span class="checkmark"></span>
             @lang($permission->name)
         </label>

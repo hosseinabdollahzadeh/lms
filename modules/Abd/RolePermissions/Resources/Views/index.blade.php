@@ -22,7 +22,13 @@
                         <tr role="row" class="">
                             <td><a href="">{{$role->id}}</a></td>
                             <td><a href="">{{$role->name}}</a></td>
-                            <td> -- </td>
+                            <td>
+                                <ul>
+                                    @foreach($role->permissions as $permission)
+                                        <li>@lang($permission->name)</li>
+                                    @endforeach
+                                </ul>
+                            </td>
                             <td>
                                 <a href=""
                                    onclick="event.preventDefault(); deleteItem(event, '{{ route('role-permissions.destroy', $role->id)}}');"

@@ -4,7 +4,7 @@ namespace Abd\RolePermissions\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleRequest extends FormRequest
+class RoleUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class RoleRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|min:3|unique:roles,name",
+            "id" => "required|exists:roles,id",
+            "name" => "required|min:3|unique:roles,name,".request()->id,
             "permissions" => "required|array|min:1"
         ];
     }

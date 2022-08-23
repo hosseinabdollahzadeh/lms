@@ -3,6 +3,7 @@
 namespace Abd\RolePermissions\Http\Controllers;
 
 use Abd\RolePermissions\Http\Requests\RoleRequest;
+use Abd\RolePermissions\Http\Requests\RoleUpdateRequest;
 use Abd\RolePermissions\Repositories\PermissionRepo;
 use Abd\RolePermissions\Repositories\RoleRepo;
 use App\Http\Controllers\Controller;
@@ -28,5 +29,18 @@ class RolePermissionsController extends Controller
     public function store(RoleRequest $request)
     {
         return $this->roleRepo->create($request);
+    }
+
+    public function edit($rolId)
+    {
+        $role = $this->roleRepo->findById($rolId);
+        $permissions = $this->permissionRepo->all();
+        return view('RolePermissions::edit', compact('role', 'permissions'));
+    }
+
+    public function update(RoleUpdateRequest $request, $id)
+    {
+        $this->roleRepo->update($request, $id);
+        return redirect(route('role-permissions.index'));
     }
 }

@@ -4,7 +4,7 @@
     <input type="text" name="name" placeholder="عنوان" class="text" value="{{old('name')}}">
     @error('name')
     <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
+        <strong>{{ $message }}</strong>
     </span>
     @enderror
 
@@ -19,7 +19,7 @@
     @endforeach
     @error('permissions')
     <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
+        <strong>{{ $message }}</strong>
     </span>
     @enderror
     <hr>

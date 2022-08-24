@@ -2,6 +2,7 @@
 
 namespace Abd\RolePermissions\Http\Controllers;
 
+use Abd\Category\Responses\AjaxResponses;
 use Abd\RolePermissions\Http\Requests\RoleRequest;
 use Abd\RolePermissions\Http\Requests\RoleUpdateRequest;
 use Abd\RolePermissions\Repositories\PermissionRepo;
@@ -28,7 +29,8 @@ class RolePermissionsController extends Controller
 
     public function store(RoleRequest $request)
     {
-        return $this->roleRepo->create($request);
+        $this->roleRepo->create($request);
+        return redirect(route('role-permissions.index'));
     }
 
     public function edit($rolId)
@@ -42,5 +44,11 @@ class RolePermissionsController extends Controller
     {
         $this->roleRepo->update($request, $id);
         return redirect(route('role-permissions.index'));
+    }
+
+    public function destroy($roleId)
+    {
+        $this->roleRepo->delete($roleId);
+        return AjaxResponses::SuccessResponse();
     }
 }

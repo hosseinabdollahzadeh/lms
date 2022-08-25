@@ -10,4 +10,9 @@ class UserRepo
     {
         return User::query()->where('email',$email)->first();
     }
+
+    public function getTeachers()
+    {
+        return User::permission('teach')->get();
+    }
 }

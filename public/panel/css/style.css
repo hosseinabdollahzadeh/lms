@@ -689,7 +689,7 @@ textarea {
 }
 
 .sidebar__nav .i-role-permissions a::before {
-    content: "\e084";
+    content: '\e084';
 }
 
 .sidebar__nav.is-active ul li {
@@ -1479,7 +1479,6 @@ span.tagRemove:hover {
     width: 24px;
     background: #fff;
     border: 1px solid #ddd;
-    position: relative;
 }
 
 .ui-checkbox input:checked ~ .checkmark {

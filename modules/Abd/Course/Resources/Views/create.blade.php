@@ -9,13 +9,13 @@
             <p class="box__title">به روز رسانی دوره</p>
             <form action="{{route('courses.store')}}" class="padding-30" method="post">
                 @csrf
-                <input type="text" name="title" class="text" placeholder="عنوان دوره" required>
-                <input type="text" name="slug" class="text text-left " placeholder="نام انگلیسی دوره" required>
+                <x-input type="text" name="title" placeholder="عنوان دوره" required />
+                <x-input type="text" name="slug" class="text-left " placeholder="نام انگلیسی دوره" required />
 
                 <div class="d-flex multi-text">
-                    <input type="text" name="priority" class="text text-left mlg-15" placeholder="ردیف دوره">
-                    <input type="text" name="price" placeholder="مبلغ دوره" class="text-left text mlg-15" required>
-                    <input type="number" name="percent" placeholder="درصد مدرس" class="text-left text" required>
+                    <x-input type="text" name="priority" class="text-left" placeholder="ردیف دوره"/>
+                    <x-input type="text" name="price" placeholder="مبلغ دوره" class="text-left" required/>
+                    <x-input type="number" name="percent" placeholder="درصد مدرس" class="text-left" required/>
                 </div>
                 <select name="teacher_id" required>
                     <option value="">انتخاب مدرس دوره</option>
@@ -23,8 +23,8 @@
                         <option value="{{$teacher->id}}">{{$teacher->name}}</option>
                     @endforeach
                 </select>
+                <x-validation-error field="teacher_id" />
                 <ul class="tags">
-
                     <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>
                         <input type="hidden" value="dsfsdf" name="tags[]"></li>
                     <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>
@@ -39,18 +39,21 @@
                     <option value="{{$type}}">@lang($type)</option>
                     @endforeach
                 </select>
+                <x-validation-error field="type" />
                 <select name="status" required>
                     <option value="">وضعیت دوره</option>
                     @foreach(\Abd\Course\Models\Course::$statuses as $status)
                         <option value="{{$status}}">@lang($status)</option>
                     @endforeach
                 </select>
+                <x-validation-error field="status" />
                 <select name="category_id" required>
                     <option value="">زیر دسته بندی</option>
                     @foreach($categories as $category)
                     <option value="{{$category->id}}">{{$category->title}}</option>
                     @endforeach
                 </select>
+                <x-validation-error field="category_id" />
                 <div class="file-upload">
                     <div class="i-file-upload">
                         <span>آپلود بنر دوره</span>
@@ -59,7 +62,9 @@
                     <span class="filesize"></span>
                     <span class="selectedFiles">فایلی انتخاب نشده است</span>
                 </div>
+                <x-validation-error field="image" />
                 <textarea name="body" placeholder="توضیحات دوره" class="text h"></textarea>
+                <x-validation-error field="body" />
                 <button class="btn btn-brand">ایجاد دوره</button>
             </form>
         </div>

@@ -7,7 +7,7 @@
     <div class="row no-gutters  ">
         <div class="col-12 bg-white">
             <p class="box__title">به روز رسانی دوره</p>
-            <form action="{{route('courses.store')}}" class="padding-30" method="post">
+            <form action="{{route('courses.store')}}" class="padding-30" method="post" enctype="multipart/form-data">
                 @csrf
                 <x-input type="text" name="title" placeholder="عنوان دوره" required />
                 <x-input type="text" name="slug" class="text-left " placeholder="نام انگلیسی دوره" required />
@@ -42,7 +42,7 @@
                 <x-select name="category_id" required>
                     <option value="">زیر دسته بندی</option>
                     @foreach($categories as $category)
-                    <option value="{{$category->id}}" @if($category->id == old('category_id}')) selected @endif>{{$category->title}}</option>
+                    <option value="{{$category->id}}" @if($category->id == old('category_id')) selected @endif>{{$category->title}}</option>
                     @endforeach
                 </x-select>
 

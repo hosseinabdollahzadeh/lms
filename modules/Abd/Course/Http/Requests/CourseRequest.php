@@ -39,4 +39,28 @@ class CourseRequest extends FormRequest
             "image" => 'required|mimes:jpg,png,jpeg',
         ];
     }
+
+    public function attributes()
+    {
+        return[
+            "title" => "عنوان دوره",
+            "slug" => "عنوان انگلیسی دوره",
+            "priority" => "ردیف دوره",
+            "price" => "قیمت",
+            "percent" => "درصد مدرس",
+            "teacher_id" => "مدرس",
+            "type" => "نوع",
+            "status" => "وضعیت",
+            "category_id" => "دستهب بندی",
+            "image" => "بنر دوره",
+            "body" => "توضیحات"
+        ];
+    }
+
+    public function messages()
+    {
+        return[
+
+        ];
+    }
 }

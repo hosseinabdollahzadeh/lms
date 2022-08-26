@@ -1942,9 +1942,19 @@ span.tagRemove:hover {
     width: 100%;
 }
 .text{
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
     margin-top: 15px;
 }
 .multi-text{
     margin-bottom: 15px;
+}
+.mt-0{
+    margin-top: 0px !important;
+}
+.mb-0{
+    margin-bottom: 0px !important;
+}
+.dropdown-select{
+    margin-bottom: 0px;
+    margin-top: 15px;
 }

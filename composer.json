@@ -32,7 +32,8 @@
             "Abd\\Dashboard\\": "modules/Abd/Dashboard",
             "Abd\\Category\\": "modules/Abd/Category",
             "Abd\\RolePermissions\\": "modules/Abd/RolePermissions",
-            "Abd\\Course\\": "modules/Abd/Course"
+            "Abd\\Course\\": "modules/Abd/Course",
+            "Abd\\Media\\": "modules/Abd/Media"
         }
     },
     "autoload-dev": {

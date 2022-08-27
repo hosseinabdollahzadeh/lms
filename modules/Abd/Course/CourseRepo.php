@@ -23,4 +23,9 @@ class CourseRepo
             "body" => $values->body,
         ]);
     }
+
+    public function paginate()
+    {
+        return Course::paginate();
+    }
 }

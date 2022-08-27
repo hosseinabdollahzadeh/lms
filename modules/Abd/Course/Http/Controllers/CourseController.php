@@ -11,22 +11,23 @@ use App\Http\Controllers\Controller;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(CourseRepo $courseRepo)
     {
-        return 'courses';
+        $courses = $courseRepo->paginate();
+        return view('Courses::index', compact('courses'));
     }
 
     public function create(UserRepo $userRepo, CategoryRepo $categoryRepo)
     {
         $teachers = $userRepo->getTeachers();
         $categories = $categoryRepo->all();
-        return view('Course::create' , compact('teachers', 'categories'));
+        return view('Courses::create' , compact('teachers', 'categories'));
     }
 
     public function store(CourseRequest $request, CourseRepo $courseRepo)
     {
         $request->request->add(['banner_id' => MediaUploadService::upload($request->file('image'))->id]);
-        $course = $courseRepo->store($request);
-        return $course;
+        $courseRepo->store($request);
+        return redirect()->route('courses.index');
     }
 }

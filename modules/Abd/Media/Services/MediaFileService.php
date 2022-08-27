@@ -4,7 +4,7 @@ namespace Abd\Media\Services;
 
 use Abd\Media\Models\Media;
 
-class MediaUploadService
+class MediaFileService
 {
     public static function upload($file)
     {
@@ -24,6 +24,15 @@ class MediaUploadService
             case 'avi':
             case 'mp4':
                 VideoFileService::upload($file);
+                break;
+        }
+    }
+
+    public static function delete($media)
+    {
+        switch ($media->type){
+            case 'image':
+                ImageFileService::delete($media);
                 break;
         }
     }

@@ -20,8 +20,6 @@ return new class extends Migration
             $table->enum('type',['video', 'audio', 'image', 'zip', 'doc']);
             $table->string('filename', 255);
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
     }
 

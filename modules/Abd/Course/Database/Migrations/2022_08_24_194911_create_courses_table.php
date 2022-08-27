@@ -30,7 +30,7 @@ return new class extends Migration
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('SET NULL');
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->foreign('banner_id')->references('id')->on('media')->onDelete('CASCADE');
+            $table->foreign('banner_id')->references('id')->on('media')->onDelete('SET NULL');
         });
 
     }

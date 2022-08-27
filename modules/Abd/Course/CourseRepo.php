@@ -28,4 +28,9 @@ class CourseRepo
     {
         return Course::paginate();
     }
+
+    public function findById($id)
+    {
+        return Course::findOrFail($id);
+    }
 }

@@ -13,7 +13,7 @@ class CategoryRepo
 
     public function fidById($id)
     {
-        return Category::find($id);
+        return Category::findOrFail($id);
     }
 
     public function allExceptById($id)

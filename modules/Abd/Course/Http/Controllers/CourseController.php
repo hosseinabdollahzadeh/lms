@@ -53,8 +53,16 @@ class CourseController extends Controller
 
     }
 
-    public function update(CourseRequest $courseRequest)
+    public function update($id, CourseRequest $request, CourseRepo $courseRepo)
     {
-
+        $course = $courseRepo->findById($id);
+        if($request->hasFile('image')){
+            $request->request->add(['banner_id' => MediaFileService::upload($request->file('image'))->id]);
+            $course->banner->delete();
+        }else{
+            $request->request->add(['banner_id'=> $course->banner_id]);
+        }
+        $courseRepo->update($id, $request);
+        return redirect(route('courses.index'));
     }
 }

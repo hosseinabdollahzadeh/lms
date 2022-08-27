@@ -26,7 +26,7 @@ class CourseRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             "title" => 'required|min:3|max:190',
             "slug" => 'required|min:3|max:190|unique:courses,slug',
             "priority" => 'nullable|numeric',
@@ -38,6 +38,11 @@ class CourseRequest extends FormRequest
             "category_id" => 'required|exists:categories,id',
             "image" => 'required|mimes:jpg,png,jpeg',
         ];
+        if(request()->method === 'PATCH'){
+            $rules['slug'] = 'required|min:3|max:190|unique:courses,slug,'.request()->route('course');
+            $rules['image'] = 'nullable|mimes:jpg,png,jpeg';
+        }
+        return $rules;
     }
 
     public function attributes()

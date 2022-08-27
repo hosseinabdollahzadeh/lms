@@ -54,7 +54,7 @@
 
                 <x-textarea name="body" placeholder="توضیحات دوره" value="{{$course->body}}"/>
                 <br>
-                <button class="btn btn-brand">ایجاد دوره</button>
+                <button class="btn btn-brand">به روز رسانی دوره</button>
             </form>
         </div>
     </div>

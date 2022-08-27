@@ -26,7 +26,7 @@
                         <tr role="row" class="">
                             <td>{{$course->priority}}</td>
                             <td>{{$course->id}}</td>
-                            <td width="80"><img src="{{$course->thumb}}" alt="" width="80"/></td>
+                            <td width="80"><img src="{{$course->banner->thumb}}" alt="" width="80"/></td>
                             <td>{{$course->title}}</td>
                             <td>{{$course->teacher->name}}</td>
                             <td>{{$course->price}}</td>

@@ -43,4 +43,18 @@ class CourseController extends Controller
         $course->delete();
         AjaxResponses::SuccessResponse();
     }
+
+    public function edit($id, CourseRepo $courseRepo,UserRepo $userRepo, CategoryRepo $categoryRepo)
+    {
+        $teachers = $userRepo->getTeachers();
+        $categories = $categoryRepo->all();
+        $course = $courseRepo->findById($id);
+        return view('Courses::edit', compact('course', 'teachers', 'categories'));
+
+    }
+
+    public function update(CourseRequest $courseRequest)
+    {
+
+    }
 }

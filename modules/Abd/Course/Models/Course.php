@@ -19,10 +19,6 @@ class Course extends Model
     const STATUS_LOCKED = 'locked';
     static $statuses = [self::STATUS_COMPLETED, self::STATUS_NOT_COMPLETED, self::STATUS_LOCKED];
 
-    public function getThumbAttribute()
-    {
-        return '/storage/'.$this->banner->files[300];
-    }
     public function teacher()
     {
         return $this->belongsTo(User::class, 'teacher_id');

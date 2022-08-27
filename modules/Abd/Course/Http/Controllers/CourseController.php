@@ -25,7 +25,7 @@ class CourseController extends Controller
 
     public function store(CourseRequest $request, CourseRepo $courseRepo)
     {
-        $request->request()->add(['benner_id' => MediaUploadService::upload($request->file('image'))->id]);
+        $request->request->add(['banner_id' => MediaUploadService::upload($request->file('image'))->id]);
         $course = $courseRepo->store($request);
         return $course;
     }

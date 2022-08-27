@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('users_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->json('files');
             $table->enum('type',['video', 'audio', 'image', 'zip', 'doc']);
             $table->string('filename', 255);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
     }
 

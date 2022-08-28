@@ -18,24 +18,18 @@ class CategoryTest extends TestCase
     public function test_permitted_user_can_see_categories_panel()
     {
         $this->actingAsAdmin();
-        $this->assertAuthenticated();
-        $this->seed(RolePermissionTableSeeder::class);
-        auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
         $this->get(route('categories.index'))->assertOk();
     }
 
     public function test_normal_user_can_not_see_categories_panel()
     {
-        $this->actingAsAdmin();
-        $this->assertAuthenticated();
+        $this->actingAsUser();
         $this->get(route('categories.index'))->assertStatus(403);
     }
 
     public function test_permitted_user_can_create_category()
     {
         $this->actingAsAdmin();
-        $this->seed(RolePermissionTableSeeder::class);
-        auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
         $this->createCategory();
         $this->assertEquals(1, Category::all()->count());
     }
@@ -44,8 +38,6 @@ class CategoryTest extends TestCase
         $newTitle = 'New Title after update';
         $newSlug = 'New Slug after update';
         $this->actingAsAdmin();
-        $this->seed(RolePermissionTableSeeder::class);
-        auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
         $this->createCategory();
         $this->assertEquals(1, Category::all()->count());
         $this->patch(route('categories.update', 1), ['title'=> $newTitle, 'slug'=>$newSlug]);
@@ -55,8 +47,6 @@ class CategoryTest extends TestCase
     public function test_permitted_user_can_delete_category()
     {
         $this->actingAsAdmin();
-        $this->seed(RolePermissionTableSeeder::class);
-        auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
         $this->createCategory();
         $this->assertEquals(1, Category::all()->count());
         $this->delete(route('categories.destroy', 1))->assertOk();
@@ -64,6 +54,7 @@ class CategoryTest extends TestCase
     }
     private function actingAsAdmin()
     {
+        // create user
         $user =User::create([
             'name' => 'test_name',
             'email' => 'test_email@test.test',
@@ -71,11 +62,29 @@ class CategoryTest extends TestCase
         ]);
         $user->markEmailAsVerified();
         $this->actingAs($user);
+        // seed roles and give permission
+        $this->seed(RolePermissionTableSeeder::class);
+        auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
+
     }
 
     private function createCategory()
     {
         $this->post(route('categories.store', ['title'=> $this->faker->word, 'slug'=> $this->faker->word]));
 
+    }
+
+    private function actingAsUser()
+    {
+        // create user
+        $user =User::create([
+            'name' => 'test_name',
+            'email' => 'test_email@test.test',
+            'password' => bcrypt('Aa@1234')
+        ]);
+        $user->markEmailAsVerified();
+        $this->actingAs($user);
+        // seed roles and give permission
+        $this->seed(RolePermissionTableSeeder::class);
     }
 }

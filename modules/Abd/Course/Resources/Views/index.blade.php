@@ -18,6 +18,7 @@
                         <th>قیمت</th>
                         <th>درصد مدرس</th>
                         <th>وضعیت</th>
+                        <th>وضعیت تأیید</th>
                         <th>عملیات</th>
                     </tr>
                     </thead>
@@ -31,14 +32,21 @@
                             <td>{{$course->teacher->name}}</td>
                             <td>{{$course->price}}</td>
                             <td>{{$course->percent}}%</td>
-                            <td>@lang($course->status)</td>
+                            <td class="status">@lang($course->status)</td>
+                            <td class="confirmation_status">@lang($course->confirmation_status)</td>
                             <td>
                                 <a href=""
                                    onclick="deleteItem(event, '{{ route('courses.destroy', $course->id)}}');"
                                    class="item-delete mlg-15" title="حذف"></a>
                                 <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                <a href="{{ route('courses.edit', $course->id) }}" class="item-edit "
+                                <a href="{{ route('courses.edit', $course->id) }}" class="item-edit mlg-15"
                                    title="ویرایش"></a>
+                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.accept', $course->id)}}', 'آیا از تأیید این آیتم اطمینان دارید؟'                                     , 'تأیید شده');"
+                                   class="item-confirm mlg-15" title="تایید"></a>
+                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.reject', $course->id)}}', 'آیا از رد این آیتم اطمینان دارید؟'                                     , 'رد شده');"
+                                   class="item-reject mlg-15" title="رد"></a>
+                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.lock', $course->id)}}', 'آیا از قفل کردن این آیتم اطمینان دارید؟'                                     , 'قفل شده', 'status');"
+                                   class="item-lock mlg-15" title="قفل دوره"></a>
                             </td>
                         </tr>
                     @endforeach

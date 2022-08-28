@@ -6,6 +6,7 @@ use Abd\Category\Repositories\CategoryRepo;
 use Abd\Category\Responses\AjaxResponses;
 use Abd\Course\CourseRepo;
 use Abd\Course\Http\Requests\CourseRequest;
+use Abd\Course\Models\Course;
 use Abd\Media\Models\Media;
 use Abd\Media\Services\MediaFileService;
 use Abd\User\Repositories\UserRepo;
@@ -64,5 +65,30 @@ class CourseController extends Controller
         }
         $courseRepo->update($id, $request);
         return redirect(route('courses.index'));
+    }
+
+    public function accept($id, CourseRepo $courseRepo)
+    {
+        if($courseRepo->updateConfirmationStatus($id, Course::CONFIRMATION_STATUS_ACCEPTED)){
+            AjaxResponses::SuccessResponse();
+        }else{
+            AjaxResponses::FailedResponse();
+        }
+    }
+    public function reject($id, CourseRepo $courseRepo)
+    {
+        if($courseRepo->updateConfirmationStatus($id, Course::CONFIRMATION_STATUS_REJECTED)){
+            AjaxResponses::SuccessResponse();
+        }else{
+            AjaxResponses::FailedResponse();
+        }
+    }
+    public function lock($id, CourseRepo $courseRepo)
+    {
+        if($courseRepo->updateStatus($id, Course::STATUS_LOCKED)){
+            AjaxResponses::SuccessResponse();
+        }else{
+            AjaxResponses::FailedResponse();
+        }
     }
 }

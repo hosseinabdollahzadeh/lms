@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('percent', 5);
             $table->enum('type', \Abd\Course\Models\Course::$types);
             $table->enum('status', \Abd\Course\Models\Course::$statuses);
+            $table->enum('confirmation_status', \Abd\Course\Models\Course::$confirmationStatuses);
             $table->longText('body')->nullable();
             $table->timestamps();
 

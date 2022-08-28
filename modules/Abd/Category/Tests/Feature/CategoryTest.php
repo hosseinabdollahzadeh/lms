@@ -3,6 +3,7 @@
 namespace Abd\Category\Tests\Feature;
 
 use Abd\Category\Models\Category;
+use Abd\RolePermissions\Database\Seeders\RolePermissionTableSeeder;
 use Abd\User\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,33 +14,48 @@ class CategoryTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function test_authenticated_user_can_see_categories_panel()
+    public function test_permitted_user_can_see_categories_panel()
     {
         $this->actingAsAdmin();
         $this->assertAuthenticated();
+        $this->seed(RolePermissionTableSeeder::class);
+        auth()->user()->givePermissionTo('manage categories');
         $this->get(route('categories.index'))->assertOk();
     }
 
-    public function test_authenticated_user_can_create_category()
+    public function test_normal_user_can_not_see_categories_panel()
     {
         $this->actingAsAdmin();
+        $this->assertAuthenticated();
+        $this->get(route('categories.index'))->assertStatus(403);
+    }
+
+    public function test_permitted_user_can_create_category()
+    {
+        $this->actingAsAdmin();
+        $this->seed(RolePermissionTableSeeder::class);
+        auth()->user()->givePermissionTo('manage categories');
         $this->createCategory();
         $this->assertEquals(1, Category::all()->count());
     }
-    public function test_authenticated_user_can_edit_category()
+    public function test_permitted_user_can_edit_category()
     {
         $newTitle = 'New Title after update';
         $newSlug = 'New Slug after update';
         $this->actingAsAdmin();
+        $this->seed(RolePermissionTableSeeder::class);
+        auth()->user()->givePermissionTo('manage categories');
         $this->createCategory();
         $this->assertEquals(1, Category::all()->count());
         $this->patch(route('categories.update', 1), ['title'=> $newTitle, 'slug'=>$newSlug]);
         $this->assertEquals(1, Category::query()->where(['title'=> $newTitle, 'slug'=>$newSlug])->count());
     }
 
-    public function test_authenticated_user_can_delete_category()
+    public function test_permitted_user_can_delete_category()
     {
         $this->actingAsAdmin();
+        $this->seed(RolePermissionTableSeeder::class);
+        auth()->user()->givePermissionTo('manage categories');
         $this->createCategory();
         $this->assertEquals(1, Category::all()->count());
         $this->delete(route('categories.destroy', 1))->assertOk();

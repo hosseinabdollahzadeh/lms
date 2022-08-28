@@ -15,10 +15,6 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-//    \Spatie\Permission\Models\Permission::create(['name' => 'manage categories']);
-//    \Spatie\Permission\Models\Permission::create(['name' => 'manage role_permissions']);
-//    auth()->user()->givePermissionTo('manage categories');
-//    auth()->user()->givePermissionTo('manage role_permissions');
-    auth()->user()->givePermissionTo('teach');
+    auth()->user()->givePermissionTo(\Abd\RolePermissions\Models\Permission::PERMISSION_SUPER_ADMIN);
     return auth()->user()->permissions;
 });

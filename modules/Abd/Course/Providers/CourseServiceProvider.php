@@ -2,6 +2,9 @@
 
 namespace Abd\Course\Providers;
 
+use Abd\Course\Models\Course;
+use Abd\Course\Policies\CoursePolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class CourseServiceProvider extends ServiceProvider
@@ -13,6 +16,8 @@ class CourseServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
         $this->loadTranslationsFrom(__DIR__.'/../Resources/Lang', 'Courses');
+
+        Gate::policy(Course::class, CoursePolicy::class);
     }
 
     public function boot()

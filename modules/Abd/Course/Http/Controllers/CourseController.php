@@ -16,6 +16,7 @@ class CourseController extends Controller
 {
     public function index(CourseRepo $courseRepo)
     {
+        $this->authorize('manage', Course::class);
         $courses = $courseRepo->paginate();
         return view('Courses::index', compact('courses'));
     }

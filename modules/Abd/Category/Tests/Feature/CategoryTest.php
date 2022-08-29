@@ -52,6 +52,12 @@ class CategoryTest extends TestCase
         $this->delete(route('categories.destroy', 1))->assertOk();
         $this->assertEquals(0, Category::all()->count());
     }
+
+    private function createCategory()
+    {
+        $this->post(route('categories.store', ['title'=> $this->faker->word, 'slug'=> $this->faker->word]));
+
+    }
     private function actingAsAdmin()
     {
         // create user
@@ -67,13 +73,6 @@ class CategoryTest extends TestCase
         auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
 
     }
-
-    private function createCategory()
-    {
-        $this->post(route('categories.store', ['title'=> $this->faker->word, 'slug'=> $this->faker->word]));
-
-    }
-
     private function actingAsUser()
     {
         // create user

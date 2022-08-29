@@ -5,5 +5,6 @@
     "not-completed": "در حال برگزاری",
     "accepted": "تأیید شده",
     "rejected": "رد شده",
-    "pending": "قفل شده"
+    "pending": "در حال انتظار",
+    "locked": "قفل شده"
 }

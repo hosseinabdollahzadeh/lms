@@ -1,6 +1,7 @@
 <?php
 namespace Abd\Category\Models;
 
+use Abd\Course\Models\Course;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -19,5 +20,8 @@ class Category extends Model
     public function subCategory()
     {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+    public function courses(){
+        $this->hasMany(Course::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Abd\Course\Models;
 
+use Abd\Category\Models\Category;
 use Abd\Media\Models\Media;
 use Abd\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -31,5 +32,10 @@ class Course extends Model
     public function banner()
     {
         return $this->belongsTo(Media::class, 'banner_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

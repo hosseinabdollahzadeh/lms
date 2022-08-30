@@ -1479,6 +1479,7 @@ span.tagRemove:hover {
     width: 24px;
     background: #fff;
     border: 1px solid #ddd;
+    position: relative;
 }
 
 .ui-checkbox input:checked ~ .checkmark {

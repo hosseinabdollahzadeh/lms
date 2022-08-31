@@ -25,10 +25,11 @@
                             <td>{{$user->email}}</td>
                             <td>
                                 <ul>
-                                @foreach($user->roles as $role)
-                                    <li>{{ $role->name }}</li>
-                                @endforeach
-                                    <a href="#select-role" rel="modal:open" onclick="setFormAction({{$user->id}})">افزودن نقش کاربری</a>
+                                    @foreach($user->roles as $role)
+                                        <li>{{ $role->name }}</li>
+                                    @endforeach
+                                    <a href="#select-role" rel="modal:open" onclick="setFormAction({{$user->id}})">افزودن
+                                        نقش کاربری</a>
                                 </ul>
                             </td>
                             <td>
@@ -60,12 +61,12 @@
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script>
-        function setFormAction(userId){
-            $('#select-role-form').attr('action', '{{route('users.addRole', 0)}}'.replace('/0/', '/'+userId+'/'));
+        function setFormAction(userId) {
+            $('#select-role-form').attr('action', '{{route('users.addRole', 0)}}'.replace('/0/', '/' + userId + '/'));
         }
+        @include('Common::layouts.feedbacks')
     </script>
 @endsection
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 @endsection
-

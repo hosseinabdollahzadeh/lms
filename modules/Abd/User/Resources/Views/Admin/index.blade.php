@@ -25,7 +25,7 @@
                             <td>{{$user->email}}</td>
                             <td>
                                 <ul>
-                                @foreach($roles as $role)
+                                @foreach($user->roles as $role)
                                     <li>{{ $role->name }}</li>
                                 @endforeach
                                     <a href="#select-role" rel="modal:open" onclick="setFormAction({{$user->id}})">افزودن نقش کاربری</a>
@@ -41,12 +41,15 @@
                     </tbody>
                 </table>
                 <div id="select-role" class="modal">
-                    <form action="" id="select-role-form">
-                        <select name="roles">
+                    <form action="" id="select-role-form" method="post">
+                        @csrf
+                        <select name="role">
+                            <option value="">یک نقش کاربری انتخاب کنید.</option>
                             @foreach($roles as $role)
-                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                <option value="{{$role->name}}">{{$role->name}}</option>
                             @endforeach
                         </select>
+                        <button class="btn btn-brand mt-2">افزودن</button>
                     </form>
                 </div>
             </div>
@@ -58,7 +61,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script>
         function setFormAction(userId){
-            let route = '{{route('users.addRole', 0)}}';
             $('#select-role-form').attr('action', '{{route('users.addRole', 0)}}'.replace('/0/', '/'+userId+'/'));
         }
     </script>

@@ -3,6 +3,9 @@ Route::group([
     'namespace' => 'Abd\User\Http\Controllers',
     'middleware' => 'web'
 ], function ($router) {
+    $router->resource('users', 'UserController');
+    Route::post('users/{user}/add/role', 'UserController@addRole')->name('users.addRole');
+
     Route::post('/email/verify', 'Auth\VerificationController@verify')->name('verification.verify')->middleware('throttle:6,1');
     Route::post('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend')->middleware('throttle:6,1');
     Route::get('/email/verify', 'Auth\VerificationController@show')->name('verification.notice');

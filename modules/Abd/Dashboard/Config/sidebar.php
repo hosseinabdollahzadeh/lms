@@ -4,4 +4,5 @@ return $items = [
     'categories'=> [],
     'role-permissions'=> [],
     'courses'=> [],
+    'users'=> [],
 ];

@@ -1959,3 +1959,9 @@ span.tagRemove:hover {
     margin-bottom: 0px;
     margin-top: 15px;
 }
+.deleteable-list-item .item-delete{
+    display: none;
+}
+.deleteable-list-item:hover .item-delete{
+    display: inline-block;
+}

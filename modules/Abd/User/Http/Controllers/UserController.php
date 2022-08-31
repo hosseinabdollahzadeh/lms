@@ -2,6 +2,7 @@
 
 namespace Abd\User\Http\Controllers;
 
+use Abd\Common\Responses\AjaxResponses;
 use Abd\RolePermissions\Repositories\RoleRepo;
 use Abd\User\Http\Requests\AddRoleRequest;
 use Abd\User\Models\User;
@@ -32,5 +33,11 @@ class UserController extends Controller
         newFeedback("عملیات موفقیت آمیز", "نقش کاربری $request->role به کاربر $user->name داده شد.", "success");
         return back();
     }
-
+    public function removeRole($userId, $role)
+    {
+        $this->authorize('removeRole', User::class);
+        $user = $this->userRepo->findById($userId);
+        $user->removeRole($role);
+        return AjaxResponses::SuccessResponse();
+    }
 }

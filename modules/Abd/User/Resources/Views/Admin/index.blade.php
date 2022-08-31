@@ -25,8 +25,11 @@
                             <td>{{$user->email}}</td>
                             <td>
                                 <ul>
-                                    @foreach($user->roles as $role)
-                                        <li>{{ $role->name }}</li>
+                                    @foreach($user->roles as $userRole)
+                                        <li class="deleteable-list-item">{{ $userRole->name }}
+                                            <a href="" class="item-delete mlg-15" title="حذف"
+                                               onclick="deleteItem(event, '{{ route('users.removeRole', [$user->id, $userRole->name])}}', 'li');"></a>
+                                        </li>
                                     @endforeach
                                     <a href="#select-role" rel="modal:open" onclick="setFormAction({{$user->id}})">افزودن
                                         نقش کاربری</a>
@@ -68,5 +71,5 @@
     </script>
 @endsection
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
 @endsection

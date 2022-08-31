@@ -4,7 +4,7 @@ namespace Abd\Category\Http\Controllers;
 
 use Abd\Category\Models\Category;
 use Abd\Category\Repositories\CategoryRepo;
-use Abd\Category\Responses\AjaxResponses;
+use Abd\Common\Responses\AjaxResponses;
 use App\Http\Controllers\Controller;
 use Abd\Category\Http\Requests\CategoryRequest;
 

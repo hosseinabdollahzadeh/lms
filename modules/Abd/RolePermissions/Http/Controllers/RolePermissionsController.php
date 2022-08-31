@@ -2,7 +2,7 @@
 
 namespace Abd\RolePermissions\Http\Controllers;
 
-use Abd\Category\Responses\AjaxResponses;
+use Abd\Common\Responses\AjaxResponses;
 use Abd\RolePermissions\Http\Requests\RoleRequest;
 use Abd\RolePermissions\Http\Requests\RoleUpdateRequest;
 use Abd\RolePermissions\Models\Role;

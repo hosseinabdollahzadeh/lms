@@ -1,6 +1,6 @@
 <?php
 
-namespace Abd\Category\Responses;
+namespace Abd\Common\Responses;
 
 use Illuminate\Http\Response;
 

@@ -3,7 +3,7 @@
 namespace Abd\Course\Http\Controllers;
 
 use Abd\Category\Repositories\CategoryRepo;
-use Abd\Category\Responses\AjaxResponses;
+use Abd\Common\Responses\AjaxResponses;
 use Abd\Course\CourseRepo;
 use Abd\Course\Http\Requests\CourseRequest;
 use Abd\Course\Models\Course;

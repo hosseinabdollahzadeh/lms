@@ -3,6 +3,7 @@
 namespace Abd\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Abd\Media\Models\Media;
 use Abd\User\Database\Factories\UserFactory;
 use Abd\User\Mail\ResetPasswordRequestMail;
 use Abd\User\Notifications\ResetPasswordRequestNotification;
@@ -18,6 +19,15 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+
+    const STATUS_ACTIVE = 'active';
+    const STATUS_INACTIVE = 'inactive';
+    const STATUS_BAN = 'ban';
+    public static $statuses = [
+        self::STATUS_ACTIVE,
+        self::STATUS_INACTIVE,
+        self::STATUS_BAN
+    ];
     /**
      * The attributes that are mass assignable.
      *
@@ -61,5 +71,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected static function newFactory()
     {
         return UserFactory::new();
+    }
+
+    public function image()
+    {
+        return $this->belongsTo(Media::class, 'image_id');
     }
 }

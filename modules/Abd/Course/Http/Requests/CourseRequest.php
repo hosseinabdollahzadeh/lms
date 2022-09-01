@@ -56,7 +56,7 @@ class CourseRequest extends FormRequest
             "teacher_id" => "مدرس",
             "type" => "نوع",
             "status" => "وضعیت",
-            "category_id" => "دستهب بندی",
+            "category_id" => "دسته بندی",
             "image" => "بنر دوره",
             "body" => "توضیحات"
         ];

@@ -1,6 +1,6 @@
 @extends('Dashboard::master')
 @section('breadcrumb')
-    <li><a href="{{route('courses.index')}}" title="دسته بندی ها">دوره ها</a></li>
+    <li><a href="{{route('courses.index')}}" title="دوره ها">دوره ها</a></li>
     <li><a href="#" title="ویرایش دوره">ویرایش دوره</a></li>
 @endsection
 @section('content')
@@ -10,7 +10,7 @@
             <form action="{{route('courses.update', $course->id)}}" class="padding-30" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-                <x-input type="text" name="title" placeholder="عنوان دوره" required value="{{$course->title}}" />
+                <x-input type="text" name="title" placeholder="عنوان دوره" value="{{$course->title}}" required/>
                 <x-input type="text" name="slug" class="text-left " placeholder="نام انگلیسی دوره" value="{{$course->slug}}"  required />
 
                 <div class="d-flex multi-text">

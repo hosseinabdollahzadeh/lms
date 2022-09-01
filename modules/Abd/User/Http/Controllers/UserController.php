@@ -3,8 +3,10 @@
 namespace Abd\User\Http\Controllers;
 
 use Abd\Common\Responses\AjaxResponses;
+use Abd\Media\Services\MediaFileService;
 use Abd\RolePermissions\Repositories\RoleRepo;
 use Abd\User\Http\Requests\AddRoleRequest;
+use Abd\User\Http\Requests\UserUpdateRequest;
 use Abd\User\Models\User;
 use Abd\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
@@ -39,5 +41,29 @@ class UserController extends Controller
         $user = $this->userRepo->findById($userId);
         $user->removeRole($role);
         return AjaxResponses::SuccessResponse();
+    }
+
+    public function edit($userId)
+    {
+        $this->authorize('edit', User::class);
+        $user = $this->userRepo->findById($userId);
+        return view('User::Admin.edit', compact('user'));
+    }
+
+    public function update($userId, UserUpdateRequest $request)
+    {
+        $this->authorize('edit', User::class);
+        $user = $this->userRepo->findById($userId);
+        if ($request->hasFile('image')) {
+            $request->request->add(['image_id' => MediaFileService::upload($request->file('image'))->id]);
+            if ($user->image) {
+                $user->image->delete();
+            }
+        } else {
+            $request->request->add(['image_id' => $user->image_id]);
+        }
+        $this->userRepo->update($userId, $request);
+        newFeedback();
+        return redirect()->back();
     }
 }

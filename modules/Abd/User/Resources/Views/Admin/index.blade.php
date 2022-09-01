@@ -30,6 +30,7 @@
                                             <a href="" class="item-delete mlg-15" title="حذف"
                                                onclick="deleteItem(event, '{{ route('users.removeRole', [$user->id, $userRole->name])}}', 'li');"></a>
                                         </li>
+
                                     @endforeach
                                     <a href="#select-role" rel="modal:open" onclick="setFormAction({{$user->id}})">افزودن
                                         نقش کاربری</a>
@@ -39,6 +40,8 @@
                                 <a href=""
                                    onclick="deleteItem(event, '{{ route('users.destroy', $user->id)}}');"
                                    class="item-delete mlg-15" title="حذف"></a>
+                                <a href="{{ route('users.edit', $user->id) }}" class="item-edit mlg-15"
+                                   title="ویرایش"></a>
                             </td>
                         </tr>
                     @endforeach

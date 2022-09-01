@@ -14,6 +14,7 @@
                         <th>نام</th>
                         <th>ایمیل</th>
                         <th>نقش کاربری</th>
+                        <th>وضعیت تأیید</th>
                         <th>عملیات</th>
                     </tr>
                     </thead>
@@ -36,12 +37,15 @@
                                         نقش کاربری</a>
                                 </ul>
                             </td>
+                            <td class="confirmation_status">{{$user->hasVerifiedEmail() ? 'تایید شده' : 'تأیید نشده'}}</td>
                             <td>
                                 <a href=""
                                    onclick="deleteItem(event, '{{ route('users.destroy', $user->id)}}');"
                                    class="item-delete mlg-15" title="حذف"></a>
                                 <a href="{{ route('users.edit', $user->id) }}" class="item-edit mlg-15"
                                    title="ویرایش"></a>
+                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('users.manualVerify', $user->id)}}', 'آیا از تأیید این آیتم اطمینان دارید؟'                                     , 'تأیید شده');"
+                                   class="item-confirm mlg-15" title="تایید"></a>
                             </td>
                         </tr>
                     @endforeach

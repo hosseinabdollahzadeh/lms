@@ -66,4 +66,20 @@ class UserController extends Controller
         newFeedback();
         return redirect()->back();
     }
+
+    public function destroy($userId)
+    {
+        $this->authorize('delete', User::class);
+        $user = $this->userRepo->findById($userId);
+        $user->delete();
+        return AjaxResponses::SuccessResponse();
+    }
+
+    public function manualVerify($userId)
+    {
+        $this->authorize('manualVerify', User::class);
+        $user = $this->userRepo->findById($userId);
+        $user->markEmailAsVerified();
+        return AjaxResponses::SuccessResponse();
+    }
 }

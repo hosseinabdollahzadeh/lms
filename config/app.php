@@ -194,10 +194,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        \Abd\RolePermissions\Providers\RolePermissionsServiceProvider::class,
         \Abd\User\Providers\UserServiceProvider::class,
         \Abd\Dashboard\Providers\DashboardServiceProvider::class,
         \Abd\Category\Providers\CategoryServiceProvider::class,
-        \Abd\RolePermissions\Providers\RolePermissionsServiceProvider::class,
         \Abd\Course\Providers\CourseServiceProvider::class,
         \Abd\Media\Providers\MediaServiceProvider::class,
         \Abd\Common\Providers\CommonServiceProvider::class,

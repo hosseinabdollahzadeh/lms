@@ -4,6 +4,8 @@ namespace Abd\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Abd\Media\Models\Media;
+use Abd\RolePermissions\Models\Permission;
+use Abd\RolePermissions\Models\Role;
 use Abd\User\Database\Factories\UserFactory;
 use Abd\User\Mail\ResetPasswordRequestMail;
 use Abd\User\Notifications\ResetPasswordRequestNotification;
@@ -27,6 +29,15 @@ class User extends Authenticatable implements MustVerifyEmail
         self::STATUS_ACTIVE,
         self::STATUS_INACTIVE,
         self::STATUS_BAN
+    ];
+
+    public static $defaultUsers =[
+        'admin' =>[
+            'name' => 'Admin',
+            'email' => 'admin@test.test',
+            'password' => 'admin',
+            'role' => Role::ROLE_SUPER_ADMIN
+        ]
     ];
     /**
      * The attributes that are mass assignable.

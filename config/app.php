@@ -201,7 +201,6 @@ return [
         \Abd\Category\Providers\CategoryServiceProvider::class,
         \Abd\Course\Providers\CourseServiceProvider::class,
         \Abd\Media\Providers\MediaServiceProvider::class,
-        \Abd\Common\Providers\CommonServiceProvider::class,
 
     ],
 

@@ -36,7 +36,7 @@ class RolesTest extends TestCase
                 Permission::PERMISSION_MANAGE_COURSES
             ]
         ])->assertRedirect(route('role-permissions.index'));
-        $this->assertEquals($this->count(Role::$roles)+1, Role::count());
+        $this->assertEquals(count(Role::$roles)+1, Role::count());
     }
     public function test_normal_user_can_not_store_role()
     {
@@ -48,7 +48,7 @@ class RolesTest extends TestCase
                 Permission::PERMISSION_MANAGE_COURSES
             ]
         ])->assertStatus(403);
-        $this->assertEquals($this->count(Role::$roles), Role::count());
+        $this->assertEquals(count(Role::$roles), Role::count());
     }
 
     public function test_permitted_user_can_see_edit_role()
@@ -98,14 +98,14 @@ class RolesTest extends TestCase
         $this->actAsAdmin();
         $role = $this->createRole();
         $this->delete(route('role-permissions.destroy', $role->id))->assertOk();
-        $this->assertEquals($this->count(Role::$roles), Role::count());
+        $this->assertEquals(count(Role::$roles), Role::count());
     }
     public function test_normal_user_can_not_delete_role()
     {
         $this->actAsUser();
         $role = $this->createRole();
         $this->delete(route('role-permissions.destroy', $role->id))->assertStatus(403);
-        $this->assertEquals($this->count(Role::$roles) +1, Role::count());
+        $this->assertEquals(count(Role::$roles) +1, Role::count());
     }
 
     public function createRole()

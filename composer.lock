@@ -4,8 +4,36 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b627b4ec1823912dd559cd4c13b36d1",
+    "content-hash": "8b64038f360c799754846eebda736482",
     "packages": [
+        {
+            "name": "abd/common",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./modules/Abd/Common",
+                "reference": "9ea453061884a13f8e23de163cfe44e6b6d144fb"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Abd\\Common\\Providers\\CommonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Abd\\Common\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
         {
             "name": "brick/math",
             "version": "0.9.3",
@@ -8751,7 +8779,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "abd/common": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

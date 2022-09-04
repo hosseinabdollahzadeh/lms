@@ -22,12 +22,7 @@ return new class extends Migration
             $table->string('mobile', 14)->nullable();
             $table->string('headline')->nullable();
             $table->text('bio')->nullable();
-            $table->text('website')->nullable();
-            $table->text('linkedin')->nullable();
-            $table->text('facebook')->nullable();
-            $table->text('twitter')->nullable();
-            $table->text('youtube')->nullable();
-            $table->text('instagram')->nullable();
+            $table->text('ip')->nullable();
             $table->text('telegram')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

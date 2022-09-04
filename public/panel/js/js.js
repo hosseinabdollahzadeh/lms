@@ -212,12 +212,19 @@ $('.discounts #discounts-field-1').on('click', function (e) {
     $('.discounts .dropdown-select').removeClass('is-active')
 });
 
-function updateConfirmationStatus(event, route, message, status, field='confirmation_status') {
+function updateConfirmationStatus(event, route, message, status, field = 'confirmation_status') {
     event.preventDefault();
     if (confirm(message)) {
         $.post(route, {_method: "PATCH", _token: $('meta[name="_token"]').attr('content')})
             .done(function (response) {
-                $(event.target).closest('tr').find('td.'+field).text(status);
+                if (status == 'تأیید شده') {
+                    $(event.target).closest('tr').find('td.' + field).html("<span class='text-success'>" + status + "</span>");
+                }
+                elseif(status == 'تأیید نشده')
+                {
+                    $(event.target).closest('tr').find('td.' + field).html("<span class='text-error'>" + status + "</span>");
+                }
+
                 $.toast({
                     heading: 'عملیات موفق',
                     text: response.message,
@@ -238,7 +245,8 @@ function updateConfirmationStatus(event, route, message, status, field='confirma
     }
 
 }
-function deleteItem(event, route, element="tr") {
+
+function deleteItem(event, route, element = "tr") {
     event.preventDefault();
     if (confirm('آیا از حذف این آیتم اطمینان دارید؟')) {
         $.post(route, {_method: "delete", _token: $('meta[name="_token"]').attr('content')})

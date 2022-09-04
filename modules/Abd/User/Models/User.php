@@ -3,6 +3,7 @@
 namespace Abd\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Abd\Course\Models\Course;
 use Abd\Media\Models\Media;
 use Abd\RolePermissions\Models\Permission;
 use Abd\RolePermissions\Models\Role;
@@ -87,5 +88,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function image()
     {
         return $this->belongsTo(Media::class, 'image_id');
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
     }
 }

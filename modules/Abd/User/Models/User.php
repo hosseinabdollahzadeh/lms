@@ -94,4 +94,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Course::class, 'teacher_id');
     }
+
+    public function profilePath()
+    {
+        return auth()->user()->username ? route('viewProfile', auth()->user()->username) : route('viewProfile', 'username');
+    }
 }

@@ -46,4 +46,9 @@ class UserPolicy
             return true;
         }
     }
+
+    public function editProfile()
+    {
+        if(auth()->user()) return true;
+    }
 }

@@ -3,9 +3,12 @@
 namespace Abd\User\Http\Controllers;
 
 use Abd\Common\Responses\AjaxResponses;
+use Abd\Media\Models\Media;
 use Abd\Media\Services\MediaFileService;
 use Abd\RolePermissions\Repositories\RoleRepo;
 use Abd\User\Http\Requests\AddRoleRequest;
+use Abd\User\Http\Requests\UpdateProfileInformationRequest;
+use Abd\User\Http\Requests\UpdateUserPhotoRequest;
 use Abd\User\Http\Requests\UserUpdateRequest;
 use Abd\User\Models\User;
 use Abd\User\Repositories\UserRepo;
@@ -68,6 +71,30 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function updatePhoto(UpdateUserPhotoRequest $request)
+    {
+        $this->authorize('editProfile', User::class);
+        $media = MediaFileService::upload($request->file('userPhoto'));
+        if(auth()->user()->image) auth()->user()->image->delete();
+        auth()->user()->image_id = $media->id;
+        auth()->user()->save();
+
+        newFeedback();
+        return back();
+    }
+
+    public function profile()
+    {
+        $this->authorize('editProfile', User::class);
+        return view('User::Admin.profile');
+    }
+
+    public function updateProfile(UpdateProfileInformationRequest $request)
+    {
+        $this->userRepo->updateProfile($request);
+        newFeedback();
+        return back();
+    }
     public function destroy($userId)
     {
         $this->authorize('delete', User::class);

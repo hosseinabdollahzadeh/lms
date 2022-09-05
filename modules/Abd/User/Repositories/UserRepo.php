@@ -50,4 +50,25 @@ class UserRepo
             $user->assignRole($values['role']);
         return User::where('id', $userId)->update($update);
     }
+
+    public function updateProfile($request)
+    {
+        auth()->user()->name = $request->name;
+        auth()->user()->mobile = $request->mobile;
+        if (auth()->user()->hasPermissionTo(Permission::PERMISSION_TEACH)) {
+            auth()->user()->username = $request->username;
+            auth()->user()->card_number = $request->card_number;
+            auth()->user()->shaba = $request->shaba;
+            auth()->user()->headline = $request->headline;
+            auth()->user()->bio = $request->bio;
+        }
+        if ($request->password) {
+            auth()->user()->password = bcrypt($request->password);
+        }
+        if (auth()->user()->email != $request->email) {
+            auth()->user()->email = $request->email;
+            auth()->user()->email_verified_at = null;
+        }
+        return auth()->user()->save();
+    }
 }

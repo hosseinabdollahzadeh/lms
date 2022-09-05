@@ -9,7 +9,9 @@
             </a>
             <div class="card-header">
                 <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>{{auth()->user()->email}}</span>
-                    را وارد کنید . ممکن است ایمیل به پوشه spam فرستاده شده باشد
+                    را وارد کنید . ممکن است ایمیل به پوشه spam فرستاده شده باشد.
+                    ایمیلتان را اشتباه وارد کرده اید؟
+                    <br><a href="{{route('users.profile')}}" >برای ویرایش ایمیل کلیک کنید</a>.
                 </p>
             </div>
             <div class="form-content form-content1">

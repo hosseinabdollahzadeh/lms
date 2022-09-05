@@ -104,12 +104,8 @@
 @endsection
 
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="/panel/js/tagsInput.js?v={{uniqid()}}"></script>
     <script>
         @include('Common::layouts.feedbacks')
     </script>
-@endsection
-
-@section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
 @endsection

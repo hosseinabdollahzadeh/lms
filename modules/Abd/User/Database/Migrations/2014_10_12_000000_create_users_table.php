@@ -24,6 +24,10 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->text('ip')->nullable();
             $table->text('telegram')->nullable();
+
+            $table->string('card_number', 16)->nullable();
+            $table->string('shaba', 24)->nullable();
+
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('status', \Abd\User\Models\User::$statuses)->default('active');

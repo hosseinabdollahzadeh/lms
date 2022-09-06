@@ -684,7 +684,7 @@ textarea {
     content: '\e125';
 }
 
-.sidebar__nav .i-user__inforamtion a::before {
+.sidebar__nav .i-user__information a::before {
     content: '\e111';
 }
 

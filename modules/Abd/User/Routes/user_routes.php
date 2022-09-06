@@ -7,7 +7,7 @@ Route::group([
     Route::delete('users/{user}/remove/{role}/role', 'UserController@removeRole')->name('users.removeRole');
     Route::patch('users/{user}/manualVerify', 'UserController@manualVerify')->name('users.manualVerify');
     Route::post('users/photo', 'UserController@updatePhoto')->name('users.photo');
-    Route::get('users/profile', 'UserController@profile')->name('users.profile');
+    Route::get('profile', 'UserController@profile')->name('users.profile');
     Route::post('users/profile', 'UserController@updateProfile')->name('users.updateProfile');
     Route::get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
     $router->resource('users', 'UserController');

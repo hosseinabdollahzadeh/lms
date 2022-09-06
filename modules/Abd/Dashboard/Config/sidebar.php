@@ -5,4 +5,5 @@ return $items = [
     'role-permissions'=> [],
     'courses'=> [],
     'users'=> [],
+    'profile'=> [],
 ];

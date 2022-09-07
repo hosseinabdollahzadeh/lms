@@ -4,10 +4,9 @@ namespace Abd\Course\Http\Controllers;
 
 use Abd\Category\Repositories\CategoryRepo;
 use Abd\Common\Responses\AjaxResponses;
-use Abd\Course\CourseRepo;
+use Abd\Course\Repositories\CourseRepo;
 use Abd\Course\Http\Requests\CourseRequest;
 use Abd\Course\Models\Course;
-use Abd\Media\Models\Media;
 use Abd\Media\Services\MediaFileService;
 use Abd\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
@@ -37,6 +36,11 @@ class CourseController extends Controller
         return redirect()->route('courses.index');
     }
 
+    public function details($id, CourseRepo $courseRepo)
+    {
+        $course = $courseRepo->findById($id);
+        return view('Courses::details', compact('course'));
+    }
     public function destroy($id, CourseRepo $courseRepo)
     {
         $this->authorize('delete', Course::class);

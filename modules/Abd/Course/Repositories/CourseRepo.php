@@ -1,6 +1,6 @@
 <?php
 
-namespace Abd\Course;
+namespace Abd\Course\Repositories;
 
 use Abd\Course\Models\Course;
 use Illuminate\Support\Str;

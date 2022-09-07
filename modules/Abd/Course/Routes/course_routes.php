@@ -5,4 +5,5 @@ Route::group(['namespace'=>'Abd\Course\Http\Controllers', 'middleware'=> ['web',
     $router->patch('courses/{course}/accept', 'CourseController@accept')->name('courses.accept');
     $router->patch('courses/{course}/reject', 'CourseController@reject')->name('courses.reject');
     $router->patch('courses/{course}/lock', 'CourseController@lock')->name('courses.lock');
+    $router->get('courses/{course}/details', 'CourseController@details')->name('courses.details');
 });

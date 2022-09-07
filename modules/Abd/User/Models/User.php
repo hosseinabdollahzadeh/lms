@@ -4,8 +4,8 @@ namespace Abd\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Abd\Course\Models\Course;
+use Abd\Course\Models\Season;
 use Abd\Media\Models\Media;
-use Abd\RolePermissions\Models\Permission;
 use Abd\RolePermissions\Models\Role;
 use Abd\User\Database\Factories\UserFactory;
 use Abd\User\Mail\ResetPasswordRequestMail;
@@ -98,5 +98,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profilePath()
     {
         return auth()->user()->username ? route('viewProfile', auth()->user()->username) : route('viewProfile', 'username');
+    }
+
+    public function seasons()
+    {
+        return $this->hasMany(Season::class);
     }
 }

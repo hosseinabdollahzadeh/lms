@@ -16,6 +16,7 @@
                         <th>عنوان</th>
                         <th>مدرس</th>
                         <th>قیمت</th>
+                        <th>جزئیات</th>
                         <th>درصد مدرس</th>
                         <th>وضعیت</th>
                         <th>وضعیت تأیید</th>
@@ -27,10 +28,11 @@
                         <tr role="row" class="">
                             <td>{{$course->priority}}</td>
                             <td>{{$course->id}}</td>
-                            <td width="80"><img src="{{$course->banner->thumb}}" alt="" width="80"/></td>
+                            <td width="80"><img src="@if(! is_null($course->banner)){{$course->banner->thumb}} @endif" alt="" width="80"/></td>
                             <td>{{$course->title}}</td>
                             <td>{{$course->teacher->name}}</td>
-                            <td>{{$course->price}}</td>
+                            <td>{{$course->price}} (تومان)</td>
+                            <td><a href="{{route('courses.details', $course->id)}}">مشاهده</a></td>
                             <td>{{$course->percent}}%</td>
                             <td class="status">@lang($course->status)</td>
                             <td class="confirmation_status">@lang($course->confirmation_status)</td>

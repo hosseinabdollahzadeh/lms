@@ -1,9 +1,9 @@
 <?php
 return $items = [
     'dashboard'=> [],
-    'categories'=> [],
-    'role-permissions'=> [],
     'courses'=> [],
+    'categories'=> [],
     'users'=> [],
-    'profile'=> [],
+    'role-permissions'=> [],
+    'usersInformation'=> [],
 ];

@@ -4,6 +4,7 @@ namespace Abd\Course\Providers;
 
 use Abd\Course\Models\Course;
 use Abd\Course\Policies\CoursePolicy;
+use Abd\RolePermissions\Models\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +29,7 @@ class CourseServiceProvider extends ServiceProvider
                 "icon" => "i-courses",
                 "title" => "دوره ها",
                 "url" => route('courses.index'),
+                "permission" => Permission::PERMISSION_MANAGE_COURSES,
             ]);
         });
     }

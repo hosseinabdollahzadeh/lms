@@ -2,6 +2,7 @@
 
 namespace Abd\User\Providers;
 
+use Abd\RolePermissions\Models\Permission;
 use Abd\User\Database\Seeders\UserTableSeeder;
 use Abd\User\Models\User;
 use Abd\User\Policies\UserPolicy;
@@ -34,10 +35,11 @@ class UserServiceProvider extends ServiceProvider
                 "icon" => "i-users",
                 "title" => "کاربران",
                 "url" => route('users.index'),
+                "permission" => Permission::PERMISSION_MANAGE_USERS
             ]);
         });
         $this->app->booted(function () {
-            config()->set('sidebar.items.profile', [
+            config()->set('sidebar.items.usersInformation', [
                 "icon" => "i-user__information",
                 "title" => "اطلاعات کاربری",
                 "url" => route('users.profile'),

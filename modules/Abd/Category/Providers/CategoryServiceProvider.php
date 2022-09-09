@@ -2,6 +2,7 @@
 
 namespace Abd\Category\Providers;
 
+use Abd\RolePermissions\Models\Permission;
 use Illuminate\Support\ServiceProvider;
 
 class CategoryServiceProvider extends ServiceProvider
@@ -20,6 +21,7 @@ class CategoryServiceProvider extends ServiceProvider
                 "icon" => "i-categories",
                 "title" => "دسته بندی ها",
                 "url" => route('categories.index'),
+                "permission" => Permission::PERMISSION_MANAGE_CATEGORIES,
             ]);
         });
     }

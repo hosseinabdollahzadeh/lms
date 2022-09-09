@@ -32,8 +32,8 @@ class User extends Authenticatable implements MustVerifyEmail
         self::STATUS_BAN
     ];
 
-    public static $defaultUsers =[
-        'admin' =>[
+    public static $defaultUsers = [
+        'admin' => [
             'name' => 'Admin',
             'email' => 'admin@test.test',
             'password' => 'admin',
@@ -80,6 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new ResetPasswordRequestNotification());
     }
+
     protected static function newFactory()
     {
         return UserFactory::new();
@@ -103,5 +104,12 @@ class User extends Authenticatable implements MustVerifyEmail
     public function seasons()
     {
         return $this->hasMany(Season::class);
+    }
+
+    public function getThumbAttribute()
+    {
+        if ($this->image)
+            return '/storage/' . $this->image->files[300];
+        return '/panel/img/profile.jpg';
     }
 }

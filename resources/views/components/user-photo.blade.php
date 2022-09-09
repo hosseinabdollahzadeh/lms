@@ -1,7 +1,7 @@
 <form action = "{{route('users.photo')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="profile__info border cursor-pointer text-center">
-        <div class="avatar__img"><img src="@if(!is_null(auth()->user()->image)) {{auth()->user()->image->thumb}} @endif" class="avatar___img">
+        <div class="avatar__img"><img src="{{auth()->user()->thumb}}" class="avatar___img">
             <input type="file" accept="image/*" class="hidden avatar-img__input" name="userPhoto"
                    onchange="this.form.submit()"
             >

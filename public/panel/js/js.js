@@ -217,11 +217,10 @@ function updateConfirmationStatus(event, route, message, status, field = 'confir
     if (confirm(message)) {
         $.post(route, {_method: "PATCH", _token: $('meta[name="_token"]').attr('content')})
             .done(function (response) {
-                if (status == 'تأیید شده') {
+                if (status == 'تأیید شده' || status == 'باز') {
                     $(event.target).closest('tr').find('td.' + field).html("<span class='text-success'>" + status + "</span>");
                 }
-                elseif(status == 'تأیید نشده')
-                {
+                if (status == 'رد شده' || status == 'قفل شده') {
                     $(event.target).closest('tr').find('td.' + field).html("<span class='text-error'>" + status + "</span>");
                 }
 

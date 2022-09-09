@@ -43,12 +43,9 @@
                                 <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                                 <a href="{{ route('courses.edit', $course->id) }}" class="item-edit mlg-15"
                                    title="ویرایش"></a>
-                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.accept', $course->id)}}', 'آیا از تأیید این آیتم اطمینان دارید؟'                                     , 'تأیید شده');"
-                                   class="item-confirm mlg-15" title="تایید"></a>
-                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.reject', $course->id)}}', 'آیا از رد این آیتم اطمینان دارید؟'                                     , 'رد شده');"
-                                   class="item-reject mlg-15" title="رد"></a>
-                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.lock', $course->id)}}', 'آیا از قفل کردن این آیتم اطمینان دارید؟'                                     , 'قفل شده', 'status');"
-                                   class="item-lock mlg-15" title="قفل دوره"></a>
+                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.accept', $course->id)}}', 'آیا از تأیید این آیتم اطمینان دارید؟'                                     , 'تأیید شده');" class="item-confirm mlg-15" title="تایید"></a>
+                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.reject', $course->id)}}', 'آیا از رد این آیتم اطمینان دارید؟'                                     , 'رد شده');" class="item-reject mlg-15" title="رد"></a>
+                                <a href="" onclick="updateConfirmationStatus(event, '{{ route('courses.lock', $course->id)}}', 'آیا از قفل کردن این آیتم اطمینان دارید؟'                                     , 'قفل شده', 'status');" class="item-lock mlg-15" title="قفل دوره"></a>
                             </td>
                         </tr>
                     @endforeach

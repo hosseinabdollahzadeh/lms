@@ -6,5 +6,6 @@
     "accepted": "تأیید شده",
     "rejected": "رد شده",
     "pending": "در حال انتظار",
-    "locked": "قفل شده"
+    "locked": "قفل شده",
+    "opened": "باز"
 }

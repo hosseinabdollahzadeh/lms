@@ -2,7 +2,6 @@
 
 namespace Abd\Course\Repositories;
 
-use Abd\Course\Models\Course;
 use Abd\Course\Models\Season;
 use Illuminate\Support\Str;
 
@@ -44,4 +43,13 @@ class SeasonRepo
         return $number;
     }
 
+    public function updateConfirmationStatus($id, string $status)
+    {
+        return Season::where('id', $id)->update(['confirmation_status'=> $status]);
+    }
+
+    public function updateStatus($id, string $status)
+    {
+        return Season::where('id', $id)->update(['status'=> $status]);
+    }
 }

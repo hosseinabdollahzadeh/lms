@@ -21,6 +21,8 @@ return new class extends Migration
             $table->tinyInteger('number')->unsigned();
             $table->enum('confirmation_status', \Abd\Course\Models\Season::$confirmationStatuses)
                 ->default(\Abd\Course\Models\Season::CONFIRMATION_STATUS_PENDING);
+            $table->enum('status', \Abd\Course\Models\Season::$statuses)
+                ->default(\Abd\Course\Models\Season::STATUS_OPENED);
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('CASCADE');

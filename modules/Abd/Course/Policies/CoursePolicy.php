@@ -33,16 +33,42 @@ class CoursePolicy
 
     public function edit($user, $course)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) ||
-            ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES) && $course->teacher_id == $user->id);
+       if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) ||
+            ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES) && $course->teacher_id == $user->id)){
+           return true;
+       }
     }
 
     public function delete($user)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES);
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)){
+            return true;
+        }
     }
     public function change_confirmation_status($user)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES);
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)){
+            return true;
+        }
+    }
+
+    public function details($user, $course)
+    {
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)){
+            return true;
+        }
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES) && $course->teacher_id == $user->id){
+            return true;
+        }
+    }
+
+    public function createSeason($user, $course)
+    {
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)){
+            return true;
+        }
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES) && $course->teacher_id == $user->id){
+            return true;
+        }
     }
 }

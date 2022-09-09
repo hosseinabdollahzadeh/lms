@@ -6,6 +6,7 @@
         @foreach(config('sidebar.items') as $sidebarItem)
             @if(!array_key_exists('permission',$sidebarItem) || auth()->user()->hasPermissionTo($sidebarItem['permission'])
                 || auth()->user()->hasPermissionTo(\Abd\RolePermissions\Models\Permission::PERMISSION_SUPER_ADMIN))
+
                 <li class="item-li {{$sidebarItem['icon']}} @if(str_starts_with(request()->url(),$sidebarItem['url'])) is-active @endif">
                     <a href="{{$sidebarItem['url']}}">{{$sidebarItem['title']}}</a>
                 </li>

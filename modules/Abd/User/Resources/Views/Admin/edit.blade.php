@@ -105,7 +105,4 @@
 
 @section('js')
     <script src="/panel/js/tagsInput.js?v={{uniqid()}}"></script>
-    <script>
-        @include('Common::layouts.feedbacks')
-    </script>
 @endsection

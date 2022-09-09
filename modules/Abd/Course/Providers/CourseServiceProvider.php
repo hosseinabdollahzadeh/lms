@@ -3,7 +3,9 @@
 namespace Abd\Course\Providers;
 
 use Abd\Course\Models\Course;
+use Abd\Course\Models\Season;
 use Abd\Course\Policies\CoursePolicy;
+use Abd\Course\Policies\SeasonPolicy;
 use Abd\RolePermissions\Models\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -20,6 +22,7 @@ class CourseServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../Resources/Lang', 'Courses');
 
         Gate::policy(Course::class, CoursePolicy::class);
+        Gate::policy(Season::class, SeasonPolicy::class);
     }
 
     public function boot()

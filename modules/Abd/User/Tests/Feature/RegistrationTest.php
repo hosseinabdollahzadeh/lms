@@ -2,6 +2,7 @@
 
 namespace Abd\User\Tests\Feature;
 
+use Abd\RolePermissions\Database\Seeders\RolePermissionTableSeeder;
 use Abd\User\Models\User;
 use Abd\User\Services\VerifyCodeService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,8 +27,6 @@ class RegistrationTest extends TestCase
 
     public function test_user_can_register()
     {
-        $this->withExceptionHandling();
-
         $response = $this->registerNewUser();
 
         $response->assertRedirect(route('home'));
@@ -64,6 +63,8 @@ class RegistrationTest extends TestCase
 
     public function test_verified_user_can_see_home_page()
     {
+        $this->seed(RolePermissionTableSeeder::class);
+
         $this->registerNewUser();
 
         $this->assertAuthenticated();

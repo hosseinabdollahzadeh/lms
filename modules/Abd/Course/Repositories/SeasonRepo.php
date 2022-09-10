@@ -14,7 +14,8 @@ class SeasonRepo
             "user_id" => auth()->id(),
             "title" => $values->title,
             "number" => $this->generateNumber($values->number, $courseId),
-            "confirmation_status" => Season::CONFIRMATION_STATUS_PENDING
+            "confirmation_status" => Season::CONFIRMATION_STATUS_PENDING,
+            "status" => Season::STATUS_OPENED
         ]);
     }
 

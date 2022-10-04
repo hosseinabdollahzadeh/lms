@@ -3,6 +3,7 @@
 namespace Abd\Course\Repositories;
 
 use Abd\Course\Models\Course;
+use Abd\Course\Models\Season;
 use Illuminate\Support\Str;
 
 class CourseRepo
@@ -60,5 +61,12 @@ class CourseRepo
     public function updateStatus($id, string $status)
     {
         return Course::where('id', $id)->update(['status'=> $status]);
+    }
+
+    public function getCourseSeasons($course)
+    {
+        return Season::where('course_id', $course)
+            ->where('confirmation_status', Season::CONFIRMATION_STATUS_ACCEPTED)
+            ->orderBy('number')->get();
     }
 }

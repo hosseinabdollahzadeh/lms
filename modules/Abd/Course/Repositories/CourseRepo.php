@@ -63,10 +63,4 @@ class CourseRepo
         return Course::where('id', $id)->update(['status'=> $status]);
     }
 
-    public function getCourseSeasons($course)
-    {
-        return Season::where('course_id', $course)
-            ->where('confirmation_status', Season::CONFIRMATION_STATUS_ACCEPTED)
-            ->orderBy('number')->get();
-    }
 }

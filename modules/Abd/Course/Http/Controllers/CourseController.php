@@ -7,6 +7,7 @@ use Abd\Common\Responses\AjaxResponses;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Course\Http\Requests\CourseRequest;
 use Abd\Course\Models\Course;
+use Abd\Course\Repositories\LessonRepo;
 use Abd\Media\Services\MediaFileService;
 use Abd\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
@@ -36,11 +37,12 @@ class CourseController extends Controller
         return redirect()->route('courses.index');
     }
 
-    public function details($id, CourseRepo $courseRepo)
+    public function details($id, CourseRepo $courseRepo, LessonRepo $lessonRepo)
     {
         $course = $courseRepo->findById($id);
+        $lessons = $lessonRepo->paginate($id);
         $this->authorize('details', $course);
-        return view('Courses::details', compact('course'));
+        return view('Courses::details', compact('course', 'lessons'));
     }
     public function destroy($id, CourseRepo $courseRepo)
     {

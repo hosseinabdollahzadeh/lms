@@ -7,6 +7,17 @@ use Illuminate\Support\Str;
 
 class SeasonRepo
 {
+    public function getCourseSeasons($course)
+    {
+        return Season::where('course_id', $course)
+            ->where('confirmation_status', Season::CONFIRMATION_STATUS_ACCEPTED)
+            ->orderBy('number')->get();
+    }
+
+    public function findByIdandCourseId($seasonId, $courseId)
+    {
+        return Season::where('course_id', $courseId)->where('id', $seasonId)->first();
+    }
     public function store($courseId, $values)
     {
         return Season::create([
@@ -53,4 +64,5 @@ class SeasonRepo
     {
         return Season::where('id', $id)->update(['status'=> $status]);
     }
+
 }

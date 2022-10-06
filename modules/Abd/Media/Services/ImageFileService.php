@@ -2,17 +2,17 @@
 
 namespace Abd\Media\Services;
 
+use Abd\Media\Contracts\FileServiceContract;
+use Abd\Media\Models\Media;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-class ImageFileService
+class ImageFileService implements FileServiceContract
 {
     protected static $sizes = ['300', '600'];
-    public static function upload($file)
+    public static function upload($file, $filename, $dir) : array
     {
-        $filename = uniqid();
         $extension = strtolower($file->getClientOriginalExtension());
-        $dir = 'public\\';
         Storage::putFileAs($dir,$file,$filename.'.'.$extension);
         $path = $dir.$filename.'.'.$extension;
         return self::resize(Storage::path($path),$dir, $filename, $extension);
@@ -31,7 +31,7 @@ class ImageFileService
         return $imgs;
     }
 
-    public static function delete($media)
+    public static function delete(Media $media)
     {
         foreach ($media->files as $file){
             Storage::delete('public\\'.$file);

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('files');
             $table->enum('type',['video', 'audio', 'image', 'zip', 'doc']);
             $table->string('filename', 255);
+            $table->boolean('is_private');
             $table->timestamps();
         });
     }

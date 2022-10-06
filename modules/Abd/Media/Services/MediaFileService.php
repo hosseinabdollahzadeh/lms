@@ -26,23 +26,24 @@ class MediaFileService
         self::$isPrivate = false;
         return self::upload();
     }
+
     private static function upload()
     {
         $extension = self::normalizeExtension(self::$file);
-        foreach (config('mediaFile.MediaTypeServices') as $key => $service) {
-            if(in_array($extension, $service['extensions'])){
-                return self::uploadByHandler(new $service['handler'], $key);
+        foreach (config('mediaFile.MediaTypeServices') as $type => $service) {
+            if (in_array($extension, $service['extensions'])) {
+                return self::uploadByHandler(new $service['handler'], $type);
             }
 
         }
     }
 
-    public static function delete($media)
+    public static function delete(Media $media)
     {
-        switch ($media->type) {
-            case 'image':
-                ImageFileService::delete($media);
-                break;
+        foreach (config('mediaFile.MediaTypeServices') as $type => $service) {
+            if($media->type == $type){
+                return $service["handler"]::delete($media);
+            }
         }
     }
 

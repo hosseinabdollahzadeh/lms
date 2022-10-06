@@ -2,6 +2,7 @@
 
 namespace Abd\Course\Http\Controllers;
 
+use Abd\Common\Responses\AjaxResponses;
 use Abd\Course\Http\Requests\LessonRequest;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Course\Repositories\LessonRepo;
@@ -32,5 +33,14 @@ class LessonController extends Controller
         newFeedback();
 
         return redirect(route('courses.details', $course));
+    }
+
+    public function destroy($courseId, $lessonId)
+    {
+        $lesson = $this->lessonRepo->findById($lessonId);
+        if($lesson->media)
+            $lesson->media->delete();
+        $lesson->delete();
+        return AjaxResponses::SuccessResponse();
     }
 }

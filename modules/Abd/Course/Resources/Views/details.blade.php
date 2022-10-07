@@ -50,14 +50,20 @@
                             <td><a href="">{{$lesson->title}}</a></td>
                             <td>{{$lesson->season->title}}</td>
                             <td>{{$lesson->time}} دقیقه</td>
-                            <td>@lang($lesson->confirmation_status)</td>
+                            <td class="confirmation_status">
+                                <span class="{{$lesson->confirmationStatusCssClass()}}">@lang($lesson->confirmation_status)</span>
+                            </td>
                             <td>{{$lesson->free ? 'همه' : 'شرکت کنندگان'}}</td>
                             <td>
                                 <a href="" class="item-delete mlg-15" title="حذف"
                                    onclick="deleteItem(event, '{{ route('lessons.destroy', [$course->id, $lesson->id])}}');"></a>
-                                <a href="" class="item-reject mlg-15" title="رد"></a>
+                                <a href=""
+                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.accept', $lesson->id)}}', 'آیا از تأیید این آیتم اطمینان دارید؟'                                     , 'تأیید شده');"
+                                   class="item-confirm mlg-15" title="تایید"></a>
+                                <a href=""
+                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.reject', $lesson->id)}}', 'آیا از رد این آیتم اطمینان دارید؟'                                     , 'رد شده');"
+                                   class="item-reject mlg-15" title="رد"></a>
                                 <a href="" class="item-lock mlg-15" title="قفل "></a>
-                                <a href="" class="item-confirm mlg-15" title="تایید"></a>
                                 <a href="" class="item-edit " title="ویرایش"></a>
                             </td>
                         </tr>

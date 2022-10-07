@@ -4,6 +4,7 @@ namespace Abd\Course\Http\Controllers;
 
 use Abd\Common\Responses\AjaxResponses;
 use Abd\Course\Http\Requests\LessonRequest;
+use Abd\Course\Models\Lesson;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Course\Repositories\LessonRepo;
 use Abd\Course\Repositories\SeasonRepo;
@@ -34,6 +35,18 @@ class LessonController extends Controller
         newFeedback();
 
         return redirect(route('courses.details', $course));
+    }
+
+    public function accept($id)
+    {
+        $this->lessonRepo->updateConfirmationStatus($id, Lesson::CONFIRMATION_STATUS_ACCEPTED);
+        return AjaxResponses::SuccessResponse();
+    }
+
+    public function reject($id)
+    {
+        $this->lessonRepo->updateConfirmationStatus($id, Lesson::CONFIRMATION_STATUS_REJECTED);
+        return AjaxResponses::SuccessResponse();
     }
 
     public function destroy($courseId, $lessonId)

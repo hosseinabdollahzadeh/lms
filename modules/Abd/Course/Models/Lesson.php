@@ -37,4 +37,10 @@ class Lesson extends Model
     {
         return $this->belongsTo(Media::class);
     }
+
+    public function confirmationStatusCssClass()
+    {
+        if($this->confirmation_status == self::CONFIRMATION_STATUS_ACCEPTED) return "text-success";
+        elseif($this->confirmation_status == self::CONFIRMATION_STATUS_REJECTED) return "text-error";
+    }
 }

@@ -3,8 +3,10 @@
 namespace Abd\Course\Providers;
 
 use Abd\Course\Models\Course;
+use Abd\Course\Models\Lesson;
 use Abd\Course\Models\Season;
 use Abd\Course\Policies\CoursePolicy;
+use Abd\Course\Policies\LessonPolicy;
 use Abd\Course\Policies\SeasonPolicy;
 use Abd\RolePermissions\Models\Permission;
 use Illuminate\Support\Facades\Gate;
@@ -24,6 +26,7 @@ class CourseServiceProvider extends ServiceProvider
 
         Gate::policy(Course::class, CoursePolicy::class);
         Gate::policy(Season::class, SeasonPolicy::class);
+        Gate::policy(Lesson::class, LessonPolicy::class);
     }
 
     public function boot()

@@ -3,6 +3,7 @@
 namespace Abd\Course\Http\Requests;
 
 use Abd\Course\Rules\ValidSeason;
+use Abd\Media\Services\MediaFileService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LessonRequest extends FormRequest
@@ -30,14 +31,14 @@ class LessonRequest extends FormRequest
             "number" => 'nullable|numeric',
             "time" => 'required|numeric|min:0|max:255',
             "season_id" => [new ValidSeason()],
-            "free" => "required|boolean",
-            "lesson_file" => "required|file|mimes:avi,mkv,mp4,rar,zip"
+            "is_free" => "required|boolean",
+            "lesson_file" => "required|file|mimes:".MediaFileService::getExtensions()
 
         ];
-//        if(request()->method === 'PATCH'){
-//            $rules['slug'] = 'required|min:3|max:190|unique:courses,slug,'.request()->route('course');
-//            $rules['image'] = 'nullable|mimes:jpg,png,jpeg';
-//        }
+        if(request()->method === 'PATCH'){
+            $rules['slug'] = 'required|min:3|max:190|unique:lessons,slug,'.request()->route('lesson');
+            $rules['lesson_file'] = "nullable|file|mimes:".MediaFileService::getExtensions();
+        }
         return $rules;
     }
 

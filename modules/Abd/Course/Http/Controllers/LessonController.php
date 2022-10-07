@@ -9,6 +9,7 @@ use Abd\Course\Repositories\LessonRepo;
 use Abd\Course\Repositories\SeasonRepo;
 use Abd\Media\Services\MediaFileService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
@@ -42,5 +43,18 @@ class LessonController extends Controller
             $lesson->media->delete();
         $lesson->delete();
         return AjaxResponses::SuccessResponse();
+    }
+
+    public function destroyMultiple(Request $request)
+    {
+        $ids = explode(',', $request->ids);
+        foreach ($ids as $id){
+            $lesson = $this->lessonRepo->findById($id);
+            if($lesson->media)
+                $lesson->media->delete();
+            $lesson->delete();
+        }
+        newFeedback();
+        return back();
     }
 }

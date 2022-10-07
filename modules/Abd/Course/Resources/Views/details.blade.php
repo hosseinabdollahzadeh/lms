@@ -15,7 +15,7 @@
                 <button class="btn all-confirm-btn">تایید همه جلسات</button>
                 <button class="btn confirm-btn">تایید جلسات</button>
                 <button class="btn reject-btn">رد جلسات</button>
-                <button class="btn delete-btn">حذف جلسات</button>
+                <button class="btn delete-btn" onclick="deleteMultiple('{{route('lessons.destroyMultiple', $course->id)}}')">حذف جلسات</button>
 
             </div>
             <div class="table__box">
@@ -53,7 +53,7 @@
                             <td>@lang($lesson->confirmation_status)</td>
                             <td>{{$lesson->free ? 'همه' : 'شرکت کنندگان'}}</td>
                             <td>
-                                <a href="" class="item-delete mlg-15" data-id="1" title="حذف"
+                                <a href="" class="item-delete mlg-15" title="حذف"
                                    onclick="deleteItem(event, '{{ route('lessons.destroy', [$course->id, $lesson->id])}}');"></a>
                                 <a href="" class="item-reject mlg-15" title="رد"></a>
                                 <a href="" class="item-lock mlg-15" title="قفل "></a>

@@ -29,16 +29,20 @@
                            class="item-delete mlg-15" title="حذف"></a>
                         @can(\Abd\RolePermissions\Models\Permission::PERMISSION_MANAGE_COURSES)
                             <a href=""
-                               onclick="updateConfirmationStatus(event, '{{ route('seasons.accept', $season->id)}}', 'آیا از تأیید این آیتم اطمینان دارید؟'                                     , 'تأیید شده');"
+                               onclick="updateConfirmationStatus(event, '{{ route('seasons.accept', $season->id)}}'
+                                   , 'آیا از تأیید این آیتم اطمینان دارید؟', 'تأیید شده');"
                                class="item-confirm mlg-15" title="تایید"></a>
                             <a href=""
-                               onclick="updateConfirmationStatus(event, '{{ route('seasons.reject', $season->id)}}', 'آیا از رد این آیتم اطمینان دارید؟'                                     , 'رد شده');"
+                               onclick="updateConfirmationStatus(event, '{{ route('seasons.reject', $season->id)}}'
+                                   , 'آیا از رد این آیتم اطمینان دارید؟', 'رد شده');"
                                class="item-reject mlg-15" title="رد"></a>
                             <a href=""
-                               onclick="updateConfirmationStatus(event, '{{ route('seasons.lock', $season->id)}}', 'آیا از قفل کردن این آیتم اطمینان دارید؟'                                     , 'قفل شده', 'status');"
+                               onclick="updateConfirmationStatus(event, '{{ route('seasons.lock', $season->id)}}'
+                                   , 'آیا از قفل کردن این آیتم اطمینان دارید؟', 'قفل شده', 'status');"
                                class="item-lock mlg-15 text-error" title="قفل کردن"></a>
                             <a href=""
-                               onclick="updateConfirmationStatus(event, '{{ route('seasons.unlock', $season->id)}}', 'آیا از باز کردن این آیتم اطمینان دارید؟'                                     , 'باز', 'status');"
+                               onclick="updateConfirmationStatus(event, '{{ route('seasons.unlock', $season->id)}}'
+                                   , 'آیا از باز کردن این آیتم اطمینان دارید؟', 'باز', 'status');"
                                class="item-lock mlg-15 text-success" title="باز کردن"></a>
                         @endcan
                         <a href="{{route('seasons.edit', $season->id)}}" class="item-edit " title="ویرایش"></a>

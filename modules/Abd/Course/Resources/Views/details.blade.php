@@ -15,7 +15,9 @@
                 <button class="btn all-confirm-btn">تایید همه جلسات</button>
                 <button class="btn confirm-btn">تایید جلسات</button>
                 <button class="btn reject-btn">رد جلسات</button>
-                <button class="btn delete-btn" onclick="deleteMultiple('{{route('lessons.destroyMultiple', $course->id)}}')">حذف جلسات</button>
+                <button class="btn delete-btn"
+                        onclick="deleteMultiple('{{route('lessons.destroyMultiple', $course->id)}}')">حذف جلسات
+                </button>
 
             </div>
             <div class="table__box">
@@ -51,19 +53,35 @@
                             <td>{{$lesson->season->title}}</td>
                             <td>{{$lesson->time}} دقیقه</td>
                             <td class="confirmation_status">
-                                <span class="{{$lesson->confirmationStatusCssClass()}}">@lang($lesson->confirmation_status)</span>
+                                <span
+                                    class="{{$lesson->confirmationStatusCssClass()}}">@lang($lesson->confirmation_status)</span>
                             </td>
-                            <td>{{$lesson->free ? 'همه' : 'شرکت کنندگان'}}</td>
+                            <td class="status">
+                                @if($lesson->status == \Abd\Course\Models\Lesson::STATUS_OPENED)
+                                    {{$lesson->free ? 'همه' : 'شرکت کنندگان'}}
+                                @else
+                                    <span>قفل شده</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="" class="item-delete mlg-15" title="حذف"
                                    onclick="deleteItem(event, '{{ route('lessons.destroy', [$course->id, $lesson->id])}}');"></a>
                                 <a href=""
-                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.accept', $lesson->id)}}', 'آیا از تأیید این آیتم اطمینان دارید؟'                                     , 'تأیید شده');"
+                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.accept', $lesson->id)}}'
+                                       , 'آیا از تأیید این آیتم اطمینان دارید؟', 'تأیید شده');"
                                    class="item-confirm mlg-15" title="تایید"></a>
                                 <a href=""
-                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.reject', $lesson->id)}}', 'آیا از رد این آیتم اطمینان دارید؟'                                     , 'رد شده');"
+                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.reject', $lesson->id)}}'
+                                       , 'آیا از رد این آیتم اطمینان دارید؟', 'رد شده');"
                                    class="item-reject mlg-15" title="رد"></a>
-                                <a href="" class="item-lock mlg-15" title="قفل "></a>
+                                <a href=""
+                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.lock', $lesson->id)}}'
+                                       , 'آیا از قفل کردن این آیتم اطمینان دارید؟', 'قفل شده', 'status');"
+                                   class="item-lock mlg-15 text-error" title="قفل کردن"></a>
+                                <a href=""
+                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.unlock', $lesson->id)}}'
+                                       , 'آیا از باز کردن این آیتم اطمینان دارید؟', 'باز', 'status');"
+                                   class="item-lock mlg-15 text-success" title="باز کردن"></a>
                                 <a href="" class="item-edit " title="ویرایش"></a>
                             </td>
                         </tr>

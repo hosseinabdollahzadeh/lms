@@ -49,6 +49,24 @@ class LessonController extends Controller
         return AjaxResponses::SuccessResponse();
     }
 
+    public function lock($id)
+    {
+        if ($this->lessonRepo->updateStatus($id, Lesson::STATUS_LOCKED)) {
+            return AjaxResponses::SuccessResponse();
+        } else {
+            return AjaxResponses::FailedResponse();
+        }
+    }
+
+    public function unlock($id)
+    {
+        if ($this->lessonRepo->updateStatus($id, Lesson::STATUS_OPENED)) {
+            return AjaxResponses::SuccessResponse();
+        } else {
+            return AjaxResponses::FailedResponse();
+        }
+    }
+
     public function destroy($courseId, $lessonId)
     {
         $lesson = $this->lessonRepo->findById($lessonId);

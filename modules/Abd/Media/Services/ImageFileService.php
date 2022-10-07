@@ -3,6 +3,7 @@
 namespace Abd\Media\Services;
 
 use Abd\Media\Contracts\FileServiceContract;
+use Abd\Media\Models\Media;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -30,4 +31,8 @@ class ImageFileService extends DefaultFileService implements FileServiceContract
         return $imgs;
     }
 
+    public static function thumb(Media $media)
+    {
+        return '/storage/'.$media->files[300];
+    }
 }

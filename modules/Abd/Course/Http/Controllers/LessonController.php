@@ -37,6 +37,20 @@ class LessonController extends Controller
         return redirect(route('courses.details', $course));
     }
 
+    public function edit($courseId, $lessonId, SeasonRepo $seasonRepo, CourseRepo $courseRepo)
+    {
+        $lesson = $this->lessonRepo->findById($lessonId);
+        $seasons = $seasonRepo->getCourseSeasons($courseId);
+        $course = $courseRepo->findById($courseId);
+
+        return view('Courses::lessons.edit', compact('lesson', 'seasons', 'course'));
+    }
+
+    public function update()
+    {
+        dd('update action');
+    }
+
     public function accept($id)
     {
         $this->lessonRepo->updateConfirmationStatus($id, Lesson::CONFIRMATION_STATUS_ACCEPTED);

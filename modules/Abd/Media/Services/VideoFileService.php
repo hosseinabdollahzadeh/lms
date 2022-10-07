@@ -3,6 +3,7 @@
 namespace Abd\Media\Services;
 
 use Abd\Media\Contracts\FileServiceContract;
+use Abd\Media\Models\Media;
 use Illuminate\Support\Facades\Storage;
 
 class VideoFileService extends DefaultFileService implements FileServiceContract
@@ -15,4 +16,8 @@ class VideoFileService extends DefaultFileService implements FileServiceContract
         return ["video" => $filename . '.' . $extension];
     }
 
+    public static function thumb(Media $media)
+    {
+        return url('/img/video-thumb.png');
+    }
 }

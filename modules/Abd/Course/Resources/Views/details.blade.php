@@ -82,7 +82,7 @@
                                    onclick="updateConfirmationStatus(event, '{{ route('lessons.unlock', $lesson->id)}}'
                                        , 'آیا از باز کردن این آیتم اطمینان دارید؟', 'باز', 'status');"
                                    class="item-lock mlg-15 text-success" title="باز کردن"></a>
-                                <a href="" class="item-edit " title="ویرایش"></a>
+                                <a href="{{route('lessons.edit', [$course->id, $lesson->id])}}" class="item-edit " title="ویرایش"></a>
                             </td>
                         </tr>
                     @endforeach

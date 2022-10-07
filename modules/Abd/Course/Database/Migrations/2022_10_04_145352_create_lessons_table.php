@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger('media_id')->unsigned()->nullable();
             $table->string('title');
             $table->string('slug')->nullable();
-            $table->boolean('free')->default(false);
+            $table->boolean('is_free')->default(false);
             $table->tinyInteger('time')->unsigned()->nullable();
             $table->integer('number')->unsigned()->nullable();
             $table->enum('confirmation_status', \Abd\Course\Models\Lesson::$confirmationStatuses)

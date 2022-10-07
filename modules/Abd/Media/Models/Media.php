@@ -20,6 +20,6 @@ class Media extends Model
 
     public function getThumbAttribute()
     {
-        return '/storage/'.$this->files[300];
+        return MediaFileService::thumb($this);
     }
 }

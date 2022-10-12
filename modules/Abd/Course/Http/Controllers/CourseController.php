@@ -9,6 +9,7 @@ use Abd\Course\Http\Requests\CourseRequest;
 use Abd\Course\Models\Course;
 use Abd\Course\Repositories\LessonRepo;
 use Abd\Media\Services\MediaFileService;
+use Abd\RolePermissions\Models\Permission;
 use Abd\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
 
@@ -16,8 +17,12 @@ class CourseController extends Controller
 {
     public function index(CourseRepo $courseRepo)
     {
-        $this->authorize('manage', Course::class);
-        $courses = $courseRepo->paginate();
+        $this->authorize('index', Course::class);
+        if (auth()->user()->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) {
+            $courses = $courseRepo->paginate();
+        } else {
+            $courses = $courseRepo->getCoursesByTeacherId(auth()->id());
+        }
         return view('Courses::index', compact('courses'));
     }
 
@@ -44,6 +49,7 @@ class CourseController extends Controller
         $this->authorize('details', $course);
         return view('Courses::details', compact('course', 'lessons'));
     }
+
     public function destroy($id, CourseRepo $courseRepo)
     {
         $this->authorize('delete', Course::class);

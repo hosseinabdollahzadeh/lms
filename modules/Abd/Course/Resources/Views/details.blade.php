@@ -11,15 +11,22 @@
                 <p class="mlg-15">{{$course->title}}</p>
                 <a class="color-2b4a83" href="{{route('lessons.create', $course->id)}}">آپلود جلسه جدید</a>
             </div>
-            <div class="d-flex item-center flex-wrap margin-bottom-15 operations__btns">
-                <button class="btn all-confirm-btn" onclick="acceptAllLessons('{{route('lessons.acceptAll', $course->id)}}')">تایید همه جلسات</button>
-                <button class="btn confirm-btn" onclick="acceptMultiple('{{route('lessons.acceptMultiple', $course->id)}}')">تایید جلسات</button>
-                <button class="btn reject-btn" onclick="rejectMultiple('{{route('lessons.rejectMultiple', $course->id)}}')">رد جلسات</button>
-                <button class="btn delete-btn"
-                        onclick="deleteMultiple('{{route('lessons.destroyMultiple', $course->id)}}')">حذف جلسات
-                </button>
-
-            </div>
+            @can(\Abd\RolePermissions\Models\Permission::PERMISSION_MANAGE_COURSES)
+                <div class="d-flex item-center flex-wrap margin-bottom-15 operations__btns">
+                    <button class="btn all-confirm-btn"
+                            onclick="acceptAllLessons('{{route('lessons.acceptAll', $course->id)}}')">تایید همه جلسات
+                    </button>
+                    <button class="btn confirm-btn"
+                            onclick="acceptMultiple('{{route('lessons.acceptMultiple', $course->id)}}')">تایید جلسات
+                    </button>
+                    <button class="btn reject-btn"
+                            onclick="rejectMultiple('{{route('lessons.rejectMultiple', $course->id)}}')">رد جلسات
+                    </button>
+                    <button class="btn delete-btn"
+                            onclick="deleteMultiple('{{route('lessons.destroyMultiple', $course->id)}}')">حذف جلسات
+                    </button>
+                </div>
+            @endcan
             <div class="table__box">
                 <table class="table">
                     <thead role="rowgroup">
@@ -64,25 +71,29 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="" class="item-delete mlg-15" title="حذف"
-                                   onclick="deleteItem(event, '{{ route('lessons.destroy', [$course->id, $lesson->id])}}');"></a>
-                                <a href=""
-                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.accept', $lesson->id)}}'
-                                       , 'آیا از تأیید این آیتم اطمینان دارید؟', 'تأیید شده');"
-                                   class="item-confirm mlg-15" title="تایید"></a>
-                                <a href=""
-                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.reject', $lesson->id)}}'
-                                       , 'آیا از رد این آیتم اطمینان دارید؟', 'رد شده');"
-                                   class="item-reject mlg-15" title="رد"></a>
-                                <a href=""
-                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.lock', $lesson->id)}}'
-                                       , 'آیا از قفل کردن این آیتم اطمینان دارید؟', 'قفل شده', 'status');"
-                                   class="item-lock mlg-15 text-error" title="قفل کردن"></a>
-                                <a href=""
-                                   onclick="updateConfirmationStatus(event, '{{ route('lessons.unlock', $lesson->id)}}'
-                                       , 'آیا از باز کردن این آیتم اطمینان دارید؟', 'باز', 'status');"
-                                   class="item-lock mlg-15 text-success" title="باز کردن"></a>
-                                <a href="{{route('lessons.edit', [$course->id, $lesson->id])}}" class="item-edit " title="ویرایش"></a>
+                                @can(\Abd\RolePermissions\Models\Permission::PERMISSION_MANAGE_COURSES)
+                                    <a href="" class="item-delete mlg-15" title="حذف"
+                                       onclick="deleteItem(event, '{{ route('lessons.destroy', [$course->id, $lesson->id])}}');"
+                                       class="item-confirm mlg-15" title="حذف"></a>
+                                    <a href=""
+                                       onclick="updateConfirmationStatus(event, '{{ route('lessons.accept', $lesson->id)}}'
+                                           , 'آیا از تأیید این آیتم اطمینان دارید؟', 'تأیید شده');"
+                                       class="item-confirm mlg-15" title="تایید"></a>
+                                    <a href=""
+                                       onclick="updateConfirmationStatus(event, '{{ route('lessons.reject', $lesson->id)}}'
+                                           , 'آیا از رد این آیتم اطمینان دارید؟', 'رد شده');"
+                                       class="item-reject mlg-15" title="رد"></a>
+                                    <a href=""
+                                       onclick="updateConfirmationStatus(event, '{{ route('lessons.lock', $lesson->id)}}'
+                                           , 'آیا از قفل کردن این آیتم اطمینان دارید؟', 'قفل شده', 'status');"
+                                       class="item-lock mlg-15 text-error" title="قفل کردن"></a>
+                                    <a href=""
+                                       onclick="updateConfirmationStatus(event, '{{ route('lessons.unlock', $lesson->id)}}'
+                                           , 'آیا از باز کردن این آیتم اطمینان دارید؟', 'باز', 'status');"
+                                       class="item-lock mlg-15 text-success" title="باز کردن"></a>
+                                @endcan
+                                <a href="{{route('lessons.edit', [$course->id, $lesson->id])}}" class="item-edit "
+                                   title="ویرایش"></a>
                             </td>
                         </tr>
                     @endforeach

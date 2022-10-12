@@ -36,7 +36,7 @@ class LessonRequest extends FormRequest
 
         ];
         if(request()->method === 'PATCH'){
-            $rules['slug'] = 'required|min:3|max:190|unique:lessons,slug,'.request()->route('lesson');
+            $rules['slug'] = 'nullable|min:3|max:190|unique:lessons,slug,'.request()->route('lesson');
             $rules['lesson_file'] = "nullable|file|mimes:".MediaFileService::getExtensions();
         }
         return $rules;

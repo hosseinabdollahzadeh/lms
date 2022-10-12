@@ -75,7 +75,7 @@ class CoursePolicy
 
     public function createLesson($user, $course)
     {
-        if ($user->hasPermissinTo(Permission::PERMISSION_MANAGE_COURSES) ||
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) ||
             ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES) && $course->teacher_id == $user->id)
         ) {
             return true;

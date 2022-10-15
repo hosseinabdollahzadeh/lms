@@ -18,16 +18,14 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         foreach (User::$defaultUsers as $user){
-            $user = User::firstOrCreate(
+            User::firstOrCreate(
                 ['email' => $user['email']],
                 [
                     'name' => $user['name'],
                     'email' => $user['email'],
                     'password' => bcrypt($user['password'])
                 ]
-            )->assignRole($user['role']);
-
-            $user->markEmailAsVerified();
+            )->assignRole($user['role'])->markEmailAsVerified();
         }
     }
 }

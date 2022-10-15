@@ -61,13 +61,7 @@ class CategoryTest extends TestCase
     private function actingAsAdmin()
     {
         // create user
-        $user =User::create([
-            'name' => 'test_name',
-            'email' => 'test_email@test.test',
-            'password' => bcrypt('Aa@1234')
-        ]);
-        $user->markEmailAsVerified();
-        $this->actingAs($user);
+        $this->actingAs(User::factory()->create());
         // seed roles and give permission
         $this->seed(RolePermissionTableSeeder::class);
         auth()->user()->givePermissionTo(Permission::PERMISSION_MANAGE_CATEGORIES);
@@ -76,13 +70,7 @@ class CategoryTest extends TestCase
     private function actingAsUser()
     {
         // create user
-        $user =User::create([
-            'name' => 'test_name',
-            'email' => 'test_email@test.test',
-            'password' => bcrypt('Aa@1234')
-        ]);
-        $user->markEmailAsVerified();
-        $this->actingAs($user);
+        $this->actingAs(User::factory()->create());
         // seed roles and give permission
         $this->seed(RolePermissionTableSeeder::class);
     }

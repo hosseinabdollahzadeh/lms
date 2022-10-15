@@ -353,13 +353,7 @@ class SeasonTest extends TestCase
 
     private function createUser()
     {
-        $user = User::create([
-            'name' => $this->faker->name(),
-            'email' => $this->faker->email(),
-            'password' => bcrypt('Aa@1234')
-        ]);
-        $user->markEmailAsVerified();
-        $this->actingAs($user);
+        $this->actingAs(User::factory()->create());
     }
 
     private function createCategory()

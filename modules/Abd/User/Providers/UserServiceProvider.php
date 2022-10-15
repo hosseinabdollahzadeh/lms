@@ -8,6 +8,7 @@ use Abd\User\Models\User;
 use Abd\User\Policies\UserPolicy;
 use Abd\User\Http\Middleware\StoreUserIp;
 use Database\Seeders\DatabaseSeeder;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,9 @@ class UserServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'User');
         $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
 
+        Factory::guessFactoryNamesUsing(function (string $modelName){
+            return 'Abd\User\Database\Factories\\'.class_basename($modelName).'Factory';
+        });
 
         config()->set('auth.providers.users.model', User::class);
         Gate::policy(User::class, UserPolicy::class);

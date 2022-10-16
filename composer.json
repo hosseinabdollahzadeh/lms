@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.0.2",
         "abd/common": "dev-master",
+        "abd/front": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
@@ -38,7 +39,8 @@
             "Abd\\Category\\": "modules/Abd/Category",
             "Abd\\RolePermissions\\": "modules/Abd/RolePermissions",
             "Abd\\Course\\": "modules/Abd/Course",
-            "Abd\\Media\\": "modules/Abd/Media"
+            "Abd\\Media\\": "modules/Abd/Media",
+            "Abd\\Front\\": "modules/Abd/Front"
         }
     },
     "autoload-dev": {
@@ -50,6 +52,10 @@
         {
             "type" : "path",
             "url": "./modules/Abd/Common"
+        },
+        {
+            "type" : "path",
+            "url": "./modules/Abd/Front"
         }
     ],
     "scripts": {

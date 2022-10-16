@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b64038f360c799754846eebda736482",
+    "content-hash": "32eb5dfffe538d9e2fb47b0272843d6e",
     "packages": [
         {
             "name": "abd/common",
@@ -29,6 +29,31 @@
                 "files": [
                     "src/helpers.php"
                 ]
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "abd/front",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./modules/Abd/Front",
+                "reference": "2c1d1398f70c9b065d73437169f12ff141c12214"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Abd\\Front\\Providers\\FrontServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Abd\\Front\\": "src"
+                }
             },
             "transport-options": {
                 "relative": true
@@ -8780,7 +8805,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "abd/common": 20
+        "abd/common": 20,
+        "abd/front": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

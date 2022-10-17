@@ -37,7 +37,7 @@
                                 <span class="checkmark"></span>
                             </label>
                         </th>
-                        <th>شناسه</th>
+                        <th>شماره</th>
                         <th>عنوان جلسه</th>
                         <th>عنوان فصل</th>
                         <th>مدت زمان جلسه</th>

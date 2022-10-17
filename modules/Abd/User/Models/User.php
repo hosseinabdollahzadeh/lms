@@ -112,4 +112,10 @@ class User extends Authenticatable implements MustVerifyEmail
             return '/storage/' . $this->image->files[300];
         return '/panel/img/profile.jpg';
     }
+
+    public function hasAccessToCourse()
+    {
+        // todo
+        return false;
+    }
 }

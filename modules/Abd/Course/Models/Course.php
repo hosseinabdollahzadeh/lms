@@ -68,4 +68,19 @@ class Course extends Model
     {
         return number_format($this->price);
     }
+
+    public function path()
+    {
+        return route('singleCourse', $this->id.'-'.$this->slug);
+    }
+
+    public function lessonsCount()
+    {
+        return (new CourseRepo())->getLessonsCount($this->id);
+    }
+
+    public function shortUrl()
+    {
+        return route('singleCourse', $this->id);
+    }
 }

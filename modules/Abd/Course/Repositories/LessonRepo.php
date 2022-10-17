@@ -35,7 +35,7 @@ class LessonRepo
         return Lesson::findOrFail($id);
     }
 
-    public function update($id,$courseId, $values)
+    public function update($id, $courseId, $values)
     {
         return Lesson::where('id', $id)->update([
             "title" => $values->title,
@@ -51,15 +51,15 @@ class LessonRepo
 
     public function updateConfirmationStatus($id, string $status)
     {
-        if(is_array($id)){
-            return Lesson::query()->whereIn('id', $id)->update(['confirmation_status'=> $status]);
+        if (is_array($id)) {
+            return Lesson::query()->whereIn('id', $id)->update(['confirmation_status' => $status]);
         }
-        return Lesson::where('id', $id)->update(['confirmation_status'=> $status]);
+        return Lesson::where('id', $id)->update(['confirmation_status' => $status]);
     }
 
     public function updateStatus($id, string $status)
     {
-        return Lesson::where('id', $id)->update(['status'=> $status]);
+        return Lesson::where('id', $id)->update(['status' => $status]);
     }
 
     private function generateNumber($number, $courseId)
@@ -74,6 +74,25 @@ class LessonRepo
 
     public function acceptAll($courseId)
     {
-        return Lesson::query()->where('course_id', $courseId)->update(['confirmation_status'=> Lesson::CONFIRMATION_STATUS_ACCEPTED]);
+        return Lesson::query()->where('course_id', $courseId)->update(['confirmation_status' => Lesson::CONFIRMATION_STATUS_ACCEPTED]);
     }
+
+    public function getAcceptedLessons(int $courseId)
+    {
+        return Lesson::where('course_id', $courseId)
+            ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)->get();
+    }
+
+    public function getFirstLesson(int $courseId)
+    {
+        return Lesson::where('course_id', $courseId)
+            ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED)
+            ->orderBy('number', 'asc')->first();
+    }
+
+    public function getLesson(int $courseId, int $lessonId)
+    {
+        return Lesson::where('course_id', $courseId)->where('id', $lessonId)->first();
+    }
+
 }

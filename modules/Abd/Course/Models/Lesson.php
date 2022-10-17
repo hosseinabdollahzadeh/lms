@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
-    protected $guarded=[];
+    protected $guarded = [];
 
     const CONFIRMATION_STATUS_ACCEPTED = 'accepted';
-    const CONFIRMATION_STATUS_REJECTED= 'rejected';
+    const CONFIRMATION_STATUS_REJECTED = 'rejected';
     const CONFIRMATION_STATUS_PENDING = 'pending';
     static $confirmationStatuses = [self::CONFIRMATION_STATUS_ACCEPTED, self::CONFIRMATION_STATUS_PENDING, self::CONFIRMATION_STATUS_REJECTED];
 
@@ -23,6 +23,7 @@ class Lesson extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
     public function season()
     {
         return $this->belongsTo(Season::class);
@@ -40,7 +41,12 @@ class Lesson extends Model
 
     public function confirmationStatusCssClass()
     {
-        if($this->confirmation_status == self::CONFIRMATION_STATUS_ACCEPTED) return "text-success";
-        elseif($this->confirmation_status == self::CONFIRMATION_STATUS_REJECTED) return "text-error";
+        if ($this->confirmation_status == self::CONFIRMATION_STATUS_ACCEPTED) return "text-success";
+        elseif ($this->confirmation_status == self::CONFIRMATION_STATUS_REJECTED) return "text-error";
+    }
+
+    public function path()
+    {
+        return $this->course->path() . "?lesson=l-" . $this->id . "-" . $this->slug;
     }
 }

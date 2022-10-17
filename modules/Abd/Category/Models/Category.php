@@ -17,11 +17,16 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
-    public function subCategory()
+    public function subCategories()
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
     public function courses(){
         $this->hasMany(Course::class);
+    }
+
+    public function path()
+    {
+        return route('categories.show', $this->id);
     }
 }

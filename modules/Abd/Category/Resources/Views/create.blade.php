@@ -19,7 +19,7 @@
     <select name="parent_id" id="parent_id">
         <option value="">ندارد</option>
         @foreach($categories as $category)
-            <option value="{{old($category->id)}}">{{$category->title}}</option>
+            <option value="{{$category->id}}">{{$category->title}}</option>
         @endforeach
     </select>
     @error('parent_id')

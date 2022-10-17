@@ -3,6 +3,7 @@
 namespace Abd\Course\Models;
 
 use Abd\Category\Models\Category;
+use Abd\Course\Repositories\CourseRepo;
 use Abd\Media\Models\Media;
 use Abd\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -47,5 +48,24 @@ class Course extends Model
     public function lessons()
     {
         return $this->hasMany(Lesson::class);
+    }
+
+    public function getDuration()
+    {
+        return (new CourseRepo())->getDuration($this->id);
+    }
+
+    public function formattedDuration()
+    {
+        $duration = $this->getDuration();
+        $h = (int)($duration/60) < 10 ? '0'.(int)($duration/60) : (int)($duration/60);
+        $m = ($duration % 60) < 10 ? '0'.($duration % 60) : ($duration % 60);
+
+        return $h.":".$m.":00";
+    }
+
+    public function getFormattedPrice()
+    {
+        return number_format($this->price);
     }
 }

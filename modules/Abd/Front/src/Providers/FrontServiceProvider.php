@@ -2,6 +2,7 @@
 namespace Abd\Front\Providers;
 
 use Abd\Category\Repositories\CategoryRepo;
+use Abd\Course\Repositories\CourseRepo;
 use Illuminate\Support\ServiceProvider;
 
 class FrontServiceProvider extends ServiceProvider
@@ -14,6 +15,11 @@ class FrontServiceProvider extends ServiceProvider
         view()->composer('Front::layout.header',function ($view){
             $categories = (new CategoryRepo())->tree();
             $view->with(compact('categories'));
+        });
+
+        view()->composer('Front::layout.latestCourses',function ($view){
+            $latestCourses = (new CourseRepo())->latestCourses();
+            $view->with(compact('latestCourses'));
         });
     }
 }

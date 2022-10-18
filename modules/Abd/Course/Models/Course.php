@@ -22,12 +22,18 @@ class Course extends Model
     static $statuses = [self::STATUS_COMPLETED, self::STATUS_NOT_COMPLETED, self::STATUS_LOCKED];
 
     const CONFIRMATION_STATUS_ACCEPTED = 'accepted';
-    const CONFIRMATION_STATUS_REJECTED= 'rejected';
+    const CONFIRMATION_STATUS_REJECTED = 'rejected';
     const CONFIRMATION_STATUS_PENDING = 'pending';
     static $confirmationStatuses = [self::CONFIRMATION_STATUS_ACCEPTED, self::CONFIRMATION_STATUS_PENDING, self::CONFIRMATION_STATUS_REJECTED];
+
     public function teacher()
     {
         return $this->belongsTo(User::class, 'teacher_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
     }
 
     public function banner()
@@ -58,10 +64,10 @@ class Course extends Model
     public function formattedDuration()
     {
         $duration = $this->getDuration();
-        $h = (int)($duration/60) < 10 ? '0'.(int)($duration/60) : (int)($duration/60);
-        $m = ($duration % 60) < 10 ? '0'.($duration % 60) : ($duration % 60);
+        $h = (int)($duration / 60) < 10 ? '0' . (int)($duration / 60) : (int)($duration / 60);
+        $m = ($duration % 60) < 10 ? '0' . ($duration % 60) : ($duration % 60);
 
-        return $h.":".$m.":00";
+        return $h . ":" . $m . ":00";
     }
 
     public function getFormattedPrice()
@@ -71,7 +77,7 @@ class Course extends Model
 
     public function path()
     {
-        return route('singleCourse', $this->id.'-'.$this->slug);
+        return route('singleCourse', $this->id . '-' . $this->slug);
     }
 
     public function lessonsCount()

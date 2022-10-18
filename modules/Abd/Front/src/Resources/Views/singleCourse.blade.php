@@ -37,7 +37,7 @@
                         @auth
                             @if(auth()->id() == $course->teacher_id)
                                 <p class="mycourse ">شما مدرس این دوره هستید</p>
-                            @elseif(auth()->user()->hasAccessToCourse())
+                            @elseif(auth()->user()->hasAccessToCourse($course))
                                 <p class="mycourse">شما این دوره رو خریداری کرده اید</p>
                             @else
                                 <div class="sell_course">
@@ -91,7 +91,7 @@
                     <div class="product-info-box">
                         <div class="product-meta-info-list">
                             <div class="total_sales">
-                                تعداد دانشجو : <span>246</span>
+                                تعداد دانشجو : <span>{{count($course->students)}}</span>
                             </div>
                             <div class="meta-info-unit one">
                                 <span class="title">تعداد جلسات منتشر شده :  </span>

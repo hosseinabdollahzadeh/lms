@@ -10,7 +10,7 @@ return [
             "handler" => \Abd\Media\Services\VideoFileService::class
         ],
         "zip" => [
-            "extensions" => ['zip', 'rar'],
+            "extensions" => ['zip', 'rar', 'iso'],
             "handler" => \Abd\Media\Services\ZipFileService::class
         ]
     ]

@@ -5,17 +5,37 @@ namespace Abd\Media\Services;
 use Abd\Media\Models\Media;
 use Illuminate\Support\Facades\Storage;
 
-class DefaultFileService
+abstract class DefaultFileService
 {
+    public static $media;
 
     public static function delete(Media $media)
     {
-        foreach ($media->files as $file){
-            if($media->is_private){
-                Storage::delete('private\\'.$file);
-            }else{
-                Storage::delete('public\\'.$file);
+        foreach ($media->files as $file) {
+            if ($media->is_private) {
+                Storage::delete('private\\' . $file);
+            } else {
+                Storage::delete('public\\' . $file);
             }
         }
+    }
+
+    abstract static function getFilename();
+
+    public static function stream(Media $media)
+    {
+        static::$media = $media;
+        $stream = Storage::readStream(static::getFilename());
+
+        return response()->stream(function () use ($stream) {
+            fpassthru($stream);
+        },
+            200,
+            [
+                "Content-Type" => Storage::mimeType(static::getFilename()),
+                "Content-disposition" => "attachment; filename=".static::$media->filename
+            ]
+        );
+
     }
 }

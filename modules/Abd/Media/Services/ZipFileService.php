@@ -17,6 +17,11 @@ class ZipFileService extends DefaultFileService implements FileServiceContract
         return ["zip" => $filename . '.' . $extension];
     }
 
+    public static function getFilename()
+    {
+        return (static::$media->is_private ? 'private/' : 'public/') . static::$media->files['zip'];
+    }
+
     public static function thumb(Media $media)
     {
         return url('/img/zip-thumb.png');

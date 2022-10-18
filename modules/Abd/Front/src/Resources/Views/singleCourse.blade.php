@@ -32,23 +32,37 @@
                             <p>45%</p>
                             تخفیف
                         </div>
-                        <div class="sell_course d-none">
-                            <strong>قیمت :</strong>
-                            <del class="discount-Price">900,000</del>
-                            <p class="price">
-                        <span class="woocommerce-Price-amount amount">495,000
+
+
+                        @auth
+                            @if(auth()->id() == $course->teacher_id)
+                                <p class="mycourse ">شما مدرس این دوره هستید</p>
+                            @elseif(auth()->user()->hasAccessToCourse())
+                                <p class="mycourse">شما این دوره رو خریداری کرده اید</p>
+                            @else
+                                <div class="sell_course">
+                                    <strong>قیمت :</strong>
+                                    <del class="discount-Price">{{$course->getFormattedPrice()}}</del>
+                                    <p class="price">
+                        <span class="woocommerce-Price-amount amount">{{$course->getFormattedPrice()}}
                             <span class="woocommerce-Price-currencySymbol">تومان</span>
                         </span>
-                            </p>
-                        </div>
-
-                        @if(auth()->id() == $course->teacher_id)
-                            <p class="mycourse ">شما مدرس این دوره هستید</p>
-                        @elseif(auth()->user()->hasAccessToCourse())
-                            <p class="mycourse">شما این دوره رو خریداری کرده اید</p>
+                                    </p>
+                                </div>
+                                <button class="btn buy">خرید دوره</button>
+                            @endif
                         @else
+                            <div class="sell_course">
+                                <strong>قیمت :</strong>
+                                <del class="discount-Price">{{$course->getFormattedPrice()}}</del>
+                                <p class="price">
+                        <span class="woocommerce-Price-amount amount">{{$course->getFormattedPrice()}}
+                            <span class="woocommerce-Price-currencySymbol">تومان</span>
+                        </span>
+                                </p>
+                            </div>
                             <button class="btn buy">خرید دوره</button>
-                        @endif
+                        @endauth
                         <div class="rating-star">
                             <div class="rating">
                                 <div class="star">
@@ -111,7 +125,8 @@
                                 <img alt="{{$course->teacher->name}}" class="img-fluid lazyloaded"
                                      src="img/profile.jpg" loading="lazy">
                                 <noscript>
-                                    <img class="img-fluid" src="{{$course->teacher->thumb}}" alt="{{$course->teacher->name}}">
+                                    <img class="img-fluid" src="{{$course->teacher->thumb}}"
+                                         alt="{{$course->teacher->name}}">
                                 </noscript>
                             </a>
                             <div class="name">
@@ -122,14 +137,15 @@
                             </div>
                         </div>
                         <div class="job-content">
-{{--                            <p>{{$course->teacher->bio}}</p>--}}
+                            {{--                            <p>{{$course->teacher->bio}}</p>--}}
                         </div>
                     </div>
                     <div class="short-link">
                         <div class="">
                             <span>لینک کوتاه</span>
                             <input class="short--link" value="{{$course->shortUrl()}}">
-                            <a href="{{$course->shortUrl()}}" class="short-link-a" data-link="{{$course->shortUrl()}}"></a>
+                            <a href="{{$course->shortUrl()}}" class="short-link-a"
+                               data-link="{{$course->shortUrl()}}"></a>
                         </div>
                     </div>
                     @include('Front::layout.sidebar-banners')
@@ -137,12 +153,15 @@
                 </div>
             </div>
             <div class="content-left">
-                <div class="preview">
-                    <video controls="" width="100%">
-                        <source src="intro.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <a href="#" class="episode-download">دانلود این قسمت (قسمت {{$lesson->number}})</a>
+                @if($lesson->media->type == "video")
+                    <div class="preview">
+                        <video controls="" width="100%">
+                            <source src="{{$lesson->downloadLink()}}" type="video/mp4">
+                        </video>
+                    </div>
+                @endif
+                <a href="{{$lesson->downloadLink()}}" class="episode-download">دانلود این قسمت (قسمت {{$lesson->number}}
+                    )</a>
                 <div class="course-description">
                     <div class="course-description-title">توضیحات دوره</div>
                     {!! $course->body !!}

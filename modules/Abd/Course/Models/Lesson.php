@@ -5,6 +5,7 @@ namespace Abd\Course\Models;
 use Abd\Media\Models\Media;
 use Abd\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 
 class Lesson extends Model
 {
@@ -48,5 +49,10 @@ class Lesson extends Model
     public function path()
     {
         return $this->course->path() . "?lesson=l-" . $this->id . "-" . $this->slug;
+    }
+
+    public function downloadLink()
+    {
+        return URL::temporarySignedRoute('media.download', now()->addDay(), ['media'=>$this->media_id]);
     }
 }

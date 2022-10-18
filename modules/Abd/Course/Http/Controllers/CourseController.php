@@ -119,4 +119,9 @@ class CourseController extends Controller
             return AjaxResponses::FailedResponse();
         }
     }
+
+    public function buy($courseId)
+    {
+        return $courseId;
+    }
 }

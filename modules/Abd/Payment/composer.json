@@ -1,0 +1,15 @@
+{
+    "name": "abd/payment",
+    "autoload": {
+        "psr-4": {
+            "Abd\\Payment\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers":[
+                "\\Abd\\Payment\\Providers\\PaymentServiceProvider"
+            ]
+        }
+    }
+}

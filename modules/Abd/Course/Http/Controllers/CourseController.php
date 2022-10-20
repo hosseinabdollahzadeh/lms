@@ -132,10 +132,8 @@ class CourseController extends Controller
 
             return back();
         }
-
-        PaymentRepo::store();
-
-        return true;
+        $amount = 0;
+        $payment = PaymentRepo::generate($amount, $course, auth()->user());
     }
 
     private function CourseCanBePurchased(Course $course)

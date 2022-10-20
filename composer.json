@@ -11,6 +11,7 @@
         "php": "^8.0.2",
         "abd/common": "dev-master",
         "abd/front": "dev-master",
+        "abd/payment": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
@@ -51,11 +52,15 @@
     "repositories": [
         {
             "type" : "path",
-            "url": "./modules/Abd/Common"
+            "url": "modules/Abd/Common"
         },
         {
             "type" : "path",
-            "url": "./modules/Abd/Front"
+            "url": "modules/Abd/Front"
+        },
+        {
+            "type" : "path",
+            "url": "modules/Abd/Payment"
         }
     ],
     "scripts": {

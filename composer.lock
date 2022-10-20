@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32eb5dfffe538d9e2fb47b0272843d6e",
+    "content-hash": "f0fd34e0205e36f4a5d60dffa0cc4c50",
     "packages": [
         {
             "name": "abd/common",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "./modules/Abd/Common",
+                "url": "modules/Abd/Common",
                 "reference": "9ea453061884a13f8e23de163cfe44e6b6d144fb"
             },
             "type": "library",
@@ -39,7 +39,7 @@
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "./modules/Abd/Front",
+                "url": "modules/Abd/Front",
                 "reference": "2c1d1398f70c9b065d73437169f12ff141c12214"
             },
             "type": "library",
@@ -53,6 +53,31 @@
             "autoload": {
                 "psr-4": {
                     "Abd\\Front\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "abd/payment",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Abd/Payment",
+                "reference": "a8f0f651c8add448dc272c1244da1fb0c96af9f9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Abd\\Payment\\Providers\\PaymentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Abd\\Payment\\": "src"
                 }
             },
             "transport-options": {
@@ -8806,7 +8831,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "abd/common": 20,
-        "abd/front": 20
+        "abd/front": 20,
+        "abd/payment": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

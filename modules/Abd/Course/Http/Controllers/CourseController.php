@@ -9,6 +9,7 @@ use Abd\Course\Http\Requests\CourseRequest;
 use Abd\Course\Models\Course;
 use Abd\Course\Repositories\LessonRepo;
 use Abd\Media\Services\MediaFileService;
+use Abd\Payment\Repositories\PaymentRepo;
 use Abd\RolePermissions\Models\Permission;
 use Abd\User\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
@@ -120,8 +121,52 @@ class CourseController extends Controller
         }
     }
 
-    public function buy($courseId)
+    public function buy($courseId, CourseRepo $courseRepo)
     {
-        return $courseId;
+        $course = $courseRepo->findById($courseId);
+        if (!$this->CourseCanBePurchased()) {
+            return back();
+        }
+
+        if (!$this->authUserCanPurchaseCourse($courseId)) {
+
+            return back();
+        }
+
+        PaymentRepo::store();
+
+        return true;
+    }
+
+    private function CourseCanBePurchased(Course $course)
+    {
+        if ($course->type == Course::TYPE_FREE) {
+            newFeedback("عملیات ناموفق", "دوره های رایگان قابل خریداری نیستند!", "error");
+            return false;
+        }
+        if ($course->status == Course::STATUS_LOCKED) {
+            newFeedback("عملیات ناموفق", "این دوره قفل شده و فعلا قابل خریداری نیست!", "error");
+            return false;
+        }
+        if ($course->confirmation_status != Course::CONFIRMATION_STATUS_ACCEPTED) {
+            newFeedback("عملیات ناموفق", "دوره ی انتخابی شما هنوز تأیید نشده است!", "error");
+            return false;
+        }
+        return true;
+    }
+
+    private function authUserCanPurchaseCourse(Course $course)
+    {
+        if (auth()->id() == $course->teacher_id) {
+            newFeedback("عملیات ناموفق", "شما مدرس این دوره هستید.", "error");
+            return false;
+        }
+
+        if (auth()->user()->hasAccessToCourse($course)) {
+            newFeedback("عملیات ناموفق", "شما به دوره دسترسی دارید.", "error");
+            return false;
+        }
+
+        return true;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Abd\Payment\Services;
 
+use Abd\Payment\Gateways\Gateway;
 use Abd\Payment\Models\Payment;
 use Abd\Payment\Repositories\PaymentRepo;
 use Abd\User\Models\User;
@@ -13,8 +14,14 @@ class PaymentService
     {
         if ($amount <= 0 || is_null($paymentable->id) || is_null($buyer->id)) return false;
 
-        $gatway = "";
-        $invoiceId = 0;
+        $gateway = resolve(Gateway::class);
+        $invoiceId = $gateway->request($amount, $paymentable->title);
+
+        if(is_array($invoiceId)){
+            // todo
+            dd($invoiceId);
+        }
+
         if (is_null($paymentable->percent)) {
             $seller_p = $paymentable->percent;
             $seller_share = ($amount * 100) / $seller_p;
@@ -28,7 +35,7 @@ class PaymentService
             "paymentable_type" => get_class($paymentable),
             "amount" => $amount,
             "invoice_id" => $invoiceId,
-            "gateway" => $gatway,
+            "gateway" => $gateway->getName(),
             "status" => Payment::STATUS_PENDING,
             "seller_p" => $seller_p,
             "seller_share" => $seller_share,

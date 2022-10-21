@@ -3,7 +3,7 @@ namespace Abd\Payment\Repositories;
 
 use Abd\Payment\Models\Payment;
 
-class PaymentRepo
+class  PaymentRepo
 {
     public function store($data)
     {

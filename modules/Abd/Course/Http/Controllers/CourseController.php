@@ -9,6 +9,7 @@ use Abd\Course\Http\Requests\CourseRequest;
 use Abd\Course\Models\Course;
 use Abd\Course\Repositories\LessonRepo;
 use Abd\Media\Services\MediaFileService;
+use Abd\Payment\Gateways\Gateway;
 use Abd\Payment\Services\PaymentService;
 use Abd\RolePermissions\Models\Permission;
 use Abd\User\Repositories\UserRepo;
@@ -124,16 +125,18 @@ class CourseController extends Controller
     public function buy($courseId, CourseRepo $courseRepo)
     {
         $course = $courseRepo->findById($courseId);
-        if (!$this->CourseCanBePurchased()) {
+        if (!$this->CourseCanBePurchased($course)) {
             return back();
         }
 
-        if (!$this->authUserCanPurchaseCourse($courseId)) {
+        if (!$this->authUserCanPurchaseCourse($course)) {
 
             return back();
         }
         $amount = $course->getFinalPrice();
         $payment = PaymentService::generate($amount, $course, auth()->user());
+
+        resolve(Gateway::class)->redirect($payment->invoice_id);
     }
 
     private function CourseCanBePurchased(Course $course)

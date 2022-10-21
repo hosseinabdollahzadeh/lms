@@ -4,6 +4,8 @@ namespace Abd\Payment\Gateways\Zarinpal;
 
 use Abd\Payment\Contracts\GatewayContract;
 use Abd\Payment\Models\Payment;
+use Abd\Payment\Repositories\PaymentRepo;
+use Illuminate\Http\Request;
 
 class ZarinpalAdaptor implements GatewayContract
 {
@@ -13,7 +15,7 @@ class ZarinpalAdaptor implements GatewayContract
     public function request($amount, $description)
     {
         $this->client = new zarinpal();
-        $callback = "http://laravel9-lms.test/test-verify";
+        $callback = route('payments.callback');
         $result = $this->client->request("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $amount, $description, "", "", $callback, true);
 
         if (isset($result["Status"]) && $result["Status"] == 100) {
@@ -29,7 +31,19 @@ class ZarinpalAdaptor implements GatewayContract
 
     public function verify(Payment $payment)
     {
-        // TODO: Implement verify() method.
+        $this->client = new zarinpal();
+
+        $result = $this->client->verify("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $payment->amount, true);
+
+        if (isset($result["Status"]) && $result["Status"] == 100)
+        {
+            return $result['RefID'];
+        } else {
+            return [
+                "status" => $result["Status"],
+                "message" => $result["Message"]
+            ];
+        }
     }
 
     public function redirect($invoiceId)
@@ -40,5 +54,10 @@ class ZarinpalAdaptor implements GatewayContract
     public function getName()
     {
         return "zarinpal";
+    }
+
+    public function getInvoiceIdFromRequest(Request $request)
+    {
+        return $request->Authority;
     }
 }

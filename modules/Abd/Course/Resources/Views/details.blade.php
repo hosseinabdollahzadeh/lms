@@ -65,7 +65,7 @@
                             </td>
                             <td class="status">
                                 @if($lesson->status == \Abd\Course\Models\Lesson::STATUS_OPENED)
-                                    {{$lesson->free ? 'همه' : 'شرکت کنندگان'}}
+                                    {{$lesson->is_free ? 'همه' : 'شرکت کنندگان'}}
                                 @else
                                     <span>قفل شده</span>
                                 @endif

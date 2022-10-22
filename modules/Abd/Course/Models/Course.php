@@ -61,6 +61,12 @@ class Course extends Model
     {
         return $this->morphMany(Payment::class, "paymentable");
     }
+
+    public function hasStudent($studentId)
+    {
+        return resolve(CourseRepo::class)->hasStudent($this, $studentId);
+    }
+
     public function getDuration()
     {
         return (new CourseRepo())->getDuration($this->id);

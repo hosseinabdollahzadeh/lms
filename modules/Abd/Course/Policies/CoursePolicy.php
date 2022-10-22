@@ -86,4 +86,14 @@ class CoursePolicy
             return true;
         }
     }
+
+    public function download($user, $course)
+    {
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) ||
+            $user->id === $course->teacher_id ||
+            $course->hasStudent($user->id)
+        )
+            return true;
+        return false;
+    }
 }

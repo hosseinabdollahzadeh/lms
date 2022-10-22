@@ -122,4 +122,14 @@ class Course extends Model
     {
         return route('singleCourse', $this->id);
     }
+
+    public function downloadLinks(): array
+    {
+        $links = [];
+        foreach (resolve(CourseRepo::class)->getLessons($this->id) as $lesson) {
+            $links[] = $lesson->downloadLink();
+        }
+
+        return $links;
+    }
 }

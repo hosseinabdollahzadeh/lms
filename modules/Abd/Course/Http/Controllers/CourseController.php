@@ -52,6 +52,14 @@ class CourseController extends Controller
         return view('Courses::details', compact('course', 'lessons'));
     }
 
+    public function downloadLinks($id, CourseRepo $courseRepo)
+    {
+        $course = $courseRepo->findById($id);
+        $this->authorize("download", $course);
+
+        return implode("<br>", $course->downloadLinks());
+    }
+
     public function destroy($id, CourseRepo $courseRepo)
     {
         $this->authorize('delete', Course::class);

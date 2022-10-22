@@ -3,6 +3,7 @@
 namespace Abd\Payment\Http\Controllers;
 
 
+use Abd\Payment\Events\PaymentWasSuccessful;
 use Abd\Payment\Gateways\Gateway;
 use Abd\Payment\Models\Payment;
 use Abd\Payment\Repositories\PaymentRepo;
@@ -27,6 +28,7 @@ class PaymentController extends Controller
             newFeedback("عملیات ناموفق", $result['message'], "error");
             $paymentRepo->changeStatus($payment->id, Payment::STATUS_FAIL);
         } else {
+            event(new PaymentWasSuccessful($payment));
             newFeedback("عملیات موفق", "پرداخت با موفقیت انجام شد.", "success");
             $paymentRepo->changeStatus($payment->id, Payment::STATUS_SUCCESS);
         }

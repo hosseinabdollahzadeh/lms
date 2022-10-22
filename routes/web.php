@@ -1,9 +1,7 @@
 <?php
 
-use Abd\Payment\Gateways\Gateway;
-
 Route::get('/test', function () {
-
+//    event(new \Abd\Payment\Events\PaymentWasSuccessful(new \Abd\Payment\Models\Payment()));
 //    $gateway = resolve(Gateway::class);
 //    $payment = new \Abd\Payment\Models\Payment();
 //    $gateway->request($payment->amount, "test");

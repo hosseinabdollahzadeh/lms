@@ -5,6 +5,7 @@ namespace Abd\Course\Models;
 use Abd\Category\Models\Category;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Media\Models\Media;
+use Abd\Payment\Models\Payment;
 use Abd\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -56,6 +57,10 @@ class Course extends Model
         return $this->hasMany(Lesson::class);
     }
 
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, "paymentable");
+    }
     public function getDuration()
     {
         return (new CourseRepo())->getDuration($this->id);

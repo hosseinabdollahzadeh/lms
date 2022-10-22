@@ -1,4 +1,5 @@
 <?php
+
 namespace Abd\Payment\Http\Controllers;
 
 
@@ -15,25 +16,20 @@ class PaymentController extends Controller
         $gateway = resolve(Gateway::class);
         $paymentRepo = new PaymentRepo();
         $payment = $paymentRepo->findByInvoiceId($gateway->getInvoiceIdFromRequest($request));
-        if(!$payment){
+        if (!$payment) {
             newFeedback("ترکنش ناموفق", "تراکنش مورد نظر یافت نشد !", "error");
             return redirect("/");
         }
 
         $result = $gateway->verify($payment);
 
-        if(is_array($result)){
-            newFeedback("عملیات ناموفق",$result['message'],"error");
-            $paymentRepo->changeStatus($payment->id , Payment::STATUS_FAIL);
-            // todo relation
-//            return redirect()->to($payment->paymentable->path());
-            return redirect("/");
+        if (is_array($result)) {
+            newFeedback("عملیات ناموفق", $result['message'], "error");
+            $paymentRepo->changeStatus($payment->id, Payment::STATUS_FAIL);
+        } else {
+            newFeedback("عملیات موفق", "پرداخت با موفقیت انجام شد.", "success");
+            $paymentRepo->changeStatus($payment->id, Payment::STATUS_SUCCESS);
         }
-
-        // todo success
-        newFeedback("عملیات موفق","پرداخت با موفقیت انجام شد.","success");
-        $paymentRepo->changeStatus($payment->id , Payment::STATUS_SUCCESS);
-        return redirect("/");
-
+        return redirect()->to($payment->paymentable->path());
     }
 }

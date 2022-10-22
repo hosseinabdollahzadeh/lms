@@ -22,12 +22,13 @@ class PaymentService
             dd($invoiceId);
         }
 
-        if (is_null($paymentable->percent)) {
+        if (! is_null($paymentable->percent)) {
             $seller_p = $paymentable->percent;
-            $seller_share = ($amount * 100) / $seller_p;
+            $seller_share = ($amount / 100) * $seller_p;
             $site_shar = $amount - $seller_share;
         } else {
-            $seller_p = $seller_share = $site_shar = 0;
+            $seller_p = $seller_share = 0;
+            $site_shar = $amount;
         }
         return resolve(PaymentRepo::class)->store([
             "buyer_id" => $buyer->id,

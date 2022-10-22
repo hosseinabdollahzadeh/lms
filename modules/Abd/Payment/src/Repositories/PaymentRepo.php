@@ -32,4 +32,9 @@ class  PaymentRepo
            'status' => $status
         ]);
     }
+
+    public function paginate()
+    {
+        return Payment::query()->latest()->paginate();
+    }
 }

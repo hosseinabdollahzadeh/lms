@@ -9,7 +9,7 @@
             <p class="box__title">به روز رسانی پروفایل</p>
             <x-user-photo />
 
-            <form action="{{route('users.updateProfile', auth()->user()->id)}}" class="padding-30" method="post" >
+            <form action="{{route('users.profile', auth()->user()->id)}}" class="padding-30" method="post" >
                 @csrf
                 <x-input type="text" name="name" placeholder="نام کاربر" value="{{auth()->user()->name}}" required/>
                 <x-input type="text" name="email" class="text-left " placeholder="ایمیل کاربر" value="{{auth()->user()->email}}" required/>

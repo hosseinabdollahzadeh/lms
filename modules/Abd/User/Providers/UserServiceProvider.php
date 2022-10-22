@@ -17,20 +17,21 @@ class UserServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->loadRoutesFrom(__DIR__.'/../Routes/user_routes.php');
-        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
-        $this->loadFactoriesFrom(__DIR__.'/../Database/Factories');
-        $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'User');
-        $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/user_routes.php');
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadFactoriesFrom(__DIR__ . '/../Database/Factories');
+        $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'User');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
 
-        Factory::guessFactoryNamesUsing(function (string $modelName){
-            return 'Abd\User\Database\Factories\\'.class_basename($modelName).'Factory';
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Abd\User\Database\Factories\\' . class_basename($modelName) . 'Factory';
         });
 
         config()->set('auth.providers.users.model', User::class);
         Gate::policy(User::class, UserPolicy::class);
         DatabaseSeeder::$seeders[] = UserTableSeeder::class;
     }
+
     public function boot(Router $router)
     {
         $router->pushMiddlewareToGroup('web', StoreUserIp::class);
@@ -42,12 +43,10 @@ class UserServiceProvider extends ServiceProvider
                 "permission" => Permission::PERMISSION_MANAGE_USERS
             ]);
         });
-        $this->app->booted(function () {
-            config()->set('sidebar.items.usersInformation', [
-                "icon" => "i-user__information",
-                "title" => "اطلاعات کاربری",
-                "url" => route('users.profile'),
-            ]);
-        });
+        config()->set('sidebar.items.usersInformation', [
+            "icon" => "i-user__information",
+            "title" => "اطلاعات کاربری",
+            "url" => route('users.profile'),
+        ]);
     }
 }

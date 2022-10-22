@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function index(PaymentRepo $paymentRepo)
+    {
+        $this->authorize('manage', Payment::class);
+
+        $payments = $paymentRepo->paginate();
+        return view('Payment::index', compact('payments'));
+    }
     public function callback(Request $request)
     {
         $gateway = resolve(Gateway::class);

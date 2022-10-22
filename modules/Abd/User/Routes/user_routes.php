@@ -8,11 +8,11 @@ Route::group([
     Route::patch('users/{user}/manualVerify', 'UserController@manualVerify')->name('users.manualVerify');
     Route::post('users/photo', 'UserController@updatePhoto')->name('users.photo');
     Route::get('edit-profile', 'UserController@profile')->name('users.profile');
-    Route::post('edit-profile', 'UserController@updateProfile')->name('users.updateProfile');
+    Route::post('edit-profile', ['uses' => 'UserController@updateProfile', "as" => "users.profile"]);
     $router->resource('users', 'UserController');
 
 });
-    Route::group([
+Route::group([
     'namespace' => 'Abd\User\Http\Controllers',
     'middleware' => 'web'
 ], function ($router) {

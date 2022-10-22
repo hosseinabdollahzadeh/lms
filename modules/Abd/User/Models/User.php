@@ -103,7 +103,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function profilePath()
     {
-        return auth()->user()->username ? route('viewProfile', auth()->user()->username) : route('viewProfile', 'username');
+        return auth()->user()->username ? route('users.profile', auth()->user()->username) : route('users.profile', 'username');
     }
 
     public function seasons()

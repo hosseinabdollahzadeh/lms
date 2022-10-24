@@ -1,4 +1,5 @@
 <?php
+
 namespace Abd\Payment\Repositories;
 
 use Abd\Payment\Models\Payment;
@@ -26,15 +27,37 @@ class  PaymentRepo
         return Payment::where('invoice_id', $invoiceId)->first();
     }
 
-    public function changeStatus($id , string $status)
+    public function changeStatus($id, string $status)
     {
         return Payment::where('id', $id)->update([
-           'status' => $status
+            'status' => $status
         ]);
     }
 
     public function paginate()
     {
         return Payment::query()->latest()->paginate();
+    }
+
+    public function getLastNDaysPayments($status, $days = null)
+    {
+        $query = Payment::query();
+        if (!is_null($days)) $query = $query->where('created_at', ">=", now()->addDays($days));
+        return $query->where('status', $status)->latest();
+    }
+
+    public function getLastNDaysSuccessPayments($days = null)
+    {
+        return $this->getLastNDaysPayments(Payment::STATUS_SUCCESS, $days);
+    }
+
+    public function getLastNDaysTotal($days = null)
+    {
+        return $this->getLastNDaysSuccessPayments($days)->sum('amount');
+    }
+
+    public function getLastNDaysSiteBenefit($days = null)
+    {
+        return $this->getLastNDaysSuccessPayments($days)->sum("site_share");
     }
 }

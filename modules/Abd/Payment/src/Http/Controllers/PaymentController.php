@@ -15,10 +15,19 @@ class PaymentController extends Controller
     public function index(PaymentRepo $paymentRepo)
     {
         $this->authorize('manage', Payment::class);
-
         $payments = $paymentRepo->paginate();
-        return view('Payment::index', compact('payments'));
+        $last30DaysTotal = $paymentRepo->getLastNDaysTotal(-30);
+        $last30DaysBenefit = $paymentRepo->getLastNDaysSiteBenefit(-30);
+        $totalSell = $paymentRepo->getLastNDaysTotal();
+        $totalBenefit = $paymentRepo->getLastNDaysSiteBenefit();
+        return view('Payment::index', compact(
+            'payments',
+            'last30DaysTotal',
+            'last30DaysBenefit',
+            'totalSell',
+            'totalBenefit'));
     }
+
     public function callback(Request $request)
     {
         $gateway = resolve(Gateway::class);

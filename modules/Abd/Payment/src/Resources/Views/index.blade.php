@@ -4,6 +4,22 @@
 @endsection
 @section('content')
     <div class="row no-gutters  ">
+        <div class="col-3 padding-20 border-radius-3 bg-white margin-left-10 margin-bottom-10">
+            <p>کل فروش ۳۰ روز گذشته سایت </p>
+            <p>{{number_format($last30DaysTotal)}} تومان</p>
+        </div>
+        <div class="col-3 padding-20 border-radius-3 bg-white margin-left-10 margin-bottom-10">
+            <p>درامد خالص ۳۰ روز گذشته سایت</p>
+            <p>{{number_format($last30DaysBenefit)}} تومان</p>
+        </div>
+        <div class="col-3 padding-20 border-radius-3 bg-white margin-left-10 margin-bottom-10">
+            <p>کل فروش سایت</p>
+            <p>{{number_format($totalSell)}} تومان</p>
+        </div>
+        <div class="col-3 padding-20 border-radius-3 bg-white margin-bottom-10">
+            <p> کل درآمد خالص سایت</p>
+            <p>{{number_format($totalBenefit)}} تومان</p>
+        </div>
         <div class="col-12 margin-left-10 margin-bottom-15 border-radius-3">
             <p class="box__title">تراکنش ها</p>
             <div class="table__box">

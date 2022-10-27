@@ -81,19 +81,19 @@
                 text: 'نممودار فروش 30 روز گذشته',
                 align: 'center'
             },
-            tooltip:{
+            tooltip: {
                 useHTML: true,
-                style:{
+                style: {
                     fontSize: "20 px",
                     fontFamily: 'tahoma',
                     direction: "rtl"
                 },
-                formatter: function(){
-                    return (this.x ? "تاریخ: " + this.x + "<br>" : "" ) + "مبلغ: " + this.y
+                formatter: function () {
+                    return (this.x ? "تاریخ: " + this.x + "<br>" : "") + "مبلغ: " + this.y
                 }
             },
             xAxis: {
-                categories: [@foreach($last30Days as $day) '{{$day->format("Y-m-d")}}', @endforeach]
+                categories: [@foreach($dates as $date => $value) '{{$date}}', @endforeach]
             },
             yAxis: {
                 title: {
@@ -121,19 +121,19 @@
             series: [{
                 type: 'column',
                 name: 'تراکنش موفق',
-                data: [@foreach($last30Days as $day) {{$paymentRepo->getDaySuccessPaymentsTotal($day)}}, @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalAmount }}, @else 0, @endif  @endforeach]
             }, {
                 type: 'column',
                 name: 'درصد سایت',
-                data: [@foreach($last30Days as $day) {{$paymentRepo->getDaySiteShare($day)}}, @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalSiteShare }}, @else 0, @endif  @endforeach]
             }, {
                 type: 'column',
                 name: 'درصد مدرس',
-                data: [@foreach($last30Days as $day) {{$paymentRepo->getDaySellerShare($day)}}, @endforeach]
+                data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalSellerShare}}, @else 0, @endif  @endforeach]
             }, {
                 type: 'spline',
-                name: 'Average',
-                data: [@foreach($last30Days as $day) {{$paymentRepo->getDaySuccessPaymentsTotal($day)}}, @endforeach],
+                name: 'فروش',
+                data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalAmount }}, @else 0, @endif  @endforeach],
                 marker: {
                     lineWidth: 2,
                     lineColor: Highcharts.getOptions().colors[3],

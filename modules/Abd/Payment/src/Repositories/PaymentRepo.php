@@ -3,6 +3,8 @@
 namespace Abd\Payment\Repositories;
 
 use Abd\Payment\Models\Payment;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class  PaymentRepo
 {
@@ -99,5 +101,19 @@ class  PaymentRepo
     public function getDaySellerShare($day)
     {
         return $this->getDaySuccessPayments($day)->sum('seller_share');
+    }
+
+    public function getDailySummery(Collection $dates)
+    {
+        return Payment::query()->where('created_at', '>=', $dates->keys()->first())
+            ->where('created_at', '<=', $dates->keys()->last())
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get([
+                DB::raw("DATE(created_at) as date"),
+                DB::raw("SUM(amount) as totalAmount"),
+                DB::raw("SUM(seller_share) as totalSellerShare"),
+                DB::raw("SUM(site_share) as totalSiteShare"),
+            ]);
     }
 }

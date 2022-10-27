@@ -12,10 +12,14 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function index(PaymentRepo $paymentRepo)
+    public function index(PaymentRepo $paymentRepo, Request $request)
     {
         $this->authorize('manage', Payment::class);
-        $payments = $paymentRepo->paginate();
+        $payments = $paymentRepo
+            ->searchEmail($request->email)
+            ->searchAmount($request->amount)
+            ->searchInvoiceId($request->invoice_id)
+            ->paginate();
         $last30DaysTotal = $paymentRepo->getLastNDaysTotal(-30);
         $last30DaysBenefit = $paymentRepo->getLastNDaysSiteBenefit(-30);
         $last30DaysSellerShare = $paymentRepo->getLastNDaysSellerShare(-30);
@@ -41,7 +45,7 @@ class PaymentController extends Controller
         $paymentRepo = new PaymentRepo();
         $payment = $paymentRepo->findByInvoiceId($gateway->getInvoiceIdFromRequest($request));
         if (!$payment) {
-            newFeedback("ترکنش ناموفق", "تراکنش مورد نظر یافت نشد !", "error");
+            newFeedback("تراکنش ناموفق", "تراکنش مورد نظر یافت نشد !", "error");
             return redirect("/");
         }
 

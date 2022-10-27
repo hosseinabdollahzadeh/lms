@@ -28,7 +28,24 @@
             </figure>
         </div>
     </div>
-
+    <div class="d-flex flex-space-between item-center flex-wrap padding-30 border-radius-3 bg-white">
+        <p class="margin-bottom-15">همه ی تراکنش ها</p>
+        <div class="t-header-search">
+            <form action="">
+                <div class="t-header-searchbox font-size-13">
+                    <div type="text" class="text search-input__box ">جستجوی دوره</div>
+                    <div class="t-header-search-content ">
+                        <input type="text" class="text" name="email" value="{{request("email")}}" placeholder="ایمیل">
+                        <input type="text" class="text" name="amount" value="{{request("amount")}}" placeholder="مبلغ به تومان">
+                        <input type="text" class="text" name="invoice_id" value="{{request("invoice_id")}}" placeholder="شماره">
+                        <input type="text" class="text" name="start_date" value="{{request("start_date")}}" placeholder="از تاریخ : 1399/10/11">
+                        <input type="text" class="text margin-bottom-20" name="end_date" value="{{request("end_date")}}" placeholder="تا تاریخ : 1399/10/12">
+                        <button type="submit" class="btn btn-brand">جستجو</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="col-12 margin-left-10 margin-bottom-15 border-radius-3">
         <p class="box__title">تراکنش ها</p>
         <div class="table__box">
@@ -36,6 +53,7 @@
                 <thead role="rowgroup">
                 <tr role="row" class="title-row">
                     <th>شناسه ی پرداخت</th>
+                    <th>شماره ی تراکنش</th>
                     <th>نام و نام خانوادگی</th>
                     <th>ایمیل پرداخت کننده</th>
                     <th>مبلغ (تومان)</th>
@@ -50,6 +68,7 @@
                 @foreach($payments as $payment)
                     <tr role="row" class="">
                         <td>{{$payment->id}}</td>
+                        <td>{{$payment->invoice_id}}</td>
                         <td>{{$payment->buyer->name}}</td>
                         <td>{{$payment->buyer->email}}</td>
                         <td>{{$payment->amount}}</td>

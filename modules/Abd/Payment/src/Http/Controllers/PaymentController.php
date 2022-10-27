@@ -8,6 +8,8 @@ use Abd\Payment\Gateways\Gateway;
 use Abd\Payment\Models\Payment;
 use Abd\Payment\Repositories\PaymentRepo;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -18,14 +20,17 @@ class PaymentController extends Controller
         $payments = $paymentRepo->paginate();
         $last30DaysTotal = $paymentRepo->getLastNDaysTotal(-30);
         $last30DaysBenefit = $paymentRepo->getLastNDaysSiteBenefit(-30);
+        $last30DaysSellerShare = $paymentRepo->getLastNDaysSellerShare(-30);
         $totalSell = $paymentRepo->getLastNDaysTotal();
         $totalBenefit = $paymentRepo->getLastNDaysSiteBenefit();
+        $last30Days = CarbonPeriod::create(now()->addDays(-30), now());
         return view('Payment::index', compact(
             'payments',
             'last30DaysTotal',
             'last30DaysBenefit',
             'totalSell',
-            'totalBenefit'));
+            'totalBenefit',
+            'last30Days','paymentRepo', 'last30DaysSellerShare'));
     }
 
     public function callback(Request $request)

@@ -36,10 +36,14 @@
                     <div type="text" class="text search-input__box ">جستجوی دوره</div>
                     <div class="t-header-search-content ">
                         <input type="text" class="text" name="email" value="{{request("email")}}" placeholder="ایمیل">
-                        <input type="text" class="text" name="amount" value="{{request("amount")}}" placeholder="مبلغ به تومان">
-                        <input type="text" class="text" name="invoice_id" value="{{request("invoice_id")}}" placeholder="شماره">
-                        <input type="text" class="text" name="start_date" value="{{request("start_date")}}" placeholder="از تاریخ : 1399/10/11">
-                        <input type="text" class="text margin-bottom-20" name="end_date" value="{{request("end_date")}}" placeholder="تا تاریخ : 1399/10/12">
+                        <input type="text" class="text" name="amount" value="{{request("amount")}}"
+                               placeholder="مبلغ به تومان">
+                        <input type="text" class="text" name="invoice_id" value="{{request("invoice_id")}}"
+                               placeholder="شماره">
+                        <input type="text" class="text" name="start_date" value="{{request("start_date")}}"
+                               placeholder="از تاریخ : 1399/10/11">
+                        <input type="text" class="text margin-bottom-20" name="end_date" value="{{request("end_date")}}"
+                               placeholder="تا تاریخ : 1399/10/12">
                         <button type="submit" class="btn btn-brand">جستجو</button>
                     </div>
                 </div>
@@ -112,7 +116,7 @@
                 }
             },
             xAxis: {
-                categories: [@foreach($dates as $date => $value) '{{$date}}', @endforeach]
+                categories: [@foreach($dates as $date => $value) '{{getJalaliFromFormat($date)}}', @endforeach]
             },
             yAxis: {
                 title: {
@@ -139,15 +143,17 @@
             },
             series: [{
                 type: 'column',
+                name: 'درصد سایت',
+                color: "green",
+                data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalSiteShare }}, @else 0, @endif  @endforeach]
+            }, {
+                type: 'column',
                 name: 'تراکنش موفق',
                 data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalAmount }}, @else 0, @endif  @endforeach]
             }, {
                 type: 'column',
-                name: 'درصد سایت',
-                data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalSiteShare }}, @else 0, @endif  @endforeach]
-            }, {
-                type: 'column',
                 name: 'درصد مدرس',
+                color: "pink",
                 data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalSellerShare}}, @else 0, @endif  @endforeach]
             }, {
                 type: 'spline',
@@ -155,20 +161,21 @@
                 data: [@foreach($dates as $date => $value) @if($day = $summery->where("date",  $date)->first()) {{ $day->totalAmount }}, @else 0, @endif  @endforeach],
                 marker: {
                     lineWidth: 2,
-                    lineColor: Highcharts.getOptions().colors[3],
+                    lineColor: "green",
                     fillColor: 'white'
-                }
+                },
+                color: "green"
             }, {
                 type: 'pie',
                 name: 'نسبت',
                 data: [{
                     name: 'درصد سایت',
                     y: {{$last30DaysBenefit}},
-                    color: Highcharts.getOptions().colors[0] // 2020 color
+                    color: "green"
                 }, {
                     name: 'درصد مدرس',
                     y: {{$last30DaysSellerShare}},
-                    color: Highcharts.getOptions().colors[1] // 2021 color
+                    color: "pink"
                 }],
                 center: [80, 70],
                 size: 100,

@@ -6,6 +6,7 @@ namespace Abd\User\Models;
 use Abd\Course\Models\Course;
 use Abd\Course\Models\Season;
 use Abd\Media\Models\Media;
+use Abd\Payment\Models\Payment;
 use Abd\RolePermissions\Models\Role;
 use Abd\User\Database\Factories\UserFactory;
 use Abd\User\Mail\ResetPasswordRequestMail;
@@ -99,6 +100,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function purchases()
     {
         return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'buyer_id');
     }
 
     public function profilePath()

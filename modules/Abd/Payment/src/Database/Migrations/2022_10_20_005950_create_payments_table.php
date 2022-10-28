@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('buyer_id');
+            $table->foreignId('seller_id')->nullable();
             $table->foreignId('paymentable_id');
             $table->string('paymentable_type');
             $table->string('amount', 10);

@@ -46,7 +46,7 @@ class  PaymentRepo
     public function searchEmail($email)
     {
         if (!is_null($email)) {
-            $this->query->join("users", "payments.buyer_id","users.id")
+            $this->query->join("users", "payments.buyer_id", "users.id")
                 ->select("payments.*", "users.email")->where("users.email", "like", "%" . $email . "%");
         }
         return $this;
@@ -63,7 +63,7 @@ class  PaymentRepo
     public function searchInvoiceId($invoiceId)
     {
         if (!is_null($invoiceId)) {
-            $this->query->where('invoice_id', "like", '%'. $invoiceId.'%');
+            $this->query->where('invoice_id', "like", '%' . $invoiceId . '%');
         }
         return $this;
     }
@@ -104,6 +104,53 @@ class  PaymentRepo
     public function getLastNDaysTotal($days = null)
     {
         return $this->getLastNDaysSuccessPayments($days)->sum('amount');
+    }
+
+    public function getUserSuccessPayments($userId)
+    {
+        return Payment::query()->where('seller_id', $userId)->where('status', Payment::STATUS_SUCCESS);
+    }
+
+    public function getUserTotalSuccessAmount($userId)
+    {
+        return $this->getUserSuccessPayments($userId)->sum('amount');
+    }
+
+    public function getUserTotalBenefit($userId)
+    {
+        return $this->getUserSuccessPayments($userId)->sum('seller_share');
+    }
+
+    public function getUserTotalSellByDay($userId, $date)
+    {
+        return $this->getUserSuccessPayments($userId)
+            ->whereDate('created_at', $date)
+            ->sum('amount');
+    }
+
+    public function getUserSellCountByDay($userId, $date)
+    {
+        return $this->getUserSuccessPayments($userId)
+            ->whereDate('created_at', $date)
+            ->count();
+    }
+
+    public function getUserTotalSiteShare($userId)
+    {
+        return $this->getUserSuccessPayments($userId)->sum('site_share');
+    }
+
+    public function getUserTotalBenefitByDay($userId, $date)
+    {
+        return $this->getUserSuccessPayments($userId)->whereDate('created_at', $date)->sum('site_share');
+    }
+
+    public function getUserTotalBenefitByPeriod($userId, $startDate, $endDate)
+    {
+        return $this->getUserSuccessPayments($userId)
+            ->whereDate('created_at', '<=', $startDate)
+            ->whereDate('created_at', '>=', $endDate)
+            ->sum('seller_share');
     }
 
     public function getLastNDaysSiteBenefit($days = null)

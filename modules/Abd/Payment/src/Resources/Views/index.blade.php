@@ -75,7 +75,7 @@
                         <td>{{$payment->seller_share}}</td>
                         <td>{{$payment->site_share}}</td>
                         <td>{{$payment->paymentable->title}}</td>
-                        <td>{{$payment->created_at}}</td>
+                        <td>{{\Morilog\Jalali\Jalalian::fromCarbon($payment->created_at)}}</td>
                         <td class="@if($payment->status == \Abd\Payment\Models\Payment::STATUS_SUCCESS) text-success @else text-error @endif">@lang($payment->status)</td>
 
                     </tr>

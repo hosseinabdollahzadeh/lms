@@ -17,6 +17,17 @@ class DashboardController extends Controller
         $last30DaysBenefit = $paymentRepo->getUserTotalBenefitByPeriod(auth()->id(), now(), now()->subDays(30));
         $todaySuccessPaymentsCount = $paymentRepo->getUserSellCountByDay(auth()->id(), now());
         $todaySuccessPaymentsTotal = $paymentRepo->getUserTotalSellByDay(auth()->id(), now());
+
+        $payments = $paymentRepo->paymentsBySellerId(auth()->id())->paginate();
+        $last30DaysTotal = $paymentRepo->getLastNDaysTotal(-30);
+        $last30DaysSellerShare = $paymentRepo->getLastNDaysSellerShare(-30);
+        $totalSell = $paymentRepo->getLastNDaysTotal();
+        $dates = collect();
+        foreach (range(-30, 0) as $i) {
+            $dates->put(now()->copy()->addDays($i)->format("Y-m-d"), 0);
+        }
+        $summery = $paymentRepo->getDailySummery($dates, auth()->id());
+
         return view('Dashboard::index', compact(
             'totalSales',
             'totalBenefit',
@@ -24,6 +35,13 @@ class DashboardController extends Controller
             'todayBenefit',
             'last30DaysBenefit',
             'todaySuccessPaymentsTotal',
-            'todaySuccessPaymentsCount'));
+            'todaySuccessPaymentsCount',
+            'last30DaysTotal',
+            'last30DaysSellerShare',
+            'totalSell',
+            'payments',
+            'dates',
+            'summery'
+        ));
     }
 }

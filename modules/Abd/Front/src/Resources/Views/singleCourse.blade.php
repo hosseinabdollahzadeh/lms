@@ -61,7 +61,7 @@
                         </span>
                                 </p>
                             </div>
-                        <p>جهت خرید دروره ابتدا در سایت لاگین کنید.</p>
+                            <p>جهت خرید دروره ابتدا در سایت لاگین کنید.</p>
                             <a href="{{route('login')}}" class="btn text-white w-100">ورد به سایت</a>
                         @endauth
                         <div class="rating-star">
@@ -154,15 +154,18 @@
                 </div>
             </div>
             <div class="content-left">
-                @if($lesson->media->type == "video")
-                    <div class="preview">
-                        <video controls="" width="100%">
-                            <source src="{{$lesson->downloadLink()}}" type="video/mp4">
-                        </video>
-                    </div>
+                @if($lesson)
+                    @if($lesson->media->type == "video")
+                        <div class="preview">
+                            <video controls="" width="100%">
+                                <source src="{{$lesson->downloadLink()}}" type="video/mp4">
+                            </video>
+                        </div>
+                    @endif
+                    <a href="{{$lesson->downloadLink()}}" class="episode-download">دانلود این قسمت
+                        (قسمت {{$lesson->number}}
+                        )</a>
                 @endif
-                <a href="{{$lesson->downloadLink()}}" class="episode-download">دانلود این قسمت (قسمت {{$lesson->number}}
-                    )</a>
                 <div class="course-description">
                     <div class="course-description-title">توضیحات دوره</div>
                     {!! $course->body !!}
@@ -203,11 +206,11 @@
                                 <td>{{$course->getDiscountPercent()}}%</td>
                             </tr>
                             <tr>
-                                <th> مبلغ تخفیف </th>
+                                <th> مبلغ تخفیف</th>
                                 <td class="text-red"> {{$course->getDiscountAmount()}} تومان</td>
                             </tr>
                             <tr>
-                                <th> قابل پرداخت </th>
+                                <th> قابل پرداخت</th>
                                 <td class="text-blue"> {{$course->getFormattedFinalPrice()}} تومان</td>
                             </tr>
                             </tbody>

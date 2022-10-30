@@ -10,7 +10,7 @@ use function Termwind\terminal;
 
 class PaymentService
 {
-    public static function generate($amount, $paymentable, User $buyer)
+    public static function generate($amount, $paymentable, User $buyer, $seller_id=null)
     {
         if ($amount <= 0 || is_null($paymentable->id) || is_null($buyer->id)) return false;
 
@@ -34,6 +34,7 @@ class PaymentService
             "buyer_id" => $buyer->id,
             "paymentable_id" => $paymentable->id,
             "paymentable_type" => get_class($paymentable),
+            "seller_id" => $seller_id,
             "amount" => $amount,
             "invoice_id" => $invoiceId,
             "gateway" => $gateway->getName(),

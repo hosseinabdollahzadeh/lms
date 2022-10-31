@@ -19,6 +19,7 @@ class PaymentServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         Route::middleware("web")->namespace($this->namespace)->group(__DIR__ . "/../Routes/payments_routes.php");
+        Route::middleware("web")->namespace($this->namespace)->group(__DIR__ . "/../Routes/settlements_routes.php");
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Payment');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
     }
@@ -28,7 +29,6 @@ class PaymentServiceProvider extends ServiceProvider
         $this->app->singleton(Gateway::class, function ($app) {
             return new ZarinpalAdaptor();
         });
-
         $this->app->booted(function () {
             config()->set('sidebar.items.payments', [
                 "icon" => "i-transactions",
@@ -39,12 +39,18 @@ class PaymentServiceProvider extends ServiceProvider
                 ]
             ]);
         });
-
         $this->app->booted(function () {
             config()->set('sidebar.items.my-purchases', [
                 "icon" => "i-my__purchases",
                 "title" => "خریدهای من",
                 "url" => route('purchases.index')
+            ]);
+        });
+        $this->app->booted(function () {
+            config()->set('sidebar.items.request-settlement', [
+                "icon" => "i-checkout__request",
+                "title" => "درخواست تسویه حساب",
+                "url" => route('settlements.create')
             ]);
         });
 

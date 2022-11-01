@@ -8,5 +8,16 @@ Route::group(['middleware'=>'auth'], function ($router) {
         "uses" => "SettlementController@store",
         "as" => "settlements.store"
     ]);
-    $router->get('/settlements', 'SettlementController@index')->name('settlements.index');
+    $router->get('/settlements/{settlement}/edit', [
+        "uses" => "SettlementController@edit",
+        "as" => "settlements.edit"
+    ]);
+    $router->patch('/settlements/{settlement}', [
+        "uses" => "SettlementController@update",
+        "as" => "settlements.update"
+    ]);
+    $router->get('/settlements', [
+        "uses" => "SettlementController@index",
+        "as" => "settlements.index"
+    ]);
 });

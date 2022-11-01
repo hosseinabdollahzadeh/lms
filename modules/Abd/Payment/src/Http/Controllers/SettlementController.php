@@ -19,16 +19,28 @@ class SettlementController extends Controller
         return view('Payment::settlements.create');
     }
 
-    public function store(SettlementRequest $request, SettlementRepo $settlementRepo)
+    public function store(SettlementRequest $request, SettlementRepo $repo)
     {
-        $settlementRepo->store([
-            "name" => $request->name,
-            "card" => $request->card,
-            "amount" => $request->amount,
-        ]);
+        if($repo->store($request->all())){
+            auth()->user()->balance -= $request->amount;
+            auth()->user()->save();
+        }
 
         newFeedback();
 
+        return redirect(route('settlements.index'));
+    }
+
+    public function edit($settlementId, SettlementRepo $repo)
+    {
+        $settlement = $repo->find($settlementId);
+        return view('Payment::settlements.edit', compact('settlement'));
+    }
+
+    public function update($settlementId, SettlementRequest $request, SettlementRepo $repo)
+    {
+        $repo->update($settlementId,$request->all());
+        newFeedback();
         return redirect(route('settlements.index'));
     }
 }

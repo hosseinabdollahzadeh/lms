@@ -14,15 +14,31 @@ class SettlementRepo
         $this->query = Settlement::query();
     }
 
-    public function store($data)
+    public function store($request)
     {
         return Settlement::query()->create([
             "user_id" => auth()->id(),
             "to" => [
-                "name" => $data["name"],
-                "card" => $data["card"],
+                "name" => $request["name"],
+                "card" => $request["card"],
             ],
-            "amount" => $data["amount"]
+            "amount" => $request["amount"],
+        ]);
+    }
+
+    public function update($id,$request)
+    {
+        return Settlement::query()->where('id', $id)->update([
+            "from" =>[
+                "name" => $request["from"]["name"],
+                "card" => $request["from"]["card"]
+            ],
+            "to" =>[
+                "name" => $request["to"]["name"],
+                "card" => $request["to"]["card"]
+            ],
+            "amount" => $request["amount"],
+            "status" => $request["status"]
         ]);
     }
 
@@ -36,5 +52,10 @@ class SettlementRepo
         $this->query->where('status', Settlement::STATUS_SETTLED);
 
         return $this;
+    }
+
+    public function find($id)
+    {
+        return Settlement::query()->findOrFail($id);
     }
 }

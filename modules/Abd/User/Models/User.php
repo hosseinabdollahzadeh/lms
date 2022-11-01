@@ -7,6 +7,7 @@ use Abd\Course\Models\Course;
 use Abd\Course\Models\Season;
 use Abd\Media\Models\Media;
 use Abd\Payment\Models\Payment;
+use Abd\Payment\Models\Settlement;
 use Abd\RolePermissions\Models\Role;
 use Abd\User\Database\Factories\UserFactory;
 use Abd\User\Mail\ResetPasswordRequestMail;
@@ -115,6 +116,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function seasons()
     {
         return $this->hasMany(Season::class);
+    }
+
+    public function settlements()
+    {
+        return $this->hasMany(Settlement::class);
     }
 
     public function getThumbAttribute()

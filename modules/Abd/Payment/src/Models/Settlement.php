@@ -2,6 +2,7 @@
 
 namespace Abd\Payment\Models;
 
+use Abd\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Settlement extends Model
@@ -24,4 +25,9 @@ class Settlement extends Model
         "to" => "json",
         "from" => "json"
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

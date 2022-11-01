@@ -1,5 +1,6 @@
 {
     "success": "موفق",
     "fail": "نا موفق",
-    "canceled": "لغو شده"
+    "cancelled": "لغو شده",
+    "settled": "تسویه شده"
 }

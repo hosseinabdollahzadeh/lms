@@ -2,6 +2,7 @@
 
 namespace Abd\Payment\Http\Requests;
 
+use Abd\Payment\Models\Settlement;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SettlementRequest extends FormRequest
@@ -23,10 +24,19 @@ class SettlementRequest extends FormRequest
      */
     public function rules()
     {
+        if (request()->getMethod() === "PATCH") {
+            return[
+                "from.name" => 'required_if:status,'.Settlement::STATUS_SETTLED,
+                "from.card" => 'required_if:status,'.Settlement::STATUS_SETTLED,
+                "to.name" => 'required_if:status,'.Settlement::STATUS_SETTLED,
+                "to.card" => 'required_if:status,'.Settlement::STATUS_SETTLED,
+                "amount" => "required|numeric"
+            ];
+        }
         return [
             "name" => "required",
             "card" => "required|numeric|digits:16",
-            "amount" => "required|numeric|max:". auth()->user()->balance
+            "amount" => "required|numeric|max:" . auth()->user()->balance
         ];
     }
 

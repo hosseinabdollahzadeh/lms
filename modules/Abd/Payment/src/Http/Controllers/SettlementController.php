@@ -4,13 +4,14 @@ namespace Abd\Payment\Http\Controllers;
 
 use Abd\Payment\Http\Requests\SettlementRequest;
 use Abd\Payment\Repositories\SettlementRepo;
+use Abd\Payment\Services\SettlementService;
 use App\Http\Controllers\Controller;
 
 class SettlementController extends Controller
 {
     public function index(SettlementRepo $settlementRepo)
     {
-        $settlements = $settlementRepo->paginate();
+        $settlements = $settlementRepo->latest()->paginate();
         return view('Payment::settlements.index', compact('settlements'));
     }
 
@@ -19,15 +20,9 @@ class SettlementController extends Controller
         return view('Payment::settlements.create');
     }
 
-    public function store(SettlementRequest $request, SettlementRepo $repo)
+    public function store(SettlementRequest $request)
     {
-        if($repo->store($request->all())){
-            auth()->user()->balance -= $request->amount;
-            auth()->user()->save();
-        }
-
-        newFeedback();
-
+        SettlementService::store($request->all());
         return redirect(route('settlements.index'));
     }
 
@@ -37,10 +32,9 @@ class SettlementController extends Controller
         return view('Payment::settlements.edit', compact('settlement'));
     }
 
-    public function update($settlementId, SettlementRequest $request, SettlementRepo $repo)
+    public function update($settlementId, SettlementRequest $request)
     {
-        $repo->update($settlementId,$request->all());
-        newFeedback();
+        SettlementService::update($settlementId, $request->all());
         return redirect(route('settlements.index'));
     }
 }

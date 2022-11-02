@@ -31,6 +31,10 @@ class UserController extends Controller
         return view('User::Admin.index', compact('users', 'roles'));
     }
 
+    public function info(User $user)
+    {
+        // show user info
+    }
     public function addRole(AddRoleRequest $request, User $user)
     {
         $this->authorize('addRole', User::class);

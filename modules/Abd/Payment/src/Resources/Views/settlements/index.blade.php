@@ -33,6 +33,7 @@
             <thead role="rowgroup">
             <tr role="row" class="title-row">
                 <th>شناسه تسویه</th>
+                <th>کاربر</th>
                 <th>مبدا</th>
                 <th>مقصد</th>
                 <th>شماره کارت مقصد</th>
@@ -47,13 +48,14 @@
             @foreach($settlements as $settlement)
                 <tr role="row">
                     <td><a href="">{{$settlement->transaction_id ?? '-'}}</a></td>
+                    <td><a href="{{route('users.info',$settlement->user_id)}}">{{$settlement->user->name}}</a></td>
                     <td><a href="">{{$settlement->from ? $settlement->from['name'] : '-'}}</a></td>
                     <td><a href="">{{$settlement->to ? $settlement->to['name'] : '-'}}</a></td>
                     <td><a href="">{{$settlement->to ? $settlement->to['card'] : '-'}}</a></td>
                     <td><a href="">{{$settlement->created_at->diffForHumans()}}</a></td>
                     <td><a href="">{{$settlement->settlet_at ? $settlement->settlet_at->diffForHumans():  "-"}}</a></td>
                     <td><a href="">{{number_format($settlement->amount)}}</a></td>
-                    <td><a href="" class="text-success">@lang($settlement->status)</a></td>
+                    <td><a href="" class="{{$settlement->getStatusCssClass()}}">@lang($settlement->status)</a></td>
                     <td>
                         <a href="" class="item-delete mlg-15" title="حذف"></a>
                         <a href="show-comment.html" class="item-reject mlg-15" title="رد"></a>

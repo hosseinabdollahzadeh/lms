@@ -26,14 +26,14 @@ class SettlementRepo
         ]);
     }
 
-    public function update($id,$request)
+    public function update(int $id, array $request)
     {
         return Settlement::query()->where('id', $id)->update([
-            "from" =>[
+            "from" => [
                 "name" => $request["from"]["name"],
                 "card" => $request["from"]["card"]
             ],
-            "to" =>[
+            "to" => [
                 "name" => $request["to"]["name"],
                 "card" => $request["to"]["card"]
             ],
@@ -54,8 +54,14 @@ class SettlementRepo
         return $this;
     }
 
-    public function find($id)
+    public function find(int $id)
     {
         return Settlement::query()->findOrFail($id);
+    }
+
+    public function latest()
+    {
+        $this->query = $this->query->latest();
+        return $this->query;
     }
 }

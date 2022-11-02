@@ -30,4 +30,11 @@ class Settlement extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getStatusCssClass()
+    {
+        if ($this->status == self::STATUS_PENDING) return "text-warning";
+        if ($this->status == self::STATUS_SETTLED) return "text-success";
+        if ($this->status == self::STATUS_REJECTED) return "text-error";
+    }
 }

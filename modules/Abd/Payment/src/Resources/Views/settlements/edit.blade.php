@@ -23,7 +23,7 @@
         <x-input name="amount" value="{{$settlement->amount}}" placeholder="مبلغ به تومان" type="text" required/>
         <x-select name="status">
             @foreach(\Abd\Payment\Models\Settlement::$statuses as $status)
-                <option value="{{$status}}">@lang($status)</option>
+                <option value="{{$status}}" @if($settlement->status == $status) selected @endif>@lang($status)</option>
             @endforeach
         </x-select>
         <div class="row no-gutters border-2 margin-bottom-15 text-center ">

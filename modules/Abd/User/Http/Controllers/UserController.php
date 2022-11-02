@@ -31,9 +31,11 @@ class UserController extends Controller
         return view('User::Admin.index', compact('users', 'roles'));
     }
 
-    public function info(User $user)
+    public function info($userId, UserRepo $repo)
     {
-        // show user info
+        $this->authorize('index', User::class);
+        $user = $repo->findByIdFullInfo($userId);
+        return view('User::Admin.info', compact('user'));
     }
     public function addRole(AddRoleRequest $request, User $user)
     {

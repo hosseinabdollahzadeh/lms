@@ -71,4 +71,11 @@ class UserRepo
         }
         return auth()->user()->save();
     }
+
+    public function findByIdFullInfo($id)
+    {
+        return User::query()
+            ->with("settlements", "payments", "courses", "purchases")
+            ->findOrFail($id);
+    }
 }

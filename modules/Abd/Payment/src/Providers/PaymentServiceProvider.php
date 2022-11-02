@@ -2,10 +2,10 @@
 
 namespace Abd\Payment\Providers;
 
-use Abd\Course\Models\Course;
 use Abd\Payment\Gateways\Gateway;
 use Abd\Payment\Gateways\Zarinpal\ZarinpalAdaptor;
-use Abd\Payment\Models\Payment;
+use Abd\Payment\Models\Settlement;
+use Abd\Payment\Policies\SettlementPolicy;
 use Abd\RolePermissions\Models\Permission;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +22,7 @@ class PaymentServiceProvider extends ServiceProvider
         Route::middleware("web")->namespace($this->namespace)->group(__DIR__ . "/../Routes/settlements_routes.php");
         $this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'Payment');
         $this->loadJsonTranslationsFrom(__DIR__ . '/../Resources/Lang');
+        \Gate::policy(Settlement::class, SettlementPolicy::class);
     }
 
     public function boot()
@@ -51,9 +52,10 @@ class PaymentServiceProvider extends ServiceProvider
                 "icon" => "i-checkouts",
                 "title" => "تسویه حساب ها",
                 "url" => route('settlements.index'),
-//                "permission" => [
-//                    Permission::PERMISSION_MANAGE_PAYMENTS,
-//                ]
+                "permission" => [
+                    Permission::PERMISSION_TEACH,
+                    Permission::PERMISSION_MANAGE_SETTLEMENTS,
+                ]
             ]);
         });
         $this->app->booted(function () {
@@ -61,9 +63,9 @@ class PaymentServiceProvider extends ServiceProvider
                 "icon" => "i-checkout__request",
                 "title" => "درخواست تسویه",
                 "url" => route('settlements.create'),
-//                "permission" => [
-//                    Permission::PERMISSION_MANAGE_PAYMENTS,
-//                ]
+                "permission" => [
+                    Permission::PERMISSION_TEACH,
+                ]
             ]);
         });
 

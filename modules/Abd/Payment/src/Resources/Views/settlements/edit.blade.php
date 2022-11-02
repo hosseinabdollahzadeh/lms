@@ -20,14 +20,14 @@
         <x-input name="to[card]"
                  value='{{is_array($settlement->to) && array_key_exists("card", $settlement->to) ? $settlement->to["card"] : ""}}'
                  placeholder="شماره کارت گیرنده" type="text" required/>
-        <x-input name="amount" value="{{$settlement->amount}}" placeholder="مبلغ به تومان" type="text" required/>
+        <x-input name="amount" value="{{$settlement->amount}}" readonly placeholder="مبلغ به تومان" type="text" required/>
         <x-select name="status">
             @foreach(\Abd\Payment\Models\Settlement::$statuses as $status)
                 <option value="{{$status}}" @if($settlement->status == $status) selected @endif>@lang($status)</option>
             @endforeach
         </x-select>
         <div class="row no-gutters border-2 margin-bottom-15 text-center ">
-            <div class="w-50 padding-20 w-50">موجودی قابل برداشت :‌</div>
+            <div class="w-50 padding-20 w-50">باقی مانده ی حساب :‌</div>
             <div class="bg-fafafa padding-20 w-50"> {{number_format($settlement->user->balance)}} تومان</div>
         </div>
         <button type="submit" class="btn btn-brand">به روز رسانی</button>

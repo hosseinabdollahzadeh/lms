@@ -24,19 +24,20 @@ class SettlementRequest extends FormRequest
      */
     public function rules()
     {
+        $min = 10000;
         if (request()->getMethod() === "PATCH") {
             return[
                 "from.name" => 'required_if:status,'.Settlement::STATUS_SETTLED,
                 "from.card" => 'required_if:status,'.Settlement::STATUS_SETTLED,
                 "to.name" => 'required_if:status,'.Settlement::STATUS_SETTLED,
                 "to.card" => 'required_if:status,'.Settlement::STATUS_SETTLED,
-                "amount" => "required|numeric"
+                "amount" => "required|numeric|min:{$min}"
             ];
         }
         return [
             "name" => "required",
             "card" => "required|numeric|digits:16",
-            "amount" => "required|numeric|max:" . auth()->user()->balance
+            "amount" => "required|numeric|min:{$min}|max:" . auth()->user()->balance
         ];
     }
 

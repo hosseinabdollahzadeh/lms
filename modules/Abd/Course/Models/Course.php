@@ -4,6 +4,7 @@ namespace Abd\Course\Models;
 
 use Abd\Category\Models\Category;
 use Abd\Course\Repositories\CourseRepo;
+use Abd\Discount\Models\Discount;
 use Abd\Media\Models\Media;
 use Abd\Payment\Models\Payment;
 use Abd\User\Models\User;
@@ -65,6 +66,11 @@ class Course extends Model
     public function payment()
     {
         return $this->payments()->latest()->first();
+    }
+
+    public function discounts()
+    {
+        return $this->morphToMany(Discount::class, "discountable");
     }
 
     public function hasStudent($studentId)

@@ -55,12 +55,12 @@ class CourseRepo
 
     public function updateConfirmationStatus($id, string $status)
     {
-        return Course::where('id', $id)->update(['confirmation_status'=> $status]);
+        return Course::where('id', $id)->update(['confirmation_status' => $status]);
     }
 
     public function updateStatus($id, string $status)
     {
-        return Course::where('id', $id)->update(['status'=> $status]);
+        return Course::where('id', $id)->update(['status' => $status]);
     }
 
     public function getCoursesByTeacherId(int|string|null $id)
@@ -90,7 +90,7 @@ class CourseRepo
 
     public function addStudentToCourse(Course $course, $studentId)
     {
-        if(! $this->getCourseStudentById($course, $studentId)){
+        if (!$this->getCourseStudentById($course, $studentId)) {
             return $course->students()->attach($studentId);
         }
     }
@@ -109,5 +109,12 @@ class CourseRepo
     {
         return Lesson::where('course_id', $id)
             ->where('confirmation_status', Lesson::CONFIRMATION_STATUS_ACCEPTED);
+    }
+
+    public function getAll(string $confirmationStatus = null)
+    {
+        $query = Course::query();
+        if ($confirmationStatus) $query->where('confirmation_status', $confirmationStatus);
+        return $query->latest()->get();
     }
 }

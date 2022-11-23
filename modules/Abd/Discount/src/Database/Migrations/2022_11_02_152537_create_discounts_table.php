@@ -15,6 +15,7 @@ return new class extends Migration {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->string('code')->nullable();
             $table->tinyInteger('percent')->unsigned();
             $table->bigInteger('usage_limitation')->unsigned()->nullable(); // null means unlimited
             $table->timestamp('expire_at')->nullable();
@@ -44,7 +45,7 @@ return new class extends Migration {
      */
     public function down()
     {
-//        Schema::dropIfExists('discountables');
-//        Schema::dropIfExists('discounts');
+        Schema::dropIfExists('discountables');
+        Schema::dropIfExists('discounts');
     }
 };

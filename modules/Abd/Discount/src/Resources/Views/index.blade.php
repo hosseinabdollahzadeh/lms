@@ -13,7 +13,7 @@
                         <table class="table">
                             <thead role="rowgroup">
                             <tr role="row" class="title-row">
-                                <th>شناسه</th>
+                                <th>کد تخفیف</th>
                                 <th>درصد</th>
                                 <th>محدودیت زمانی</th>
                                 <th>توضیحات</th>
@@ -22,18 +22,19 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr role="row" class="">
-                                <td><a href="">1</a></td>
-                                <td><a href="">50%</a></td>
-                                <td>2 ساعت دیگر</td>
-                                <td>مناسبت عید نوروز</td>
-                                <td>0 نفر</td>
-                                <td>
-                                    <a href="" class="item-delete mlg-15"></a>
-                                    <a href="edit-discount.html" class="item-edit " title="ویرایش"></a>
-                                </td>
-                            </tr>
-
+                            @foreach($discounts as $discount)
+                                <tr role="row" class="">
+                                    <td><a href="">{{$discount->code}}</a></td>
+                                    <td><a href="">{{$discount->percent}}%</a></td>
+                                    <td>{{createJalalianFromCarbon($discount->expire_at)}}</td>
+                                    <td>{{$discount->description}}</td>
+                                    <td>{{number_format($discount->uses)}} نفر</td>
+                                    <td>
+                                        <a href="" class="item-delete mlg-15"></a>
+                                        <a href="edit-discount.html" class="item-edit " title="ویرایش"></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -41,11 +42,12 @@
             </div>
             <div class="col-4 bg-white">
                 <p class="box__title">ایجاد تخفیف جدید</p>
-                <form action="" method="post" class="padding-30">
-                    <x-input type="text" placeholder="کد تخفیف" name="code" />
-                    <x-input type="number" placeholder="درصد تخفیف" name="percent" required />
-                    <x-input type="number" placeholder="محدودیت افراد"name="usage_limitation" />
-                    <x-input type="text" id="expire_at" placeholder="تاریخ انقضای تخفیف" name="expire_at" />
+                <form action="{{route("discounts.store")}}" method="post" class="padding-30">
+                    @csrf
+                    <x-input type="text" placeholder="کد تخفیف" name="code"/>
+                    <x-input type="number" placeholder="درصد تخفیف" name="percent" required/>
+                    <x-input type="number" placeholder="محدودیت افراد" name="usage_limitation"/>
+                    <x-input type="text" id="expire_at" placeholder="تاریخ انقضای تخفیف" name="expire_at"/>
                     <p class="box__title">این تخفیف برای</p>
                     <div class="notificationGroup">
                         <input id="discounts-field-1" class="discounts-field-pn" name="discounts-field" type="radio"/>
@@ -62,8 +64,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-input type="text" name="link" placeholder="لینک اطلاعات بیشتر" />
-                    <x-input type="text" name="description" placeholder="توضیحات" class="margin-bottom-15" />
+                    <x-input type="text" name="link" placeholder="لینک اطلاعات بیشتر"/>
+                    <x-input type="text" name="description" placeholder="توضیحات" class="margin-bottom-15"/>
 
                     <button type="submit" class="btn btn-brand">اضافه کردن</button>
                 </form>
@@ -80,7 +82,7 @@
             formatDate: "YYYY/MM/DD hh:mm"
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.mySelect2').select2({
                 placeholder: "یک یا چند دوره را انتخاب کنید..."
             });
@@ -91,5 +93,5 @@
 
 @section('css')
     <link rel="stylesheet" href="/assets/persianDatePicker/css/persianDatepicker-default.css">
-    <link href="/css/select2.min.css" rel="stylesheet" />
+    <link href="/css/select2.min.css" rel="stylesheet"/>
 @endsection

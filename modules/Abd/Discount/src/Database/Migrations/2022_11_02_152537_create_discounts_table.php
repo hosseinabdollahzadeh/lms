@@ -21,6 +21,8 @@ return new class extends Migration {
             $table->timestamp('expire_at')->nullable();
             $table->string('link', 300)->nullable();
             $table->string('description')->nullable();
+            $table->enum("type",[\Abd\Discount\Models\Discount::$types])
+                ->default(\Abd\Discount\Models\Discount::TYPE_ALL);
             $table->bigInteger('uses')->unsigned()->default(0);
             $table->timestamps();
 
@@ -30,7 +32,7 @@ return new class extends Migration {
         Schema::create('discountables', function (Blueprint $table) {
             $table->foreignId('discount_id');
             $table->foreignId('discountable_id');
-            $table->foreignId('discountable_type');
+            $table->string('discountable_type');
             $table->primary(["discount_id", "discountable_id", "discountable_type"], "discountable_key");
 
             $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('CASCADE');

@@ -26,7 +26,7 @@ class DiscountRequest extends FormRequest
     {
         return [
             "code" => "nullable|max:50|unique:discounts,code",
-            "percent" => "required|min:1|max:100",
+            "percent" => "required|numeric|min:1|max:100",
             "usage_limitation" => "nullable|numeric|min:1|max:1000000000",
             "expire_at" => ["nullable", new ValidJalaliDate()],
             "courses" => "nullable|array"

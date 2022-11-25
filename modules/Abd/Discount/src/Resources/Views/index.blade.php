@@ -24,9 +24,9 @@
                             <tbody>
                             @foreach($discounts as $discount)
                                 <tr role="row" class="">
-                                    <td><a href="">{{$discount->code}}</a></td>
-                                    <td><a href="">{{$discount->percent}}%</a></td>
-                                    <td>{{createJalalianFromCarbon($discount->expire_at)}}</td>
+                                    <td><a href="">{{$discount->code ?? "-"}}</a></td>
+                                    <td><a href="">{{$discount->percent}}%</a> برای @lang($discount->type)</td>
+                                    <td>{{$discount->expire_at ? createJalalianFromCarbon($discount->expire_at) : "بدون تاریخ انقضاء"}}</td>
                                     <td>{{$discount->description}}</td>
                                     <td>{{number_format($discount->uses)}} نفر</td>
                                     <td>
@@ -50,11 +50,13 @@
                     <x-input type="text" id="expire_at" placeholder="تاریخ انقضای تخفیف" name="expire_at"/>
                     <p class="box__title">این تخفیف برای</p>
                     <div class="notificationGroup">
-                        <input id="discounts-field-1" class="discounts-field-pn" name="discounts-field" type="radio"/>
+                        <input id="discounts-field-1" class="discounts-field-pn" name="type"
+                               value="{{\Abd\Discount\Models\Discount::TYPE_ALL}}" type="radio"/>
                         <label for="discounts-field-1">همه دوره ها</label>
                     </div>
                     <div class="notificationGroup">
-                        <input id="discounts-field-2" class="discounts-field-pn" name="discounts-field" type="radio"/>
+                        <input id="discounts-field-2" class="discounts-field-pn"
+                               name="type" value="{{\Abd\Discount\Models\Discount::TYPE_SPECIAL}}" type="radio"/>
                         <label for="discounts-field-2">دوره خاص</label>
                     </div>
                     <div id="selectCourseContainer" class="d-none">

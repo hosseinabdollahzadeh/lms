@@ -211,10 +211,10 @@ $('.create-ads .ads-field-pn').on('click', function (e) {
 $('.create-ads .ads-field-banner').on('click', function (e) {
     $('.file-upload').show()
 });
-$('.discounts #discounts-field-2').on('click', function (e) {
+$('#discounts-field-2').on('click', function (e) {
     $('#selectCourseContainer').removeClass('d-none')
 });
-$('.discounts #discounts-field-1').on('click', function (e) {
+$('#discounts-field-1').on('click', function (e) {
     $('#selectCourseContainer').addClass('d-none')
 });
 

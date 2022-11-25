@@ -2,9 +2,11 @@
 
 namespace Abd\Discount\Http\Controllers;
 
+use Abd\Common\Responses\AjaxResponses;
 use Abd\Course\Models\Course;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Discount\Http\Requests\DiscountRequest;
+use Abd\Discount\Models\Discount;
 use Abd\Discount\Repositories\DiscountRepo;
 use App\Http\Controllers\Controller;
 
@@ -23,4 +25,24 @@ class DiscountController extends Controller
         newFeedback();
         return back();
     }
+
+    public function edit(Discount $discount,CourseRepo $courseRepo)
+    {
+        $courses = $courseRepo->getAll(Course::CONFIRMATION_STATUS_ACCEPTED);
+        return view('Discounts::edit', compact('discount', 'courses'));
+    }
+
+    public function update(Discount $discount, DiscountRequest $request, DiscountRepo $repo)
+    {
+        $repo->update($discount->id, $request->all());
+        newFeedback();
+        return redirect()->route("discounts.index");
+    }
+
+    public function destroy(Discount $discount)
+    {
+        $discount->delete();
+        return AjaxResponses::SuccessResponse();
+    }
+
 }

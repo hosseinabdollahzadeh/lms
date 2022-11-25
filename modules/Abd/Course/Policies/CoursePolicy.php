@@ -22,18 +22,19 @@ class CoursePolicy
 
     public function manage(User $user)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES);
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES)) return true;
     }
 
     public function index($user)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) || $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES);
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) ||
+            $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES)) return true;
     }
 
     public function create(User $user)
     {
-        return $user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) ||
-            $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES);
+        if($user->hasPermissionTo(Permission::PERMISSION_MANAGE_COURSES) ||
+            $user->hasPermissionTo(Permission::PERMISSION_MANAGE_OWN_COURSES)) return true;
     }
 
     public function edit($user, $course)

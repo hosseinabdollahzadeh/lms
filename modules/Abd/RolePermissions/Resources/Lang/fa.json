@@ -7,5 +7,8 @@
     "manage own courses": "مدیریت دوره های خود",
     "teacher": "مدرس",
     "student": "دانشجو",
-    "super admin": "مدیر کل"
+    "super admin": "مدیر کل",
+    "manage payments": "مدیریت تراکنش ها",
+    "manage settlements": "مدیریت درخواست های تسویه",
+    "manage discounts": "مدیریت تخفیف ها"
 }

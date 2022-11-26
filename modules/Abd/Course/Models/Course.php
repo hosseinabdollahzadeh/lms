@@ -5,6 +5,7 @@ namespace Abd\Course\Models;
 use Abd\Category\Models\Category;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Discount\Models\Discount;
+use Abd\Discount\Repositories\DiscountRepo;
 use Abd\Media\Models\Media;
 use Abd\Payment\Models\Payment;
 use Abd\User\Models\User;
@@ -99,14 +100,18 @@ class Course extends Model
 
     public function getDiscountPercent()
     {
-        // todo
-        return 0;
+        $discountRepo = new DiscountRepo();
+        $percent = 0;
+        $specificDiscount = $discountRepo->getCourseBiggerDiscount($this->id);
+        if ($specificDiscount) $percent = $specificDiscount->percent;
+        $globalDiscount = $discountRepo->getGlobalBiggerDiscount();
+        if ($globalDiscount && $globalDiscount->percent > $percent) $percent = $globalDiscount->percent;
+        return $percent;
     }
 
     public function getDiscountAmount()
     {
-        // todo
-        return 0;
+        return $this->price * ((float)("0." . $this->getDiscountPercent()));
     }
 
     public function getFinalPrice()

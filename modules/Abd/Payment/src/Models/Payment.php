@@ -2,12 +2,13 @@
 
 namespace Abd\Payment\Models;
 
+use Abd\Discount\Models\Discount;
 use Abd\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $guarded=[];
+    protected $guarded = [];
     const STATUS_PENDING = "pending";
     const STATUS_CANCELLED = "cancelled";
     const STATUS_SUCCESS = "success";
@@ -24,6 +25,11 @@ class Payment extends Model
         return $this->morphTo("paymentable");
     }
 
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_payment');
+    }
+
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id');
@@ -33,4 +39,5 @@ class Payment extends Model
     {
         return $this->belongsTo(User::class, 'seller_id');
     }
+
 }

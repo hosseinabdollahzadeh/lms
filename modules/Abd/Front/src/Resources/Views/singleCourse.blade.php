@@ -42,7 +42,9 @@
                             @else
                                 <div class="sell_course">
                                     <strong>قیمت :</strong>
-                                    <del class="discount-Price">{{$course->getFormattedPrice()}}</del>
+                                    @if($course->getDiscountPercent())
+                                        <del class="discount-Price">{{$course->getFormattedPrice()}}</del>
+                                    @endif
                                     <p class="price">
                         <span class="woocommerce-Price-amount amount">{{$course->getFormattedFinalPrice()}}
                             <span class="woocommerce-Price-currencySymbol">تومان</span>
@@ -54,9 +56,11 @@
                         @else
                             <div class="sell_course">
                                 <strong>قیمت :</strong>
-                                <del class="discount-Price">{{$course->getFormattedPrice()}}</del>
+                                @if($course->getDiscountPercent())
+                                    <del class="discount-Price">{{$course->getFormattedPrice()}}</del>
+                                @endif
                                 <p class="price">
-                        <span class="woocommerce-Price-amount amount">{{$course->getFormattedPrice()}}
+                        <span class="woocommerce-Price-amount amount">{{$course->getFormattedFinalPrice()}}
                             <span class="woocommerce-Price-currencySymbol">تومان</span>
                         </span>
                                 </p>
@@ -192,8 +196,9 @@
                 <div class="modal-body">
                     <form method="post" action="{{route('courses.buy', $course->id)}}">
                         @csrf
-                        <div><input type="text" class="txt" placeholder="کد تخفیف را وارد کنید"></div>
-                        <button class="btn i-t ">اعمال</button>
+                        <div><input type="text" name="code" id="code" class="txt" placeholder="کد تخفیف را وارد کنید">
+                        </div>
+                        <button type="button" class="btn i-t" onclick="checkDiscountCode()">اعمال</button>
 
                         <table class="table text-center table-bordered table-striped">
                             <tbody>
@@ -203,15 +208,15 @@
                             </tr>
                             <tr>
                                 <th>درصد تخفیف</th>
-                                <td>{{$course->getDiscountPercent()}}%</td>
+                                <td id="discountPercent">{{$course->getDiscountPercent()}}%</td>
                             </tr>
                             <tr>
                                 <th> مبلغ تخفیف</th>
-                                <td class="text-red"> {{$course->getDiscountAmount()}} تومان</td>
+                                <td class="text-red" id="discountAmount"> {{$course->getDiscountAmount()}} تومان</td>
                             </tr>
                             <tr>
                                 <th> قابل پرداخت</th>
-                                <td class="text-blue"> {{$course->getFormattedFinalPrice()}} تومان</td>
+                                <td class="text-blue" id="payableAmount"> {{$course->getFormattedFinalPrice()}} تومان</td>
                             </tr>
                             </tbody>
                         </table>
@@ -230,4 +235,19 @@
 
 @section('js')
     <script src="/js/modal.js"></script>
+    <script>
+        function checkDiscountCode() {
+            const code = $("#code").val();
+            const url = "{{route("discounts.check",["code",$course->id])}}";
+            $.get(url.replace("code", code))
+                .done(function (data) {
+                    $('#discountPercent').text(data.discountPercent + '%');
+                    $('#discountAmount').text(data.discountAmount + ' تومان');
+                    $('#payableAmount').text(data.payableAmount + ' تومان');
+                })
+                .fail(function ($data) {
+
+                });
+        }
+    </script>
 @endsection

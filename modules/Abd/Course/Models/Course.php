@@ -6,6 +6,7 @@ use Abd\Category\Models\Category;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Discount\Models\Discount;
 use Abd\Discount\Repositories\DiscountRepo;
+use Abd\Discount\Services\DiscountService;
 use Abd\Media\Models\Media;
 use Abd\Payment\Models\Payment;
 use Abd\User\Models\User;
@@ -111,7 +112,7 @@ class Course extends Model
 
     public function getDiscountAmount()
     {
-        return $this->price * ((float)("0." . $this->getDiscountPercent()));
+        return DiscountService::calculateDiscountAmount($this->price, $this->getDiscountPercent());
     }
 
     public function getFinalPrice()

@@ -8,6 +8,7 @@ use Abd\Course\Repositories\CourseRepo;
 use Abd\Discount\Http\Requests\DiscountRequest;
 use Abd\Discount\Models\Discount;
 use Abd\Discount\Repositories\DiscountRepo;
+use Abd\Discount\Services\DiscountService;
 use App\Http\Controllers\Controller;
 
 class DiscountController extends Controller
@@ -28,7 +29,7 @@ class DiscountController extends Controller
         return back();
     }
 
-    public function edit(Discount $discount,CourseRepo $courseRepo)
+    public function edit(Discount $discount, CourseRepo $courseRepo)
     {
         $this->authorize("manage", Discount::class);
         $courses = $courseRepo->getAll(Course::CONFIRMATION_STATUS_ACCEPTED);
@@ -50,4 +51,22 @@ class DiscountController extends Controller
         return AjaxResponses::SuccessResponse();
     }
 
+    public function check($code, Course $course, DiscountRepo $repo)
+    {
+        $discount = $repo->getValidDiscountByCode($code, $course->id);
+        if ($discount) {
+            $discountAmount = DiscountService::calculateDiscountAmount($course->price, $discount->percent);
+            $discountPercent = $discount->percent;
+            $response = [
+                "status" => "valid",
+                "payableAmount" => $course->price - $discountAmount,
+                "discountAmount" => $discountAmount,
+                "discountPercent" => $discountPercent
+            ];
+            return response()->json($response);
+        }
+        return response()->json([
+            "status" => "invalid"
+        ])->setStatusCode(422);
+    }
 }

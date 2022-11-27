@@ -60,11 +60,12 @@ class DiscountRepo
         }
     }
 
-    public function getValidDiscountQuery($type = "all", $id = null)
+    public function getValidDiscountsQuery($type = "all", $id = null)
     {
         $query = Discount::query()
             ->where("expire_at", ">", now())
-            ->where("type", $type);
+            ->where("type", $type)
+            ->whereNull("code");
         if ($id) {
             $query->whereHas("courses", function ($query) use ($id) {
                 $query->where("id", $id);
@@ -82,12 +83,25 @@ class DiscountRepo
 
     public function getGlobalBiggerDiscount()
     {
-        return $this->getValidDiscountQuery()
+        return $this->getValidDiscountsQuery()
             ->first();
     }
 
     public function getCourseBiggerDiscount($id)
     {
-        return $this->getValidDiscountQuery(Discount::TYPE_SPECIAL, $id)->first();
+        return $this->getValidDiscountsQuery(Discount::TYPE_SPECIAL, $id)->first();
     }
+
+    public function getValidDiscountByCode($code, $id)
+    {
+        return Discount::query()
+            ->where("code",$code)
+            ->where(function($query) use ($id){
+                return $query->whereHas("courses", function ($query) use ($id){
+                    return $query->where("id",$id);
+                })->orWhereDoesntHave("courses");
+            })
+            ->first();
+    }
+
 }

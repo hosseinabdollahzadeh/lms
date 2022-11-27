@@ -33,7 +33,8 @@
                                         <a href=""
                                            onclick="deleteItem(event, '{{ route('discounts.destroy', $discount->id)}}');"
                                            class="item-delete mlg-15" title="حذف"></a>
-                                        <a href="{{route("discounts.edit",$discount->id)}}" class="item-edit " title="ویرایش"></a>
+                                        <a href="{{route("discounts.edit",$discount->id)}}" class="item-edit "
+                                           title="ویرایش"></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -51,6 +52,7 @@
                     <x-input type="number" placeholder="محدودیت افراد" name="usage_limitation"/>
                     <x-input type="text" id="expire_at" placeholder="تاریخ انقضای تخفیف" name="expire_at"/>
                     <p class="box__title">این تخفیف برای</p>
+                    <x-validation-error field='type'/>
                     <div class="notificationGroup">
                         <input id="discounts-field-1" class="discounts-field-pn" name="type"
                                value="{{\Abd\Discount\Models\Discount::TYPE_ALL}}" type="radio"/>
@@ -83,7 +85,7 @@
     <script src="/js/select2.min.js"></script>
     <script>
         $("#expire_at").persianDatepicker({
-            formatDate: "YYYY/MM/DD hh:mm"
+            formatDate: "YYYY/0M/0D hh:mm"
         });
 
         $(document).ready(function () {
@@ -92,7 +94,6 @@
             });
         });
     </script>
-
 @endsection
 
 @section('css')

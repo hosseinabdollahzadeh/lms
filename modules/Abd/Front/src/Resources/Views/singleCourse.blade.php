@@ -196,9 +196,13 @@
                 <div class="modal-body">
                     <form method="post" action="{{route('courses.buy', $course->id)}}">
                         @csrf
-                        <div><input type="text" name="code" id="code" class="txt" placeholder="کد تخفیف را وارد کنید">
+                        <div>
+                            <input type="text" name="code" id="code" class="txt" placeholder="کد تخفیف را وارد کنید">
+                            <p id="response"></p>
                         </div>
-                        <button type="button" class="btn i-t" onclick="checkDiscountCode()">اعمال</button>
+                        <button type="button" class="btn i-t" onclick="checkDiscountCode()">اعمال
+                            <img src="/img/loading.gif" alt="" id="loading" class="loading d-none">
+                        </button>
 
                         <table class="table text-center table-bordered table-striped">
                             <tbody>
@@ -216,7 +220,8 @@
                             </tr>
                             <tr>
                                 <th> قابل پرداخت</th>
-                                <td class="text-blue" id="payableAmount"> {{$course->getFormattedFinalPrice()}} تومان</td>
+                                <td class="text-blue" id="payableAmount"> {{$course->getFormattedFinalPrice()}}تومان
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -237,16 +242,23 @@
     <script src="/js/modal.js"></script>
     <script>
         function checkDiscountCode() {
+            $('#loading').removeClass('d-none');
             const code = $("#code").val();
             const url = "{{route("discounts.check",["code",$course->id])}}";
+            $('#loading').addClass('d-none');
+            $('#response').text('');
             $.get(url.replace("code", code))
                 .done(function (data) {
                     $('#discountPercent').text(data.discountPercent + '%');
                     $('#discountAmount').text(data.discountAmount + ' تومان');
                     $('#payableAmount').text(data.payableAmount + ' تومان');
+                    $('#response').text('کد تخفیف با موفقیت اعمال شد.').removeClass('text-error').addClass('text-success');
                 })
-                .fail(function ($data) {
-
+                .fail(function (data) {
+                    $('#response').text('کد وارد شده برای این درس معتبر نیست.').removeClass('text-success').addClass('text-error');
+                })
+                .always(function () {
+                    $('#loading').addClass('d-none');
                 });
         }
     </script>

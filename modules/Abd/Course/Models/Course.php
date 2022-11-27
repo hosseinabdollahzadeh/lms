@@ -99,32 +99,56 @@ class Course extends Model
         return number_format($this->price);
     }
 
-    public function getDiscountPercent()
+    public function getDiscount()
     {
         $discountRepo = new DiscountRepo();
-        $percent = 0;
-        $specificDiscount = $discountRepo->getCourseBiggerDiscount($this->id);
-        if ($specificDiscount) $percent = $specificDiscount->percent;
+        $discount = $discountRepo->getCourseBiggerDiscount($this->id);
         $globalDiscount = $discountRepo->getGlobalBiggerDiscount();
-        if ($globalDiscount && $globalDiscount->percent > $percent) $percent = $globalDiscount->percent;
-        return $percent;
+        if ($discount == null && $globalDiscount == null) return null;
+        if ($discount == null && $globalDiscount != null) return $globalDiscount;
+        if ($discount != null && $globalDiscount == null) return $discount;
+        if ($globalDiscount->percent > $discount->percent) $discount = $globalDiscount;
+        return $discount;
     }
 
-    public function getDiscountAmount()
+    public function getDiscountPercent()
     {
-        return DiscountService::calculateDiscountAmount($this->price, $this->getDiscountPercent());
+        $discount = $this->getDiscount();
+        if ($discount) return $discount->percent;
+        return 0;
     }
 
-    public function getFinalPrice($code = null)
+    public function getDiscountAmount($percent = null)
     {
-        $amount = $this->price - $this->getDiscountAmount();
-        if($code){
+        if ($percent == null) {
+            $discount = $this->getDiscount();
+            $percent = $discount ? $discount->percent : 0;
+        }
+
+        return DiscountService::calculateDiscountAmount($this->price, $percent);
+    }
+
+    public function getFinalPrice($code = null, $withDiscounts = false)
+    {
+        $discount = $this->getDiscount();
+        $amount = $this->price;
+        $discounts = [];
+        if ($discount) {
+            $discounts[] = $discount;
+            $amount = $this->price - $this->getDiscountAmount($discount->percent);
+        }
+
+        if ($code) {
             $repo = new DiscountRepo();
-            $discount = $repo->getValidDiscountByCode($code, $this->id);
-            if ($discount) {
-                $amount -= DiscountService::calculateDiscountAmount($amount, $discount->percent);
+            $discountFromCode = $repo->getValidDiscountByCode($code, $this->id);
+            if ($discountFromCode) {
+                $discounts[] = $discountFromCode;
+                $amount -= DiscountService::calculateDiscountAmount($amount, $discountFromCode->percent);
             }
         }
+        if ($withDiscounts)
+            return [$amount, $discounts];
+
         return $amount;
     }
 

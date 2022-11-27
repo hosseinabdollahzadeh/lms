@@ -10,7 +10,7 @@ use function Termwind\terminal;
 
 class PaymentService
 {
-    public static function generate($amount, $paymentable, User $buyer, $seller_id=null)
+    public static function generate($amount, $paymentable, User $buyer, $seller_id=null, $discounts=[])
     {
         if ($amount <= 0 || is_null($paymentable->id) || is_null($buyer->id)) return false;
 
@@ -42,6 +42,6 @@ class PaymentService
             "seller_p" => $seller_p,
             "seller_share" => $seller_share,
             "site_share" => $site_shar,
-        ]);
+        ], $discounts);
     }
 }

@@ -8,8 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    use HasFactory;
+    const STATUS_OPEN = 'open';
+    const STATUS_CLOSE = 'close';
+    const STATUS_PENDING = 'pending';
 
+    public static $statuses=[
+        self::STATUS_OPEN,
+        self::STATUS_CLOSE,
+        self::STATUS_PENDING
+    ];
     public function replies()
     {
         return $this->hasMany(Reply::class);

@@ -212,7 +212,7 @@
                             </tr>
                             <tr>
                                 <th>درصد تخفیف</th>
-                                <td id="discountPercent">{{$course->getDiscount()}}%</td>
+                                <td id="discountPercent">{{$course->getDiscountPercent()}}%</td>
                             </tr>
                             <tr>
                                 <th> مبلغ تخفیف</th>

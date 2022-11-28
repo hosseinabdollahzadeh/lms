@@ -9,6 +9,8 @@ use Abd\Media\Models\Media;
 use Abd\Payment\Models\Payment;
 use Abd\Payment\Models\Settlement;
 use Abd\RolePermissions\Models\Role;
+use Abd\Ticket\Models\Reply;
+use Abd\Ticket\Models\Ticket;
 use Abd\User\Database\Factories\UserFactory;
 use Abd\User\Mail\ResetPasswordRequestMail;
 use Abd\User\Notifications\ResetPasswordRequestNotification;
@@ -108,10 +110,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Payment::class, 'buyer_id');
     }
 
-    public function profilePath()
-    {
-        return auth()->user()->username ? route('users.profile', auth()->user()->username) : route('users.profile', 'username');
-    }
 
     public function seasons()
     {
@@ -121,6 +119,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function settlements()
     {
         return $this->hasMany(Settlement::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function ticketReplies()
+    {
+        $this->hasMany(Reply::class);
+    }
+
+    public function profilePath()
+    {
+        return auth()->user()->username ? route('users.profile', auth()->user()->username) : route('users.profile', 'username');
     }
 
     public function getThumbAttribute()

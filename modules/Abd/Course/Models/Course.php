@@ -9,6 +9,7 @@ use Abd\Discount\Repositories\DiscountRepo;
 use Abd\Discount\Services\DiscountService;
 use Abd\Media\Models\Media;
 use Abd\Payment\Models\Payment;
+use Abd\Ticket\Models\Ticket;
 use Abd\User\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -58,6 +59,11 @@ class Course extends Model
     public function lessons()
     {
         return $this->hasMany(Lesson::class);
+    }
+
+    public function tickets()
+    {
+        return $this->morphMany(Ticket::class, "ticketable");
     }
 
     public function payments()

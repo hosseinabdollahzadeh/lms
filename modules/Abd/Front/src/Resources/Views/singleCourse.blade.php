@@ -208,19 +208,29 @@
                             <tbody>
                             <tr>
                                 <th>قیمت کل دوره</th>
-                                <td> {{$course->getFormattedPrice()}} تومان</td>
+                                <td><span>{{$course->getFormattedPrice()}}</span> تومان</td>
                             </tr>
                             <tr>
                                 <th>درصد تخفیف</th>
-                                <td id="discountPercent">{{$course->getDiscountPercent()}}%</td>
+                                <td><span id="discountPercent" data-value="{{$course->getDiscountPercent()}}">
+                                        {{$course->getDiscountPercent()}}
+                                    </span>%
+                                </td>
                             </tr>
                             <tr>
                                 <th> مبلغ تخفیف</th>
-                                <td class="text-red" id="discountAmount"> {{$course->getDiscountAmount()}} تومان</td>
+                                <td class="text-red"><span id="discountAmount" data-value="{{$course->getDiscountAmount()}}">
+                                        {{$course->getDiscountAmount()}}
+                                    </span>
+                                    تومان
+                                </td>
                             </tr>
                             <tr>
                                 <th> قابل پرداخت</th>
-                                <td class="text-blue" id="payableAmount"> {{$course->getFormattedFinalPrice()}}تومان
+                                <td class="text-blue">
+                                    <span id="payableAmount" data-value="{{$course->getFinalPrice()}}">
+                                        {{$course->getFormattedFinalPrice()}}
+                                    </span>تومان
                                 </td>
                             </tr>
                             </tbody>
@@ -249,9 +259,9 @@
             $('#response').text('');
             $.get(url.replace("code", code))
                 .done(function (data) {
-                    $('#discountPercent').text(data.discountPercent + '%');
-                    $('#discountAmount').text(data.discountAmount + ' تومان');
-                    $('#payableAmount').text(data.payableAmount + ' تومان');
+                    $('#discountPercent').text(parseInt($('#discountPercent').attr('data-value')) + data.discountPercent);
+                    $('#discountAmount').text(parseInt($('#discountAmount').attr('data-value')) + data.discountAmount);
+                    $('#payableAmount').text(parseInt($('#payableAmount').attr('data-value')) - data.discountAmount);
                     $('#response').text('کد تخفیف با موفقیت اعمال شد.').removeClass('text-error').addClass('text-success');
                 })
                 .fail(function (data) {

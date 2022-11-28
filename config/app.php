@@ -202,6 +202,7 @@ return [
         \Abd\Course\Providers\CourseServiceProvider::class,
         \Abd\Media\Providers\MediaServiceProvider::class,
         \Abd\Discount\Providers\DiscountServiceProvider::class,
+        \Abd\Ticket\Providers\TicketServiceProvider::class,
 
     ],
 

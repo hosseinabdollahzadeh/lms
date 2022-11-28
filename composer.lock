@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ea69adb8ee165f77836b21cbab84b91",
+    "content-hash": "13ab8f95c40bc89f42d48f6cf5f7f733",
     "packages": [
         {
             "name": "abd/common",
@@ -78,6 +78,31 @@
             "autoload": {
                 "psr-4": {
                     "Abd\\Payment\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "abd/ticket",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Abd/Ticket",
+                "reference": "d037a030bbbecff72e5b550184809241b58f0988"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Abd\\Ticket\\Providers\\TicketServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Abd\\Ticket\\": "src"
                 }
             },
             "transport-options": {
@@ -8958,7 +8983,8 @@
     "stability-flags": {
         "abd/common": 20,
         "abd/front": 20,
-        "abd/payment": 20
+        "abd/payment": 20,
+        "abd/ticket": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

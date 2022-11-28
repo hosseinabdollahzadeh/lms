@@ -1,0 +1,15 @@
+{
+    "name": "abd/ticket",
+    "autoload": {
+        "psr-4": {
+            "Abd\\Ticket\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers":[
+                "\\Abd\\Ticket\\Providers\\TicketServiceProvider"
+            ]
+        }
+    }
+}

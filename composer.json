@@ -12,6 +12,7 @@
         "abd/common": "dev-master",
         "abd/front": "dev-master",
         "abd/payment": "dev-master",
+        "abd/ticket": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
@@ -63,6 +64,10 @@
         {
             "type" : "path",
             "url": "modules/Abd/Payment"
+        },
+        {
+            "type" : "path",
+            "url": "modules/Abd/Ticket"
         }
     ],
     "scripts": {

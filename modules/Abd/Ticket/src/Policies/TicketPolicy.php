@@ -19,4 +19,9 @@ class TicketPolicy
         if (($user->id == $ticket->user_id) ||
             ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_TICKETS))) return true;
     }
+
+    public function delete($user, $ticket)
+    {
+        if ($user->hasPermissionTo(Permission::PERMISSION_MANAGE_TICKETS)) return true;
+    }
 }

@@ -2,10 +2,11 @@
 
 namespace Abd\Ticket\Http\Controllers;
 
-use Abd\Media\Services\MediaFileService;
+use Abd\Common\Responses\AjaxResponses;
 use Abd\RolePermissions\Models\Permission;
 use Abd\Ticket\Http\Requests\ReplyRequest;
 use Abd\Ticket\Http\Requests\TicketRequest;
+use Abd\Ticket\Models\Reply;
 use Abd\Ticket\Models\Ticket;
 use Abd\Ticket\Repositories\TicketRepo;
 use Abd\Ticket\Services\ReplyService;
@@ -58,5 +59,17 @@ class TicketController extends Controller
         $repo->setStatus($ticket->id, Ticket::STATUS_CLOSE);
         newFeedback();
         return redirect()->route("tickets.index");
+    }
+
+    public function destroy(Ticket $ticket)
+    {
+        $this->authorize("delete", $ticket);
+        $hasAttachments = Reply::query()->where("ticket_id", $ticket->id)->whereNotNull("media_id")
+            ->with("media")->get();
+        foreach ($hasAttachments as $reply){
+            $reply->media->delete();
+        }
+        $ticket->delete();
+        return AjaxResponses::SuccessResponse();
     }
 }

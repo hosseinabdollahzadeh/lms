@@ -27,40 +27,22 @@
                     </div>
                 </div>
                 <div class="transition-comment-body">
-                    <pre>{!! $reply->body !!}</pre>
-                    <div>
-
-                    </div>
+                    <pre>{!! $reply->body !!}
+                        <div class="border-top margin-top-6">
+                        @if($reply->media_id)
+                                <a href="{{$reply->attachmentLink()}}" class="text-success">دانلود فایل پیوست</a>
+                            @endif
+                        </div>
+                    </pre>
                 </div>
             </div>
         @endforeach
-        <div class="transition-comment is-answer">
-            <div class="transition-comment-header">
-                       <span>
-                                         <img src="img/profile.jpg" class="logo-pic">
-                       </span>
-                <span class="nav-comment-status">
-                            <p class="username">مدیر :گوگل</p>
-                            <p class="comment-date">10 ماه پیش</p></span>
-                <div>
-
-                </div>
-            </div>
-            <div class="transition-comment-body">
-                        <pre>                            سیبیسبسیبسبیسبسیبسی
-                            سیبسیبسیبسیبسیبیییییییییی
-                            یسبسیبسیبسیب
-                        </pre>
-                <div>
-
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="answer-comment">
         <p class="p-answer-comment">ارسال پاسخ</p>
-        <form action="{{route("tickets.reply", $ticket->id)}}" method="post" enctype="multipart/form-data" class="padding-30">
+        <form action="{{route("tickets.reply", $ticket->id)}}" method="post" enctype="multipart/form-data"
+              class="padding-30">
             @csrf
             <x-textarea placeholder="متن پاسخ" name="body" class="text" required/>
             <x-file name="attachment" placeholder="آپلود فایل پیوست"/>

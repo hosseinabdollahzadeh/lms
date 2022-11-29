@@ -19,4 +19,9 @@ class TicketRepo
             "user_id" => auth()->id()
         ]);
     }
+
+    public function findOrFailWithReplies($ticket)
+    {
+        return Ticket::query()->with('replies')->findOrFail($ticket);
+    }
 }

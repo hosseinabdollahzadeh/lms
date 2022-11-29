@@ -2,6 +2,7 @@
 
 namespace Abd\Ticket\Providers;
 
+use Abd\RolePermissions\Models\Permission;
 use Abd\Ticket\Models\Reply;
 use Abd\Ticket\Models\Ticket;
 use Abd\Ticket\Policies\ReplyPolicy;
@@ -26,6 +27,13 @@ class TicketServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        $this->app->booted(function () {
+            config()->set('sidebar.items.tickets', [
+                "icon" => "i-tickets",
+                "title" => "تیکت های پشتیبانی",
+                "url" => route('tickets.index'),
+                "permission" => Permission::PERMISSION_MANAGE_CATEGORIES,
+            ]);
+        });
     }
 }

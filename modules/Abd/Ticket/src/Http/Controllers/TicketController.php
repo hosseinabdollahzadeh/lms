@@ -16,6 +16,12 @@ class TicketController extends Controller
         return view("Tickets::index", compact('tickets'));
     }
 
+    public function show($ticket, TicketRepo $repo)
+    {
+        $ticket = $repo->findOrFailWithReplies($ticket);
+        return view('Tickets::show', compact('ticket'));
+    }
+
     public function create()
     {
         return view("Tickets::create");

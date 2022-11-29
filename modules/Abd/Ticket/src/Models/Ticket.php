@@ -17,6 +17,7 @@ class Ticket extends Model
         self::STATUS_CLOSE,
         self::STATUS_PENDING
     ];
+    protected $guarded = [];
     public function replies()
     {
         return $this->hasMany(Reply::class);

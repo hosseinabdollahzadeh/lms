@@ -3,6 +3,7 @@
 namespace Abd\Ticket\Repositories;
 
 use Abd\Ticket\Models\Ticket;
+use Illuminate\Database\Eloquent\Model;
 
 class TicketRepo
 {
@@ -11,7 +12,7 @@ class TicketRepo
         return Ticket::query()->latest()->paginate();
     }
 
-    public function store($title)
+    public function store($title) : Model
     {
         return Ticket::query()->create([
             "title" => $title,

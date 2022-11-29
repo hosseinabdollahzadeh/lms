@@ -2,7 +2,9 @@
 namespace Abd\Ticket\Http\Controllers;
 
 use Abd\Media\Services\MediaFileService;
+use Abd\Ticket\Http\Requests\ReplyRequest;
 use Abd\Ticket\Http\Requests\TicketRequest;
+use Abd\Ticket\Models\Ticket;
 use Abd\Ticket\Repositories\TicketRepo;
 use Abd\Ticket\Services\ReplyService;
 use App\Http\Controllers\Controller;
@@ -33,5 +35,12 @@ class TicketController extends Controller
         ReplyService::store($ticket, $request->body, $request->attachment);
         newFeedback();
         return redirect()->route("tickets.index");
+    }
+
+    public function reply(Ticket $ticket, ReplyRequest $request)
+    {
+        ReplyService::store($ticket, $request->body, $request->attachment);
+        newFeedback();
+        return redirect()->route("tickets.show", $ticket->id);
     }
 }

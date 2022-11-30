@@ -18,6 +18,7 @@ class TicketServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/../Resources/Views', 'Tickets');
+        $this->loadJsonTranslationsFrom(__DIR__.'/../Resources/Lang');
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../Routes/tickets_routes.php');

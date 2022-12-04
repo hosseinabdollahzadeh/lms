@@ -241,6 +241,7 @@
 
             </div>
         </div>
+        @include("Front::comments.index")
     </main>
 @endsection
 

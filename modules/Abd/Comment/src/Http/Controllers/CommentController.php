@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
+    public function index(CommentRepo $repo)
+    {
+        $comments = [];
+        return view("Comments::index", compact('comments'));
+    }
     public function store(CommentRequest $request, CommentRepo $repo)
     {
         $commentable = $request->commentable_type::findOrFail($request->commentable_id);

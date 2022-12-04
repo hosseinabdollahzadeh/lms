@@ -3,7 +3,7 @@
         <h3>نظرات ( 180 )</h3>
         <p>نظر خود را در مورد این مقاله مطرح کنید</p>
     </div>
-    <form action="" method="post">
+    <form action="{{route("comments.store", $course->id)}}" method="post">
         @csrf
         <div class="ct-row">
             <div class="ct-textarea">

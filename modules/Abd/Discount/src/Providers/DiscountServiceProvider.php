@@ -11,7 +11,7 @@ use Illuminate\Support\ServiceProvider;
 
 class DiscountServiceProvider extends ServiceProvider
 {
-    public $namespace = "Abd\Discount\Http\Controllers";
+    protected $namespace = "Abd\Discount\Http\Controllers";
     public function register()
     {
         $this->app->register(EventServiceProvider::class);

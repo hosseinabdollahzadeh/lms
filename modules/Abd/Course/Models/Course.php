@@ -196,6 +196,8 @@ class Course extends Model
 
     public function approvedComments()
     {
-        return $this->morphMany(Comment::class, 'commentable')->where("status", Comment::STATUS_APPROVED);
+        return $this->morphMany(Comment::class, 'commentable')
+            ->where("status", Comment::STATUS_APPROVED)
+            ->whereNull("comment_id")->with('comments');
     }
 }

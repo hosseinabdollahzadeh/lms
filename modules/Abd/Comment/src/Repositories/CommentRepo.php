@@ -23,4 +23,12 @@ class CommentRepo
             "commentable_type" => $data["commentable_type"],
         ]);
     }
+
+    public function findApproved($id)
+    {
+        return Comment::query()
+            ->where("id", $id)
+            ->where("status", Comment::STATUS_APPROVED)
+            ->first();
+    }
 }

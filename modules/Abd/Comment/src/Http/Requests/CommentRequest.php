@@ -2,6 +2,7 @@
 
 namespace Abd\Comment\Http\Requests;
 
+use Abd\Comment\Rules\ApprovedCommentRule;
 use Abd\Comment\Rules\CommentableRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,6 +28,7 @@ class CommentRequest extends FormRequest
         return [
             'body' => 'required',
             'commentable_id' => 'required',
+            'comment_id' => ["nullable", new ApprovedCommentRule()],
             'commentable_type' => ['required', new CommentableRule()],
         ];
     }

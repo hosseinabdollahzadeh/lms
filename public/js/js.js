@@ -216,3 +216,7 @@ $('.study-mode').click(function () {
     $('.sidebar-right').toggleClass('d-none');
     $('.content-left').toggleClass('on');
 })
+
+function setCommentId(commentId){
+    $("#comment_id").val(commentId);
+}

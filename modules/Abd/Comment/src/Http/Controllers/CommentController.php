@@ -10,7 +10,7 @@ class CommentController extends Controller
 {
     public function index(CommentRepo $repo)
     {
-        $comments = $repo->paginate();
+        $comments = $repo->paginateParents();
         return view("Comments::index", compact('comments'));
     }
     public function store(CommentRequest $request, CommentRepo $repo)

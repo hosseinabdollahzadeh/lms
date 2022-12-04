@@ -48,7 +48,7 @@
                     <td><a href="">{{$comment->commentable->title}}</a></td>
                     <td>{{$comment->body}}</td>
                     <td>{{\Morilog\Jalali\Jalalian::fromCarbon($comment->created_at)}}</td>
-                    <td>{{$comment->comments()->count()}}</td>
+                    <td>{{$comment->comments()->count()}} ({{$comment->not_approved_comments_count}})</td>
                     <td class="{{$comment->getStatusCssClass()}}">@lang($comment->status)</td>
                     <td>
                         <a href=""

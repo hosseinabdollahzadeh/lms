@@ -7,10 +7,6 @@ use Abd\RolePermissions\Models\Permission;
 
 class CommentRepo
 {
-    public function paginate()
-    {
-        return Comment::query()->latest()->paginate();
-    }
 
     public function store($data)
     {
@@ -40,5 +36,16 @@ class CommentRepo
     public function findOrFail($id)
     {
         return Comment::query()->findOrFail($id);
+    }
+
+    public function paginate()
+    {
+        return Comment::query()->latest()->paginate();
+    }
+
+
+    public function paginateParents()
+    {
+        return Comment::query()->whereNull('comment_id')->withCount("notApprovedComments")->latest()->paginate();
     }
 }

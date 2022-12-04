@@ -3,6 +3,7 @@ namespace Abd\Comment\Http\Controllers;
 
 use Abd\Comment\Http\Requests\CommentRequest;
 use Abd\Comment\Repositories\CommentRepo;
+use Abd\Common\Responses\AjaxResponses;
 use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
@@ -18,5 +19,12 @@ class CommentController extends Controller
         $repo->store($request->all());
         newFeedback("عملیات موفقیت آمیز", "نظر شما ثبت شد.");
         return redirect($commentable->path());
+    }
+
+    public function destroy($id, CommentRepo $repo)
+    {
+        $comment = $repo->findOrFail($id);
+        $comment->delete();
+        AjaxResponses::SuccessResponse();
     }
 }

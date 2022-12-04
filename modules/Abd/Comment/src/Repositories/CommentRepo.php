@@ -11,6 +11,7 @@ class CommentRepo
     {
         return Comment::query()->latest()->paginate();
     }
+
     public function store($data)
     {
         return Comment::query()->create([
@@ -34,5 +35,10 @@ class CommentRepo
             ->where("id", $id)
             ->where("status", Comment::STATUS_APPROVED)
             ->first();
+    }
+
+    public function findOrFail($id)
+    {
+        return Comment::query()->findOrFail($id);
     }
 }

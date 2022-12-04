@@ -3,7 +3,7 @@
 namespace Abd\Course\Models;
 
 use Abd\Category\Models\Category;
-use Abd\Comment\Models\Comment;
+use Abd\Comment\Traits\HasComments;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Discount\Models\Discount;
 use Abd\Discount\Repositories\DiscountRepo;
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    use HasComments;
     protected $guarded = [];
 
     const TYPE_FREE = 'free';
@@ -189,15 +190,4 @@ class Course extends Model
         return $links;
     }
 
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
-    public function approvedComments()
-    {
-        return $this->morphMany(Comment::class, 'commentable')
-            ->where("status", Comment::STATUS_APPROVED)
-            ->whereNull("comment_id")->with('comments');
-    }
 }

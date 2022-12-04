@@ -3,6 +3,7 @@
 namespace Abd\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Abd\Comment\Models\Comment;
 use Abd\Course\Models\Course;
 use Abd\Course\Models\Season;
 use Abd\Media\Models\Media;
@@ -131,6 +132,10 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->hasMany(Reply::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
     public function profilePath()
     {
         return auth()->user()->username ? route('users.profile', auth()->user()->username) : route('users.profile', 'username');

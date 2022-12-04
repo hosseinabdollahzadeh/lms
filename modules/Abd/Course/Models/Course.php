@@ -3,6 +3,7 @@
 namespace Abd\Course\Models;
 
 use Abd\Category\Models\Category;
+use Abd\Comment\Models\Comment;
 use Abd\Course\Repositories\CourseRepo;
 use Abd\Discount\Models\Discount;
 use Abd\Discount\Repositories\DiscountRepo;
@@ -186,5 +187,10 @@ class Course extends Model
         }
 
         return $links;
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

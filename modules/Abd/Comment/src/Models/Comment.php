@@ -14,4 +14,9 @@ class Comment extends Model
         self::STATUS_APPROVED,
         self::STATUS_REJECTED
     ];
+
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
 }

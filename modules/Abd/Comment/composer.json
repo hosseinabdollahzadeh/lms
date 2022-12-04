@@ -1,0 +1,15 @@
+{
+    "name": "abd/comment",
+    "autoload": {
+        "psr-4": {
+            "Abd\\Comment\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers":[
+                "\\Abd\\Comment\\Providers\\CommentServiceProvider"
+            ]
+        }
+    }
+}

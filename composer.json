@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "abd/comment": "dev-master",
         "abd/common": "dev-master",
         "abd/front": "dev-master",
         "abd/payment": "dev-master",
@@ -68,6 +69,10 @@
         {
             "type" : "path",
             "url": "modules/Abd/Ticket"
+        },
+        {
+            "type" : "path",
+            "url": "modules/Abd/Comment"
         }
     ],
     "scripts": {

@@ -203,6 +203,7 @@ return [
         \Abd\Media\Providers\MediaServiceProvider::class,
         \Abd\Discount\Providers\DiscountServiceProvider::class,
         \Abd\Ticket\Providers\TicketServiceProvider::class,
+        \Abd\Comment\Providers\CommentServiceProvider::class,
 
     ],
 

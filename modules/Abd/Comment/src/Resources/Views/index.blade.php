@@ -25,4 +25,41 @@
             </form>
         </div>
     </div>
+
+    <div class="table__box">
+        <table class="table">
+            <thead role="rowgroup">
+            <tr role="row" class="title-row">
+                <th>شناسه</th>
+                <th>ارسال کننده</th>
+                <th>برای</th>
+                <th>دیدگاه</th>
+                <th>تاریخ</th>
+                <th>تعداد پاسخ ها</th>
+                <th>وضعیت</th>
+                <th>عملیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($comments as $comment)
+                <tr role="row">
+                    <td><a href="">{{$comment->id}}</a></td>
+                    <td><a href="">{{$comment->user->name}}</a></td>
+                    <td><a href="">{{$comment->commentable->title}}</a></td>
+                    <td>{{$comment->body}}</td>
+                    <td>{{\Morilog\Jalali\Jalalian::fromCarbon($comment->created_at)}}</td>
+                    <td>{{$comment->comments()->count()}}</td>
+                    <td class="{{$comment->getStatusCssClass()}}">@lang($comment->status)</td>
+                    <td>
+                        <a href="" class="item-delete mlg-15" title="حذف"></a>
+                        <a href="show-comment.html" class="item-reject mlg-15" title="رد"></a>
+                        <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                        <a href="show-comment.html" class="item-confirm mlg-15" title="تایید"></a>
+                        <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 @endsection

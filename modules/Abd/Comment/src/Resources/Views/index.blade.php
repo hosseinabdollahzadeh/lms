@@ -54,7 +54,7 @@
                         <a href=""
                            onclick="deleteItem(event, '{{ route('comments.destroy', $comment->id)}}');"
                            class="item-delete mlg-15" title="حذف"></a>
-                        <a href="show-comment.html" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                        <a href="{{route('comments.show', $comment->id)}}" class="item-eye mlg-15" title="مشاهده"></a>
                         <a href=""
                            onclick="updateConfirmationStatus(event, '{{ route('comments.accept', $comment->id)}}',
                                'آیا از تأیید این آیتم اطمینان دارید؟' , 'تأیید شده');"
@@ -64,7 +64,6 @@
                                'آیا از رد این آیتم اطمینان دارید؟', 'رد شده');"
                            class="item-reject mlg-15"
                            title="رد"></a>
-                        <a href="edit-comment.html" class="item-edit " title="ویرایش"></a>
                     </td>
                 </tr>
             @endforeach

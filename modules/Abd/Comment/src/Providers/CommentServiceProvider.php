@@ -2,6 +2,7 @@
 
 namespace Abd\Comment\Providers;
 
+use Abd\RolePermissions\Models\Permission;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +20,13 @@ class CommentServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        $this->app->booted(function () {
+            config()->set('sidebar.items.comments', [
+                "icon" => "i-comments",
+                "title" => "نظرات",
+                "url" => route('comments.index'),
+                "permission" => Permission::PERMISSION_MANAGE_COMMENTS,
+            ]);
+        });
     }
 }

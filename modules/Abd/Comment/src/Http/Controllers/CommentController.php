@@ -14,6 +14,12 @@ class CommentController extends Controller
         $comments = $repo->paginateParents();
         return view("Comments::index", compact('comments'));
     }
+
+    public function show($id)
+    {
+        $comment = Comment::query()->where("id", $id)->with("commentable", "user", "comments")->firstOrFail();
+        return view('Comments::show', compact('comment'));
+    }
     public function store(CommentRequest $request, CommentRepo $repo)
     {
         $commentable = $request->commentable_type::findOrFail($request->commentable_id);

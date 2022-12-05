@@ -218,16 +218,16 @@ $('#discounts-field-1').on('click', function (e) {
     $('#selectCourseContainer').addClass('d-none')
 });
 
-function updateConfirmationStatus(event, route, message, status, field = 'confirmation_status') {
+function updateConfirmationStatus(event, route, message, status, field = 'confirmation_status', parent='tr', target='td.') {
     event.preventDefault();
     if (confirm(message)) {
         $.post(route, {_method: "PATCH", _token: $('meta[name="_token"]').attr('content')})
             .done(function (response) {
                 if (status == 'تأیید شده' || status == 'باز') {
-                    $(event.target).closest('tr').find('td.' + field).html("<span class='text-success'>" + status + "</span>");
+                    $(event.target).closest(parent).find(target + field).html("<span class='text-success'>" + status + "</span>");
                 }
                 if (status == 'رد شده' || status == 'قفل شده') {
-                    $(event.target).closest('tr').find('td.' + field).html("<span class='text-error'>" + status + "</span>");
+                    $(event.target).closest(parent).find(target + field).html("<span class='text-error'>" + status + "</span>");
                 }
 
                 $.toast({

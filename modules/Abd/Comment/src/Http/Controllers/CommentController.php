@@ -50,6 +50,6 @@ class CommentController extends Controller
     {
         $comment = $repo->findOrFail($id);
         $comment->delete();
-        AjaxResponses::SuccessResponse();
+        return AjaxResponses::SuccessResponse();
     }
 }

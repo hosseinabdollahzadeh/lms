@@ -26,6 +26,12 @@
         <testsuite name="Feature">
             <directory suffix="Test.php">./modules/Abd/RolePermissions/Tests/Feature</directory>
         </testsuite>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./modules/Abd/Discount/Tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./modules/Abd/Comment/Tests/Feature</directory>
+        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>

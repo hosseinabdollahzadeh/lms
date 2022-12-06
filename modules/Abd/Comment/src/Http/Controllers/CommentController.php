@@ -1,6 +1,7 @@
 <?php
 namespace Abd\Comment\Http\Controllers;
 
+use Abd\Comment\Events\CommentSubmittedEvent;
 use Abd\Comment\Http\Requests\CommentRequest;
 use Abd\Comment\Models\Comment;
 use Abd\Comment\Repositories\CommentRepo;
@@ -37,7 +38,8 @@ class CommentController extends Controller
     }
     public function store(CommentRequest $request, CommentRepo $repo)
     {
-        $repo->store($request->all());
+        $comment = $repo->store($request->all());
+        event(new CommentSubmittedEvent($comment));
         newFeedback("عملیات موفقیت آمیز", "نظر شما ثبت شد.");
         return back();
     }

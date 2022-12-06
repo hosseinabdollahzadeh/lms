@@ -5,24 +5,34 @@ use Abd\Comment\Http\Requests\CommentRequest;
 use Abd\Comment\Models\Comment;
 use Abd\Comment\Repositories\CommentRepo;
 use Abd\Common\Responses\AjaxResponses;
+use Abd\Course\Models\Course;
+use Abd\RolePermissions\Models\Permission;
 use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
     public function index(CommentRepo $repo)
     {
+        $this->authorize('index', Comment::class);
         $comments = $repo
             ->searchBody(request("body"))
             ->searchEmail(request("email"))
             ->searchName(request("name"))
-            ->searchStatus(request("status"))
-            ->paginateParents();
+            ->searchStatus(request("status"));
+//        if(!auth()->user()->hasAnyPermission([Permission::PERMISSION_MANAGE_COMMENTS, Permission::PERMISSION_SUPER_ADMIN])){ // this line OR bellow line
+        if(!auth()->user()->can(Permission::PERMISSION_MANAGE_COMMENTS)){
+            $comments->query->whereHasMorph('commentable', [Course::class], function ($query){
+                return $query->where('teacher_id', auth()->id());
+            });
+        }
+        $comments = $comments->paginateParents();
         return view("Comments::index", compact('comments'));
     }
 
     public function show($id)
     {
         $comment = Comment::query()->where("id", $id)->with("commentable", "user", "comments")->firstOrFail();
+        $this->authorize('view', $comment);
         return view('Comments::show', compact('comment'));
     }
     public function store(CommentRequest $request, CommentRepo $repo)
@@ -34,6 +44,7 @@ class CommentController extends Controller
 
     public function accept($id, CommentRepo $repo)
     {
+        $this->authorize('manage', Comment::class);
         if ($repo->updateStatus($id, Comment::STATUS_APPROVED)) {
             return AjaxResponses::SuccessResponse();
         } else {
@@ -43,6 +54,7 @@ class CommentController extends Controller
 
     public function reject($id, CommentRepo $repo)
     {
+        $this->authorize('manage', Comment::class);
         if ($repo->updateStatus($id, Comment::STATUS_REJECTED)) {
             return AjaxResponses::SuccessResponse();
         } else {
@@ -52,6 +64,7 @@ class CommentController extends Controller
 
     public function destroy($id, CommentRepo $repo)
     {
+        $this->authorize('manage', Comment::class);
         $comment = $repo->findOrFail($id);
         $comment->delete();
         return AjaxResponses::SuccessResponse();

@@ -55,6 +55,7 @@ class UserRepo
     {
         auth()->user()->name = $request->name;
         auth()->user()->mobile = $request->mobile;
+        auth()->user()->telegram = $request->telegram;
         if (auth()->user()->hasPermissionTo(Permission::PERMISSION_TEACH)) {
             auth()->user()->username = $request->username;
             auth()->user()->card_number = $request->card_number;

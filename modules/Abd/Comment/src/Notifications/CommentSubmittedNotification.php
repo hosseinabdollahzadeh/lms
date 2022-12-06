@@ -11,15 +11,19 @@ use function url;
 class CommentSubmittedNotification extends Notification
 {
     use Queueable;
+
     public $comment;
+
     public function __construct($comment)
     {
         $this->comment = $comment;
     }
 
-    public function via($notifiable) : array
+    public function via($notifiable): array
     {
-        return ['mail', 'telegram'];
+        $channels = ['mail'];
+        if (!is_null($notifiable->telegram)) $channels[] = "telegram";
+        return $channels;
     }
 
     public function toMail($notifiable)
@@ -29,23 +33,24 @@ class CommentSubmittedNotification extends Notification
 
     public function toTelegram($notifiable)
     {
-        return TelegramMessage::create()
-            // Optional recipient user id.
-            ->to(967259502)
-            // Markdown supported.
-            ->content("یک دیدگاه جدید برای دوره ی شما در وب آموز ارسال شده است.")
+        if (!is_null($notifiable->telegram))
+            return TelegramMessage::create()
+                // Optional recipient user id.
+                ->to($notifiable->telegram)
+                // Markdown supported.
+                ->content("یک دیدگاه جدید برای دوره ی شما در وب آموز ارسال شده است.")
 
-            // (Optional) Blade template for the content.
-            // ->view('notification', ['url' => $url])
+                // (Optional) Blade template for the content.
+                // ->view('notification', ['url' => $url])
 
-            // (Optional) Inline Buttons
-            ->button('مشاهده ی دوره', $this->comment->commentable->path())
-            ->button('مدیریت دیدگاه ها', route('comments.index'));
-            // (Optional) Inline Button with callback. You can handle callback in your bot instance
+                // (Optional) Inline Buttons
+                ->button('مشاهده ی دوره', $this->comment->commentable->path())
+                ->button('مدیریت دیدگاه ها', route('comments.index'));
+        // (Optional) Inline Button with callback. You can handle callback in your bot instance
 //            ->buttonWithCallback('Confirm', 'confirm_invoice ' . $this->invoice->id);
     }
 
-    public function toArray($notifiable) : array
+    public function toArray($notifiable): array
     {
         return [
             //

@@ -26,6 +26,7 @@
                 <p class="input-help text-left margin-bottom-12" dir="ltr">
                     <a href="{{auth()->user()->profilePath()}}">{{auth()->user()->profilePath()}}</a>
                 </p>
+                <x-input type="text" name="telegram" class="text-left " placeholder="آیدی شما در تلگرام جهت دریافت نوتیفیکیشن" value="{{auth()->user()->telegram}}"/>
                 <x-input type="text" name="headline" class="text-left " placeholder="عنوان کاربر" value="{{auth()->user()->headline}}"/>
 
                 <x-textarea name="bio" placeholder="بایو" value="{!! auth()->user()->bio !!}"/>

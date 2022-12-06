@@ -7,6 +7,12 @@ use Abd\RolePermissions\Models\Permission;
 
 class CommentRepo
 {
+    public $query;
+
+    public function __construct()
+    {
+        $this->query = Comment::query();
+    }
 
     public function store($data)
     {
@@ -45,7 +51,8 @@ class CommentRepo
 
     public function paginateParents()
     {
-        return Comment::query()->whereNull('comment_id')->withCount("notApprovedComments")->latest()->paginate();
+        $this->query->whereNull('comment_id')->withCount("notApprovedComments");
+        return $this->query->latest()->paginate();
     }
 
     public function updateStatus($id, string $status)
@@ -53,5 +60,34 @@ class CommentRepo
         return Comment::query()->where("id", $id)->update([
             "status" => $status
         ]);
+    }
+
+    public function searchBody($body)
+    {
+        $this->query->where('body', 'like', '%' . $body . '%');
+        return $this;
+    }
+
+    public function searchEmail($email)
+    {
+        $this->query->whereHas("user", function ($q) use ($email) {
+            return $q->where('email', 'like', '%' . $email . '%');
+        });
+        return $this;
+    }
+
+    public function searchName($name)
+    {
+        $this->query->whereHas("user", function ($q) use ($name) {
+            return $q->where('name', 'like', '%' . $name . '%');
+        });
+        return $this;
+    }
+
+    public function searchStatus($status)
+    {
+        if ($status)
+            $this->query->where('status', $status);
+        return $this;
     }
 }

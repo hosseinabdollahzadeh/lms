@@ -22,8 +22,7 @@
                 @enderror
                 <br>
                 <button class="btn i-t">تایید</button>
-                <a href="#" onclick="
-                event.preventDefault(); document.getElementById('resend-code').submit();">
+                <a href="{{route("password.sendVerifyCodeEmail")}}?email={{request("email")}}">
                     ارسال مجدد کد فعالسازی
                 </a>
 
@@ -31,9 +30,6 @@
             <div class="form-footer">
                 <a href="{{ route('register') }}">صفحه ثبت نام</a>
             </div>
-        </form>
-        <form id="resend-code" action="{{route('verification.resend')}}" method="post">
-            @csrf
         </form>
     </div>
 @endsection

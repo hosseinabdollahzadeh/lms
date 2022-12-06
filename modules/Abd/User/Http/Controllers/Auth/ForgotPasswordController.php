@@ -34,8 +34,8 @@ class ForgotPasswordController extends Controller
     public function sendVerifyCodeEmail(SendResetPasswordVerifyCodeRequest $request, UserRepo $userRepo)
     {
         $user = $userRepo->findByEmail($request->email);
-
-        if($user && ! VerifyCodeService::has($user->id)){
+        if ($user) {
+            VerifyCodeService::delete($user->id);
             $user->sendResetPasswordNotification();
         }
 
@@ -46,7 +46,7 @@ class ForgotPasswordController extends Controller
     {
         $user = resolve(UserRepo::class)->findByEmail($request->email);
 
-        if($user == null || !VerifyCodeService::check($user->id, $request->verify_code)){
+        if ($user == null || !VerifyCodeService::check($user->id, $request->verify_code)) {
             return back()->withErrors(['verify_code' => 'کد وارد شده معتبر نمی باشد!']);
         }
 

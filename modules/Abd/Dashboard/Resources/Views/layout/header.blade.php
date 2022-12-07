@@ -18,6 +18,9 @@
                                     </a>
                                 </li>
                             @endforeach
+                            <a href="{{route('notifications.markAllAsRead')}}" class="text-center">
+                                علامت زدن همه به عنوان خوانده شده
+                            </a>
                         </ul>
                     @else
                         <span class="font-size-13">موردی برای نمایش وجود ندارد</span>

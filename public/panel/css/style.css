@@ -945,7 +945,7 @@ textarea {
 }
 
 .dropdown__notification .content__notification ul li:first-child{
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .w-100-10 {

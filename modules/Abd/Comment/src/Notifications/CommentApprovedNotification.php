@@ -36,7 +36,10 @@ class CommentApprovedNotification extends Notification
      */
     public function via($notifiable)
     {
-        $channels = ['mail'];
+        $channels = [
+            'mail',
+            'database',
+        ];
         if (!empty($notifiable->telegram)) $channels[] = "telegram";
         return $channels;
     }
@@ -73,7 +76,9 @@ class CommentApprovedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            "message" => "دیدگاه شما تایید شد.",
+            "url" => $this->comment->commentable->path(),
+            "url_text" => "مشاهده ی دوره"
         ];
     }
 }

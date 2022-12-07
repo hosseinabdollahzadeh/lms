@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Abd\Comment\Events\CommentApprovedEvent;
-use Abd\Comment\Events\CommentrejectedEvent;
+use Abd\Comment\Events\CommentRejectedEvent;
 use Abd\Comment\Events\CommentSubmittedEvent;
 use Abd\Comment\Listeners\CommentApprovedListener;
 use Abd\Comment\Listeners\CommentRejectedListener;
@@ -30,7 +30,7 @@ class EventServiceProvider extends ServiceProvider
         CommentApprovedEvent::class => [
             CommentApprovedListener::class
         ],
-        CommentrejectedEvent::class => [
+        CommentRejectedEvent::class => [
             CommentRejectedListener::class
         ]
     ];

@@ -32,5 +32,9 @@ class CommentServiceProvider extends ServiceProvider
                 "permission" => [Permission::PERMISSION_MANAGE_COMMENTS,Permission::PERMISSION_TEACH]
             ]);
         });
+        view()->composer('Dashboard::layout.header', function ($view){
+            $notifications = auth()->user()->unreadNotifications;
+            return $view->with(compact('notifications'));
+        });
     }
 }

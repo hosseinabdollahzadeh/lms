@@ -8,7 +8,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CommentrejectedEvent
+class CommentRejectedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

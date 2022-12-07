@@ -927,6 +927,27 @@ textarea {
     text-align: center;
 }
 
+.dropdown__notification .content__notification ul {
+    padding: 0;
+    margin: 0;
+    text-align: right;
+}
+
+.dropdown__notification .content__notification ul li {
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+    border-bottom: 1px solid #333333;
+}
+
+.dropdown__notification .content__notification ul li:last-child {
+    border-bottom: none;
+}
+
+.dropdown__notification .content__notification ul li:first-child{
+    margin-top: 0px;
+}
+
 .w-100-10 {
     width: calc(100% + 10px);
 }
@@ -1929,39 +1950,49 @@ span.tagRemove:hover {
 .notification__box .title__noti {
     padding: 15px 0;
 }
-.pt-1{
+
+.pt-1 {
     padding-top: 10px;
 }
-.mt-2{
+
+.mt-2 {
     margin-top: 20px;
 }
-.invalid-feedback{
+
+.invalid-feedback {
     color: red;
 }
 
-.w-100{
+.w-100 {
     width: 100%;
 }
-.text{
+
+.text {
     margin-bottom: 0px !important;
     margin-top: 15px;
 }
-.multi-text{
+
+.multi-text {
     margin-bottom: 15px;
 }
-.mt-0{
+
+.mt-0 {
     margin-top: 0px !important;
 }
-.mb-0{
+
+.mb-0 {
     margin-bottom: 0px !important;
 }
-.dropdown-select{
+
+.dropdown-select {
     margin-bottom: 0px;
     margin-top: 15px;
 }
-.deleteable-list-item .item-delete{
+
+.deleteable-list-item .item-delete {
     display: none;
 }
-.deleteable-list-item:hover .item-delete{
+
+.deleteable-list-item:hover .item-delete {
     display: inline-block;
 }

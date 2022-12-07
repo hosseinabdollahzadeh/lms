@@ -31,10 +31,9 @@
                             <td>@lang($slide->status)</td>
                             <td>
                                 <a href=""
-                                   onclick="deleteItem(event, '{{ route('categories.destroy', $slide->id)}}');"
+                                   onclick="deleteItem(event, '{{ route('slides.destroy', $slide->id)}}');"
                                    class="item-delete mlg-15" title="حذف"></a>
-                                <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                <a href="{{ route('categories.edit', $slide->id) }}" class="item-edit "
+                                <a href="{{ route('slides.edit', $slide->id) }}" class="item-edit "
                                    title="ویرایش"></a>
                             </td>
                         </tr>

@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('media_id')->references('id')->on('media');
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('media_id')->nullable()->references('id')->on('media')->nullOnDelete();
             $table->float('priority')->nullable();
             $table->string('link')->nullable();
             $table->boolean("status")->default(true);

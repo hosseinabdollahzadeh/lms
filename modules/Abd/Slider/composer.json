@@ -1,0 +1,15 @@
+{
+    "name": "abd/slider",
+    "autoload": {
+        "psr-4": {
+            "Abd\\Slider\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers":[
+                "\\Abd\\Slider\\Providers\\SliderServiceProvider"
+            ]
+        }
+    }
+}

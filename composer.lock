@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dab558782fac5c484ee94629559db0ba",
+    "content-hash": "0c5c91ba37b1f9489ea5753507dbb56b",
     "packages": [
         {
             "name": "abd/comment",
@@ -103,6 +103,31 @@
             "autoload": {
                 "psr-4": {
                     "Abd\\Payment\\": "src"
+                }
+            },
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "abd/slider",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "modules/Abd/Slider",
+                "reference": "4314ef8f7fbf18da1120e85add92eb833a2d684e"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Abd\\Slider\\Providers\\SliderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Abd\\Slider\\": "src"
                 }
             },
             "transport-options": {
@@ -9180,6 +9205,7 @@
         "abd/common": 20,
         "abd/front": 20,
         "abd/payment": 20,
+        "abd/slider": 20,
         "abd/ticket": 20
     },
     "prefer-stable": true,

@@ -204,6 +204,7 @@ return [
         \Abd\Discount\Providers\DiscountServiceProvider::class,
         \Abd\Ticket\Providers\TicketServiceProvider::class,
         \Abd\Comment\Providers\CommentServiceProvider::class,
+        \Abd\Slider\Providers\SliderServiceProvider::class,
 
     ],
 

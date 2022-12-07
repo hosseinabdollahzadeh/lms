@@ -24,7 +24,7 @@ class SliderServiceProvider extends ServiceProvider
     {
         $this->app->booted(function () {
             config()->set('sidebar.items.slider', [
-                "icon" => "i-comments",
+                "icon" => "i-courses",
                 "title" => "اسلایدر",
                 "url" => route('slides.index'),
                 "permission" => [Permission::PERMISSION_MANAGE_SLIDES]

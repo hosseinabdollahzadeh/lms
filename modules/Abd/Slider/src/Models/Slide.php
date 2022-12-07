@@ -2,15 +2,15 @@
 
 namespace Abd\Slider\Models;
 
+use Abd\Media\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 
 class Slide extends Model
 {
-    const STATUS_DISABLE = "disable";
-    const STATUS_ENABLE = "enable";
+    protected $guarded = [];
 
-    static $statuses = [
-      self::STATUS_DISABLE,
-      self::STATUS_ENABLE
-    ];
+    public function media()
+    {
+        return $this->belongsTo(Media::class, 'media_id');
+    }
 }

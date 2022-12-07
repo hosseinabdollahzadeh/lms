@@ -1,6 +1,8 @@
 <?php
 namespace Abd\Comment\Http\Controllers;
 
+use Abd\Comment\Events\CommentApprovedEvent;
+use Abd\Comment\Events\CommentrejectedEvent;
 use Abd\Comment\Events\CommentSubmittedEvent;
 use Abd\Comment\Http\Requests\CommentRequest;
 use Abd\Comment\Models\Comment;
@@ -47,7 +49,9 @@ class CommentController extends Controller
     public function accept($id, CommentRepo $repo)
     {
         $this->authorize('manage', Comment::class);
+        $comment = $repo->findOrFail($id);
         if ($repo->updateStatus($id, Comment::STATUS_APPROVED)) {
+            CommentApprovedEvent::dispatch($comment);
             return AjaxResponses::SuccessResponse();
         } else {
             return AjaxResponses::FailedResponse();
@@ -57,7 +61,9 @@ class CommentController extends Controller
     public function reject($id, CommentRepo $repo)
     {
         $this->authorize('manage', Comment::class);
+        $comment = $repo->findOrFail($id);
         if ($repo->updateStatus($id, Comment::STATUS_REJECTED)) {
+            CommentrejectedEvent::dispatch($comment);
             return AjaxResponses::SuccessResponse();
         } else {
             return AjaxResponses::FailedResponse();

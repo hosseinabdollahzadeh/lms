@@ -19,13 +19,8 @@ class CommentSubmittedListener
      */
     public function handle($event)
     {
-        // notify teacher
-        if ($event->comment->user_id != $event->comment->commentable->teacher->id)
-            $event->comment->commentable->teacher->notify(new CommentSubmittedNotification($event->comment));
-
         // notify comment owner
-        if($event->comment->comment_id && $event->comment->user_id != $event->comment->comment->user->id)
-            $event->comment->comment->user->notify(new CommentSubmittedNotification($event->comment));
-
+//        if($event->comment->comment_id && $event->comment->user_id != $event->comment->comment->user->id)
+//            $event->comment->comment->user->notify(new CommentSubmittedNotification($event->comment));
     }
 }

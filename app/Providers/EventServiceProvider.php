@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use Abd\Comment\Events\CommentApprovedEvent;
+use Abd\Comment\Events\CommentrejectedEvent;
 use Abd\Comment\Events\CommentSubmittedEvent;
+use Abd\Comment\Listeners\CommentApprovedListener;
+use Abd\Comment\Listeners\CommentRejectedListener;
 use Abd\Comment\Listeners\CommentSubmittedListener;
+use Abd\Comment\Notifications\CommentApprovedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,6 +26,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         CommentSubmittedEvent::class => [
             CommentSubmittedListener::class
+        ],
+        CommentApprovedEvent::class => [
+            CommentApprovedListener::class
+        ],
+        CommentrejectedEvent::class => [
+            CommentRejectedListener::class
         ]
     ];
 

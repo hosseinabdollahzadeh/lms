@@ -5,6 +5,7 @@ namespace Abd\Comment\Notifications;
 use Abd\Comment\Mail\CommentSubmittedMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Kavenegar\LaravelNotification\KavenegarChannel;
 use NotificationChannels\Telegram\TelegramMessage;
 use function url;
 
@@ -23,6 +24,7 @@ class CommentSubmittedNotification extends Notification
     {
         $channels = ['mail'];
         if (!is_null($notifiable->telegram)) $channels[] = "telegram";
+        if (!is_null($notifiable->mobile)) $channels[] = KavenegarChannel::class;
         return $channels;
     }
 
@@ -38,7 +40,7 @@ class CommentSubmittedNotification extends Notification
                 // Optional recipient user id.
                 ->to($notifiable->telegram)
                 // Markdown supported.
-                ->content("یک دیدگاه جدید برای دوره ی شما در وب آموز ارسال شده است.")
+                ->content("یک دیدگاه جدید برای دوره ی شما در سایت عبداله زاده ارسال شده است.")
 
                 // (Optional) Blade template for the content.
                 // ->view('notification', ['url' => $url])
@@ -48,6 +50,11 @@ class CommentSubmittedNotification extends Notification
                 ->button('مدیریت دیدگاه ها', route('comments.index'));
         // (Optional) Inline Button with callback. You can handle callback in your bot instance
 //            ->buttonWithCallback('Confirm', 'confirm_invoice ' . $this->invoice->id);
+    }
+
+    public function toSMS($notifiable)
+    {
+        return 'یک دیدگاه جدید برای دوره ی شما در سایت عبداله زاده ارسال شده است. جهت مشاهده و ارسال پاسخ، روی لینک زیر کلیک فرمایید.'."\n".route('comments.index');
     }
 
     public function toArray($notifiable): array

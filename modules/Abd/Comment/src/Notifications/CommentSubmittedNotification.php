@@ -23,8 +23,8 @@ class CommentSubmittedNotification extends Notification
     public function via($notifiable): array
     {
         $channels = ['mail'];
-        if (!is_null($notifiable->telegram)) $channels[] = "telegram";
-        if (!is_null($notifiable->mobile)) $channels[] = KavenegarChannel::class;
+        if (!empty($notifiable->telegram)) $channels[] = "telegram";
+        if (!empty($notifiable->mobile)) $channels[] = KavenegarChannel::class;
         return $channels;
     }
 
@@ -35,7 +35,7 @@ class CommentSubmittedNotification extends Notification
 
     public function toTelegram($notifiable)
     {
-        if (!is_null($notifiable->telegram))
+        if (!empty($notifiable->telegram))
             return TelegramMessage::create()
                 // Optional recipient user id.
                 ->to($notifiable->telegram)

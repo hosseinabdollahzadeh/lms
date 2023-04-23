@@ -9,12 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "abd/comment": "dev-master",
-        "abd/common": "dev-master",
-        "abd/front": "dev-master",
-        "abd/payment": "dev-master",
-        "abd/slider": "dev-master",
-        "abd/ticket": "dev-master",
+        "abiz/comment": "*",
+        "abiz/common": "dev-master",
+        "abiz/front": "dev-master",
+        "abiz/payment": "dev-master",
+        "abiz/slider": "dev-master",
+        "abiz/ticket": "dev-master",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "kavenegar/laravel-notification": "^1.0",
@@ -57,30 +57,6 @@
         }
     },
     "repositories": [
-        {
-            "type" : "path",
-            "url": "modules/Abd/Common"
-        },
-        {
-            "type" : "path",
-            "url": "modules/Abd/Front"
-        },
-        {
-            "type" : "path",
-            "url": "modules/Abd/Payment"
-        },
-        {
-            "type" : "path",
-            "url": "modules/Abd/Ticket"
-        },
-        {
-            "type" : "path",
-            "url": "modules/Abd/Comment"
-        },
-        {
-            "type" : "path",
-            "url": "modules/Abd/Slider"
-        }
     ],
     "scripts": {
         "post-autoload-dump": [

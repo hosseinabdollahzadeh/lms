@@ -42,11 +42,3 @@ Student:
 username: student@test.test
 password: student
 ```
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within this app, please send an e-mail to Hemn Movafeghi via [hemn791@gmail.com](mailto:abdollahzadeh.hossein@gmail.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-This application is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

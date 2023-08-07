@@ -17,4 +17,4 @@ jobs:
           server: ftp.yiii.ir
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: /public_html/projects/lms/
+          server-dir: /lms.yiii.ir/

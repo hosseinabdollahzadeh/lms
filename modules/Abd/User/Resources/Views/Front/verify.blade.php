@@ -4,8 +4,8 @@
     <div class="account act">
         <form action="{{route('verification.verify')}}" class="form" method="post">
             @csrf
-            <a class="account-logo" href="index.html">
-                <img src="/img/weblogo.png" alt="">
+            <a class="account-logo" href="/">
+{{--                <img src="/img/weblogo.png" alt="">--}}
             </a>
             <div class="card-header">
                 <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>{{auth()->user()->email}}</span>

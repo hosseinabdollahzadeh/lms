@@ -47,7 +47,6 @@
             "Abd\\RolePermissions\\": "modules/Abd/RolePermissions",
             "Abd\\Course\\": "modules/Abd/Course",
             "Abd\\Media\\": "modules/Abd/Media",
-            "Abd\\Front\\": "modules/Abd/Front",
             "Abd\\Discount\\": "modules/Abd/Discount/src"
         }
     },

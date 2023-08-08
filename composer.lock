@@ -9516,9 +9516,9 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "abiz/common": 20,
-        "abiz/front": 20,
         "abiz/payment": 20,
-        "abiz/slider": 20
+        "abiz/slider": 20,
+        "abiz/ticket": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -39,7 +39,8 @@ class CategoryController extends Controller
     {
         $this->authorize('manage', Category::class);
         $this->repo->update($categoryId, $request);
-        return back();
+        $categories = $this->repo->all();
+        return view('Categories::index', compact('categories'));
     }
 
     public function destroy($categoryId)

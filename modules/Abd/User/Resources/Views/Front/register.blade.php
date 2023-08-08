@@ -1,10 +1,23 @@
 @extends('User::Front.master')
 
+@section('title', 'صفحه ی ثبت نام')
 @section('content')
     <form action="" class="form" method="post">
-        <a class="account-logo" href="index.html">
-            <img src="/img/weblogo.png" alt="">
+        <a class="account-logo" href="/">
+{{--            <img src="/img/weblogo.png" alt="">--}}
         </a>
+        <div style="direction: ltr; background-color: #d4edda; border-color: #c3e6cb; width: 100%">
+            <b>Demo users</b>
+            <hr>
+            <i><b>Admin:</b></i><br>
+            <pre>admin@test.test<br>admin</pre>
+            <i><b>Teacher:</b></i><br>
+            <pre>teacher@test.test<br>teacher</pre>
+            <i><b>Student:</b></i><br>
+            <pre>student@test.test<br>student</pre>
+            <br>
+        </div>
+
         <div class="form-content form-account">
             <form method="POST" action="{{ route('register') }}">
                 @csrf

@@ -5,8 +5,8 @@
         <form action="{{route('password.checkVerifyCode')}}" class="form" method="post">
             @csrf
             <input type="hidden" name="email", value="{{ request()->email }}">
-            <a class="account-logo" href="index.html">
-                <img src="/img/weblogo.png" alt="">
+            <a class="account-logo" href="/">
+{{--                <img src="/img/weblogo.png" alt="">--}}
             </a>
             <div class="card-header">
                 <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>{{ request()->email}}</span>

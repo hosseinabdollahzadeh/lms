@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="form-footer">
-            <a href="{{route('loginForm')}}">صفحه ثبت نام</a>
+            <a href="{{route('registerForm')}}">صفحه ثبت نام</a>
         </div>
     </form>
 @endsection

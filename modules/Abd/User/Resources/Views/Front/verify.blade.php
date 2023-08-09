@@ -11,7 +11,7 @@
                 <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>{{auth()->user()->email}}</span>
                     را وارد کنید . ممکن است ایمیل به پوشه spam فرستاده شده باشد.
                     ایمیلتان را اشتباه وارد کرده اید؟
-                    <br><a href="{{route('users.profile')}}" >برای ویرایش ایمیل کلیک کنید</a>.
+                    <br><a href="{{route('users.editProfile')}}" >برای ویرایش ایمیل کلیک کنید</a>.
                 </p>
             </div>
             <div class="form-content form-content1">
@@ -30,7 +30,7 @@
 
             </div>
             <div class="form-footer">
-                <a href="{{ route('register') }}">صفحه ثبت نام</a>
+                <a href="{{ route('loginForm') }}">صفحه ثبت نام</a>
             </div>
         </form>
         <form id="resend-code" action="{{route('verification.resend')}}" method="post">

@@ -20,11 +20,10 @@ class CourseController extends Controller
     public function index(CourseRepo $courseRepo)
     {
         $this->authorize('index', Course::class);
-        if (auth()->user()->hasAnyPermission([Permission::PERMISSION_MANAGE_COURSES, Permission::PERMISSION_SUPER_ADMIN])) {
-            $courses = $courseRepo->paginate();
-        } else {
-            $courses = $courseRepo->getCoursesByTeacherId(auth()->id());
+        if (! auth()->user()->hasAnyPermission([Permission::PERMISSION_MANAGE_COURSES, Permission::PERMISSION_SUPER_ADMIN])) {
+            $courseRepo->getCoursesByTeacherId(auth()->id());
         }
+        $courses = $courseRepo->searchConfirmationStatus(request('status'))->paginate();
         return view('Courses::index', compact('courses'));
     }
 

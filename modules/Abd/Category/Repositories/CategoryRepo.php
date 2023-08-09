@@ -6,12 +6,24 @@ use Abd\Category\Models\Category;
 
 class CategoryRepo
 {
+    public $query;
+
+    public function __construct()
+    {
+        $this->query = Category::query();
+    }
+
+    public function paginate($perPage = 10)
+    {
+        return $this->query->paginate($perPage);
+    }
+
     public function all()
     {
         return Category::all();
     }
 
-    public function fidById($id)
+    public function findById($id)
     {
         return Category::findOrFail($id);
     }

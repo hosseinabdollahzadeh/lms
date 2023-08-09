@@ -42,6 +42,7 @@
         <div class="col-4 bg-white">
             @include('Categories::create')
         </div>
+        {{$categories->render()}}
     </div>
 @endsection
 

@@ -20,7 +20,7 @@ class RegistrationTest extends TestCase
      */
     public function test_user_can_see_register_form()
     {
-        $response = $this->get(route('register'));
+        $response = $this->get(route('loginForm'));
 
         $response->assertStatus(200);
     }

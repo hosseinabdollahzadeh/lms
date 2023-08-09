@@ -5,14 +5,19 @@
 @section('content')
     <div class="tab__box">
         <div class="tab__items">
-            <a class="tab__item is-active" href="courses.html">لیست دوره ها</a>
-            <a class="tab__item" href="approved.html">دوره های تایید شده</a>
-            <a class="tab__item" href="new-course.html">دوره های تایید نشده</a>
+            <a class="tab__item {{request('status') ==''  ? 'is-active' : ""}}"
+               href="{{route('courses.index')}}?=status=">لیست دوره ها</a>
+            <a class="tab__item {{request('status') == \Abd\Course\Models\Course::CONFIRMATION_STATUS_ACCEPTED  ? 'is-active' : ""}}"
+               href="{{route('courses.index')}}?status={{\Abd\Course\Models\Course::CONFIRMATION_STATUS_ACCEPTED}}">دوره های تایید شده</a>
+            <a class="tab__item {{request('status') == \Abd\Course\Models\Course::CONFIRMATION_STATUS_PENDING  ? 'is-active' : ""}}"
+               href="{{route('courses.index')}}?status={{\Abd\Course\Models\Course::CONFIRMATION_STATUS_PENDING}}">دوره های تایید نشده</a>
+            <a class="tab__item {{request('status') == \Abd\Course\Models\Course::CONFIRMATION_STATUS_REJECTED  ? 'is-active' : ""}}"
+               href="{{route('courses.index')}}?status={{\Abd\Course\Models\Course::CONFIRMATION_STATUS_REJECTED}}">دوره های رد شده</a>
             <a class="tab__item" href="{{route('courses.create')}}" title="ایجاد دوره ی جدید">ایجاد دوره ی جدید</a>
         </div>
     </div>
 
-    <div class="row no-gutters  ">
+    <div class="row no-gutters ">
         <div class="col-12 margin-left-10 margin-bottom-15 border-radius-3">
             <p class="box__title">دوره ها</p>
             <div class="table__box">
@@ -64,7 +69,7 @@
                                            'آیا از قفل کردن این آیتم اطمینان دارید؟' , 'قفل شده', 'status');"
                                        class="item-lock mlg-15" title="قفل دوره"></a>
                                 @endcan
-                                <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
+                                <a href="{{route('courses.details', $course->id)}}" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                                 <a href="{{ route('courses.edit', $course->id) }}" class="item-edit mlg-15"
                                    title="ویرایش"></a>
 
@@ -76,6 +81,7 @@
                 </table>
             </div>
         </div>
+        {{$courses->render()}}
     </div>
 @endsection
 

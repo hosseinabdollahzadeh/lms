@@ -22,7 +22,7 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
     public function courses(){
-        $this->hasMany(Course::class);
+        return $this->hasMany(Course::class);
     }
 
     public function path()

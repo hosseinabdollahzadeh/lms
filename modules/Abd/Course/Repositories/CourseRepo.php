@@ -8,6 +8,13 @@ use Illuminate\Support\Str;
 
 class CourseRepo
 {
+    public $query;
+
+    public function __construct()
+    {
+        $this->query = Course::query();
+    }
+
     public function store($values)
     {
         return Course::create([
@@ -26,9 +33,9 @@ class CourseRepo
         ]);
     }
 
-    public function paginate()
+    public function paginate($perPage = 10)
     {
-        return Course::paginate();
+        return $this->query->paginate($perPage);
     }
 
     public function findById($id)
@@ -65,12 +72,29 @@ class CourseRepo
 
     public function getCoursesByTeacherId(int|string|null $id)
     {
-        return Course::where('teacher_id', $id)->get();
+        $this->query->where('teacher_id', $id)->get();
+        return $this;
     }
 
     public function latestCourses()
     {
         return Course::where('confirmation_status', Course::CONFIRMATION_STATUS_ACCEPTED)->latest()->take(8)->get();
+    }
+
+    public function allCourses()
+    {
+        return Course::where('confirmation_status', Course::CONFIRMATION_STATUS_ACCEPTED)->latest()->paginate();
+    }
+
+
+    public function popularCourses()
+    {
+        return Course::select('courses.*')
+            ->join('course_user', 'courses.id', '=', 'course_user.course_id')
+            ->groupBy('courses.id')
+            ->orderByRaw('COUNT(course_user.user_id) DESC')
+            ->take(8)
+            ->get();
     }
 
     public function getDuration($id)
@@ -116,5 +140,20 @@ class CourseRepo
         $query = Course::query();
         if ($confirmationStatus) $query->where('confirmation_status', $confirmationStatus);
         return $query->latest()->get();
+    }
+
+    public function getCoursesByCategoryId($categoryId)
+    {
+        $this->query->where('confirmation_status', Course::CONFIRMATION_STATUS_ACCEPTED)
+            ->where('category_id', $categoryId)
+            ->latest()->get();
+        return $this;
+    }
+
+    public function searchConfirmationStatus($status)
+    {
+        if ($status)
+            $this->query->where('confirmation_status', $status);
+        return $this;
     }
 }

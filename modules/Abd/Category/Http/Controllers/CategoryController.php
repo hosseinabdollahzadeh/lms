@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('manage', Category::class);
-        $categories = $this->repo->all();
+        $categories = $this->repo->paginate();
         return view('Categories::index', compact('categories'));
     }
     public function store(CategoryRequest $request)
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function edit($categoryId)
     {
         $this->authorize('manage', Category::class);
-        $category = $this->repo->fidById($categoryId);
+        $category = $this->repo->findById($categoryId);
         $categories = $this->repo->allExceptById($categoryId);
         return view('Categories::edit', compact('category', 'categories'));
     }

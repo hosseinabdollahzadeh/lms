@@ -150,7 +150,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function profilePath()
     {
-        return auth()->user()->username ? route('users.profile', auth()->user()->username) : route('users.profile', 'username');
+        return auth()->user()->username ? route('users.editProfile', auth()->user()->username) : route('users.editProfile', 'username');
     }
 
     public function getThumbAttribute()

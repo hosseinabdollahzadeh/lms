@@ -7,8 +7,8 @@ Route::group([
     Route::delete('users/{user}/remove/{role}/role', 'UserController@removeRole')->name('users.removeRole');
     Route::patch('users/{user}/manualVerify', 'UserController@manualVerify')->name('users.manualVerify');
     Route::post('users/photo', 'UserController@updatePhoto')->name('users.photo');
-    Route::get('edit-profile', 'UserController@profile')->name('users.profile');
-    Route::post('edit-profile', ['uses' => 'UserController@updateProfile', "as" => "users.profile"]);
+    Route::get('edit-profile', 'UserController@profile')->name('users.editProfile');
+    Route::post('edit-profile', ['uses' => 'UserController@updateProfile', "as" => "users.updateProfile"]);
     Route::get('users/{user}/info', ['uses' => 'UserController@info', "as" => "users.info"]);
     $router->resource('users', 'UserController');
 
@@ -22,7 +22,7 @@ Route::group([
     Route::get('/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 
     // login
-    Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::get('/login', 'Auth\LoginController@showLoginForm')->name('loginForm');
     Route::post('/login', 'Auth\LoginController@login')->name('login');
 
     // logout
@@ -42,7 +42,7 @@ Route::group([
 
 
     // register
-    Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('registerForm');
     Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
 });

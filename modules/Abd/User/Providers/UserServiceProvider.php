@@ -42,11 +42,11 @@ class UserServiceProvider extends ServiceProvider
                 "url" => route('users.index'),
                 "permission" => Permission::PERMISSION_MANAGE_USERS
             ]);
+            config()->set('sidebar.items.usersInformation', [
+                "icon" => "i-user__information",
+                "title" => "اطلاعات کاربری",
+                "url" => route('users.editProfile'),
+            ]);
         });
-        config()->set('sidebar.items.usersInformation', [
-            "icon" => "i-user__information",
-            "title" => "اطلاعات کاربری",
-            "url" => route('users.profile'),
-        ]);
     }
 }
